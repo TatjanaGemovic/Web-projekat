@@ -39,12 +39,13 @@ public class LoginService {
 	}
 	
 	@POST
-	@Path("/login{username},{password}")
+	//@Path("/login{username},{password}")
+	@Path("/login/")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response login(@PathParam("username") String username, @PathParam("password") String password, @Context HttpServletRequest request) {
+	public Response login(User user, @Context HttpServletRequest request) {
 		UserDAO userDao = (UserDAO) ctx.getAttribute("userDAO");
-		User loggedUser = userDao.find(username, password);
+		User loggedUser = userDao.find(user.getUsername(), user.getPassword());
 		if (loggedUser == null) {
 			return Response.status(400).entity("Invalid username and/or password").build();
 			//return null;

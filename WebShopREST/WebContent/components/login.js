@@ -21,7 +21,8 @@ Vue.component("login", {
     	checkUser : function() {
 			//this.user.username = username.value
 			//this.user.password = password.value
-			axios.post('rest/login' + this.user.username + ',' + this.user.password).
+			axios.post('rest/login/', this.user).
+			//axios.post('rest/login' + this.user.username + ',' + this.user.password).
 				then(response => (router.push(`/startup`)));
     	}
     }
