@@ -54,6 +54,11 @@ public class UserDAO {
 		return users.values();
 	}
 	
+	public User save(User user) {
+		users.put(user.getUsername(), user);
+		return user;
+	}
+	
 	/**
 	 * U�itava korisnike iz WebContent/users.txt fajla i dodaje ih u mapu {@link #users}.
 	 * Klju� je korisni�ko ime korisnika.

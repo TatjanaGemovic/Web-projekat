@@ -1,5 +1,7 @@
 package services;
 
+import java.util.Collection;
+
 import javax.annotation.PostConstruct;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -70,5 +72,22 @@ public class LoginService {
 	@Produces(MediaType.APPLICATION_JSON)
 	public User login(@Context HttpServletRequest request) {
 		return (User) request.getSession().getAttribute("user");
+	}
+	
+	@GET
+	@Path("/allUsers")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Collection<User> getAll() {
+		UserDAO userDao = (UserDAO) ctx.getAttribute("userDAO");
+		return userDao.findAll();
+	}
+	
+	@POST
+	@Path("/add/")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public User newUser(User user) {
+		UserDAO userDao = (UserDAO) ctx.getAttribute("userDAO");
+		return userDao.save(user);
 	}
 }
