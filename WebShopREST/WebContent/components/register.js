@@ -29,13 +29,24 @@ Vue.component("register", {
 	},
     methods: {
     	registerUser : function() {
-			axios.post('rest/add/', this.user)
+			userExists = false;
+			for(let i=0; i<this.users.length; i++){
+				if((this.users[i]).username==this.user.username){
+					this.error = "Vec postoji korisnik sa istim username-om";
+					userExists = true;
+				}
+			}
+			//ovako se ne salje zahtev ukoliko je vec registrovan
+			if(!userExists){
+				axios.post('rest/add/', this.user)
 				.then((response) => {
 					alert('Uspesno dodat korisnik')
 					this.users.push(response.data)
 					router.push(`/`)
 				})
-				.catch(this.error = "Vec postoji korisnik sa istim username-om");
+				//ako se izostavi catch onda se samo registruje bez pogresnog ispisivanja poruke da vec postoji
+				//.catch(this.error = "Vec postoji korisnik sa istim username-om");
+			}
     	}
     }
 });

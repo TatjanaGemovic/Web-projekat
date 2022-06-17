@@ -22,10 +22,11 @@ Vue.component("login", {
 </div>		  
     	`,
     methods: {
-    	checkUser : function() {
+    	checkUser : function(e) {
 			//this.user.username = username.value
 			//this.user.password = password.value
 			//axios.post('rest/login' + this.user.username + ',' + this.user.password).
+			e.preventDefault();
 			axios.post('rest/login/', this.user)
 				.then(response => (router.push(`/startup`)))
 				.catch(this.error = 'Pogresna lozinka/username');
