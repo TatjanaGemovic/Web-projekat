@@ -8,6 +8,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.StringTokenizer;
 
+import beans.TipKupca;
+import beans.Uloga;
 import beans.User;
 
 /***
@@ -83,7 +85,26 @@ public class UserDAO {
 					String birthDate = st.nextToken().trim();
 					String username = st.nextToken().trim();
 					String password = st.nextToken().trim();
-					users.put(username, new User(firstName, lastName, gender, birthDate, username, password));
+					String uloga = st.nextToken().trim();
+					Uloga u;
+					if(uloga == "Trener")
+						u = Uloga.Trener;
+					else
+						u=Uloga.Kupac;
+					String istTreninga = st.nextToken().trim();
+					int clanarina = Integer.parseInt(st.nextToken().trim());
+					String sportskiObjekat = st.nextToken().trim();
+					String poseceniObjekti = st.nextToken().trim();
+					int bodovi = Integer.parseInt(st.nextToken().trim());
+					String tip = st.nextToken().trim();
+					TipKupca t;
+					if(tip == "Zlatni")
+						t = TipKupca.Zlatni;
+					else if(tip == "Srebrni")
+						t = TipKupca.Srebrni;
+					else
+						t = TipKupca.Bronzani;
+					users.put(username, new User(firstName, lastName, gender, birthDate, username, password, u, istTreninga, clanarina, sportskiObjekat, poseceniObjekti, bodovi, t));
 				}
 				
 			}

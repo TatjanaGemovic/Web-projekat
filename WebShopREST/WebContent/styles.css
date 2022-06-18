@@ -1,9 +1,3 @@
-.bg{
-	background-image: url("pictures/naslovna.jpg");
-	background-size: cover;
-	background-position: center;
-}
-
 tr.selected {
 	background: lightblue;
 }

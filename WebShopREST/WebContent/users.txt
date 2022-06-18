@@ -1,3 +1,3 @@
-Pera;Peric;musko;5.5.2022;pera;pera
-Jovana;Jovanovic;zensko;5.5.5555;jovana;jj123
-Stojanka;Novakovic;zensko;4.4.4444;st.nov;100ja
+Pera;Peric;musko;5.5.2022;pera;pera;Kupac;nema;0;nema;nema;0;Srebrni
+Jovana;Jovanovic;zensko;5.5.5555;jovana;jj123;Kupac;nema;0;nema;nema;0;Srebrni
+Stojanka;Novakovic;zensko;4.4.4444;st.nov;100ja;Kupac;nema;0;nema;nema;0;Srebrni

@@ -10,11 +10,20 @@ public class User implements Serializable {
 	private String birthDate;
 	private String username;
 	private String password;
+	private Uloga uloga;
+	private String istorijaTreninga;
+	private int clanarina;
+	private String sportskiObjekat;
+	private String poseceniObjekti;
+	private int sakupljeniBodovi;
+	private TipKupca tipKupca;
 	
 	public User() {
 	}
 
-	public User(String firstName, String lastName, String gender, String birthDate, String username, String password) {
+	public User(String firstName, String lastName, String gender, String birthDate, String username, String password,
+			Uloga uloga, String istorijaTreninga, int clanarina, String sportskiObjekat, String poseceniObjekti,
+			int sakupljeniBodovi, TipKupca tipKupca) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -22,6 +31,71 @@ public class User implements Serializable {
 		this.birthDate = birthDate;
 		this.username = username;
 		this.password = password;
+		this.uloga = uloga;
+		this.istorijaTreninga = istorijaTreninga;
+		this.clanarina = clanarina;
+		this.sportskiObjekat = sportskiObjekat;
+		this.poseceniObjekti = poseceniObjekti;
+		this.sakupljeniBodovi = sakupljeniBodovi;
+		this.tipKupca = tipKupca;
+	}
+
+
+
+	public Uloga getUloga() {
+		return uloga;
+	}
+
+	public void setUloga(Uloga uloga) {
+		this.uloga = uloga;
+	}
+
+	public String getIstorijaTreninga() {
+		return istorijaTreninga;
+	}
+
+	public void setIstorijaTreninga(String istorijaTreninga) {
+		this.istorijaTreninga = istorijaTreninga;
+	}
+
+	public int getClanarina() {
+		return clanarina;
+	}
+
+	public void setClanarina(int clanarina) {
+		this.clanarina = clanarina;
+	}
+
+	public String getSportskiObjekat() {
+		return sportskiObjekat;
+	}
+
+	public void setSportskiObjekat(String sportskiObjekat) {
+		this.sportskiObjekat = sportskiObjekat;
+	}
+
+	public String getPoseceniObjekti() {
+		return poseceniObjekti;
+	}
+
+	public void setPoseceniObjekti(String poseceniObjekti) {
+		this.poseceniObjekti = poseceniObjekti;
+	}
+
+	public int getSakupljeniBodovi() {
+		return sakupljeniBodovi;
+	}
+
+	public void setSakupljeniBodovi(int sakupljeniBodovi) {
+		this.sakupljeniBodovi = sakupljeniBodovi;
+	}
+
+	public TipKupca getTipKupca() {
+		return tipKupca;
+	}
+
+	public void setTipKupca(TipKupca tipKupca) {
+		this.tipKupca = tipKupca;
 	}
 
 	public String getFirstName() {

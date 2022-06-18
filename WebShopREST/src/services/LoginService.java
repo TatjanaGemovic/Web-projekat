@@ -16,6 +16,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import beans.Uloga;
 import beans.User;
 import dao.UserDAO;
 
@@ -83,11 +84,12 @@ public class LoginService {
 	}
 	
 	@POST
-	@Path("/add/")
+	@Path("/registerKupac/")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public User newUser(User user) {
 		UserDAO userDao = (UserDAO) ctx.getAttribute("userDAO");
+		user.setUloga(Uloga.Kupac);
 		return userDao.save(user);
 	}
 }
