@@ -4,14 +4,15 @@ import enums.FacilityType;
 
 public class SportsFacility {
 	private String name;
-	private String location;
+	private Location location;
 	private String offer;
 	private FacilityType type;
 	private boolean status;
 	private double rating;
 	private String workingHours;
-	public SportsFacility(String name, String location, String offer, FacilityType type, boolean status, double rating,
-			String workingHours) {
+	private String imageURI;
+	public SportsFacility(String name, Location location, String offer, FacilityType type, boolean status, double rating,
+			String workingHours, String imageURI) {
 		super();
 		this.name = name;
 		this.location = location;
@@ -20,6 +21,7 @@ public class SportsFacility {
 		this.status = status;
 		this.rating = rating;
 		this.workingHours = workingHours;
+		this.imageURI = imageURI;
 	}
 	public String getName() {
 		return name;
@@ -27,11 +29,18 @@ public class SportsFacility {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getLocation() {
+	public Location getLocation() {
 		return location;
 	}
-	public void setLocation(String location) {
+	public void setLocation(Location location) {
 		this.location = location;
+	}
+	
+	public String getImageURI() {
+		return imageURI;
+	}
+	public void setImageURI(String imageURI) {
+		this.imageURI = imageURI;
 	}
 	public String getOffer() {
 		return offer;

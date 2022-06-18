@@ -1,0 +1,8 @@
+Teretana Detelinara;1.0123,2.0123,Korenlija Stankovica 12,Novi Sad,21000;nudi sve i svasta;GYM;true;4.6;08:00-23:00;images/gym1.jpg
+Teretana Sajam;5.0123,7.0123,Novosadskog sajma 10,Novi Sad,21000;isto sve i svasta;GYM;true;4.1;08:00-23:00;images/gym2.jpg
+Bazen Spens;8.0123,12.0123,Sutjeska 2,Novi Sad,21000;otvoreni i zatvoreni bazen;POOL;true;4.0;09:00-19:00;images/pool1.jpg
+Bazen Klisa;8.0123,12.0123,Nesto na klisi,Novi Sad,21000;zatvoreni bazen;POOL;true;4.0;09:00-19:00;images/pool1.jpg
+Teretana Liman;1.0123,2.0123,Korenlija Stankovica 12,Novi Sad,21000;nudi sve i svasta;GYM;true;4.6;08:00-23:00;images/gym1.jpg
+Teretana Centar;5.0123,7.0123,Novosadskog sajma 10,Novi Sad,21000;isto sve i svasta;GYM;true;4.1;08:00-23:00;images/gym2.jpg
+Bazen Sole Mio;8.0123,12.0123,Sutjeska 2,Novi Sad,21000;otvoreni i zatvoreni bazen;POOL;true;4.0;09:00-19:00;images/pool1.jpg
+Bazen Vrdnik;8.0123,12.0123,Nesto na klisi,Novi Sad,21000;zatvoreni bazen;POOL;true;4.0;09:00-19:00;images/pool1.jpg

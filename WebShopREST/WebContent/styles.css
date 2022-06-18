@@ -12,3 +12,12 @@ tr {
 #success {
 	color: green;	
 }
+
+.facility_div {
+	width: 200px;
+	height: 200px;
+	border: 4px solid blue;
+	display: inline-block;
+	margin-right: 30px;
+	margin-bottom: 30px;
+}

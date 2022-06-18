@@ -3,11 +3,13 @@ package dao;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.StringTokenizer;
 
+import beans.Location;
 import beans.SportsFacility;
 import beans.User;
 import enums.FacilityType;
@@ -55,7 +57,8 @@ public class SportsFacilityDAO {
 				st = new StringTokenizer(line, ";");
 				while (st.hasMoreTokens()) {
 					String name = st.nextToken().trim();
-					String location = st.nextToken().trim();
+					String locationString = st.nextToken().trim();
+					Location location = ParseLocationString(locationString);
 					String offer = st.nextToken().trim();
 					String type = st.nextToken().trim();
 					FacilityType facilityType = FacilityType.GYM;
@@ -73,7 +76,8 @@ public class SportsFacilityDAO {
 					boolean facilityStatus = status.equals("true")? true : false;
 					String rating = st.nextToken().trim();
 					String workingHours = st.nextToken().trim();
-					facilities.put(name, new SportsFacility(name, location, offer, facilityType, facilityStatus, Double.parseDouble(rating), workingHours));
+					String imageURI = st.nextToken().trim();
+					facilities.put(name, new SportsFacility(name, location, offer, facilityType, facilityStatus, Double.parseDouble(rating), workingHours, imageURI));
 				}
 				
 			}
@@ -88,7 +92,14 @@ public class SportsFacilityDAO {
 			}
 		}
 	}
-	
-	
-	
+	private Location ParseLocationString(String locationString) {
+		String[] locationStrings = locationString.split(",");
+		Location location = new Location();
+		
+		location.setLatitude(Double.parseDouble(locationStrings[0]));
+		location.setLongitude(Double.parseDouble(locationStrings[1]));
+		location.setAddress(locationStrings[2]+","+locationStrings[3]+","+locationStrings[4]);
+		
+		return location;
+	}
 }
