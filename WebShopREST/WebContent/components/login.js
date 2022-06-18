@@ -4,11 +4,12 @@ Vue.component("login", {
 		      title: "Login",
 		      value: "Login",
 		      user: { username:null, password:null},
-		      error: ''
+		      error: '',
 		    }
 	},
 	template: ` 
 <div>
+	<body style="height:760px;background:url('pictures/naslovna.jpg');background-size:cover;margin:-8px">
 	<form>
 		<table>
 			<tr><td>Username</td><td><input type="text" v-model="user.username"></td></tr>
@@ -19,16 +20,16 @@ Vue.component("login", {
 		<p>Ukoliko nemate nalog, registrujte se:</p>
 		<button v-on:click = "Register">Registracija</button>
 	</form>
+	</body>
 </div>		  
     	`,
     methods: {
-    	checkUser : function() {
-			//this.user.username = username.value
-			//this.user.password = password.value
-			//axios.post('rest/login' + this.user.username + ',' + this.user.password).
+    	checkUser : function(event) {
+			event.preventDefault();
 			axios.post('rest/login/', this.user)
 				.then(response => (router.push(`/startup`)))
-				.catch(this.error = 'Pogresna lozinka/username');
+				.catch(this.error = 'Pogresna lozinka/username',
+				event.preventDefault());
     	},
     	Register : function(){
 			router.push(`/register`);

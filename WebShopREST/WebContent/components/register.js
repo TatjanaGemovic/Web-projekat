@@ -28,14 +28,16 @@ Vue.component("register", {
 			.then(response => (this.users = response.data))
 	},
     methods: {
-    	registerUser : function() {
+    	registerUser : function(event) {
+			event.preventDefault();
 			axios.post('rest/add/', this.user)
 				.then((response) => {
 					alert('Uspesno dodat korisnik')
 					this.users.push(response.data)
 					router.push(`/`)
 				})
-				.catch(this.error = "Vec postoji korisnik sa istim username-om");
+				.catch(this.error = "Vec postoji korisnik sa istim username-om",
+				event.preventDefault());
     	}
     }
 });
