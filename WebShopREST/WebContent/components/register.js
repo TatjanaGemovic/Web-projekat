@@ -10,18 +10,20 @@ Vue.component("register", {
 	},
 	template: ` 
 <div>
+	<body class="background">
 	<form>
-		<table>
-			<tr><td>FirstName</td><td><input type="text" v-model="user.firstName"></td></tr>
-			<tr><td>LastName</td><td><input type="text" v-model="user.lastName"></td></tr>
-			<tr><td>Date of birth</td><td><input type="text" v-model="user.birthDate"></td></tr>
-			<tr><td>Gender</td><td><input type="text" v-model="user.gender"></td></tr>
-			<tr><td>Username</td><td><input type="text" v-model="user.username"></td></tr>
-			<tr><td>Password</td><td><input type="password" v-model="user.password"></td></tr>
-			<tr><td colspan="2"><input type="submit" value="Register" v-on:click = "registerUser">
+		<table style="position:relative;left:150px;top:100px" class="loginTable">
+			<tr><td><input type="text" placeholder="First name" v-model="user.firstName" class="inputFields"></td></tr>
+			<tr><td><input type="text" placeholder="Last name" v-model="user.lastName" class="inputFields"></td></tr>
+			<tr><td><input type="date" placeholder="Birth date" v-model="user.birthDate" class="inputFields"></td></tr>
+			<tr><td><input type="text" placeholder="Gender" v-model="user.gender" class="inputFields"></td></tr>
+			<tr><td><input type="text" placeholder="Username" v-model="user.username" class="inputFields"></td></tr>
+			<tr><td><input type="password" placeholder="Password" v-model="user.password" class="inputFields"></td></tr>
+			<tr><td><button value="Register" v-on:click = "registerUser" class="loginButton">Register</button>
 			<p id="error">{{error}}</p></td></tr>
 		</table>
 	</form>
+	</body>
 </div>		  
     	`,
     mounted() {
