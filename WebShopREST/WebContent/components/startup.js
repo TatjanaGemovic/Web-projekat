@@ -2,13 +2,31 @@ Vue.component("startup", {
 	data: function () {
 		    return {
 		      title: "Start",
-		      facilities: null
+		      facilitiesToShow: null,
+		      allFacilities: null,
+		      valueToSearchBy: "",
+		      propToSearchBy: 0
 		    }
 	},
 	template: ` 
 <div>
-	<h1>Sportski objekti u našoj ponudi</h1>
-	<div v-for="facility in facilities" class="facility_div" v-bind:style="{ background: 'url(' + facility.imageURI + ')' }"> 
+	<h1>Our facilities:</h1>
+	<form>
+		<label>Choose a parameter to search by:</label>
+		<section>
+		<input type="radio" value="0" name="searchBy" v-model="propToSearchBy">name
+    	<input type="radio" value="1" name="searchBy" v-model="propToSearchBy">type
+    	<input type="radio" value="2" name="searchBy" v-model="propToSearchBy">location
+    	<input type="radio" value="3" name="searchBy" v-model="propToSearchBy">minimum rating
+    	</section>
+    	<br><br>
+    	<input type="text" v-model="valueToSearchBy" name="searchInput" placeholder="Enter here..."/> <br>
+    	<button v-on:click="search">Search</button>
+    	<button v-on:click="showAll">Show All</button>
+	</form>
+	<br>
+	<br>
+	<div v-for="facility in facilitiesToShow" class="facility_div" v-bind:style="{ background: 'url(' + facility.imageURI + ')' }"> 
 		<p>{{facility.name}}</p><br>
 		<p>{{facility.rating}}</p>
 	</div>
@@ -16,12 +34,36 @@ Vue.component("startup", {
     	`,
     mounted() {
 		axios.get('rest/facilities/allFacilities')
-			.then(response => (this.facilities = response.data))
+			.then(response => (this.facilitiesToShow = response.data, this.allFacilities = response.data))
 	},
-    /*methods: {
-    	checkUser : function() {
-			axios.post('rest/login', this.user).
-				then(response => (router.push(`/pocetna`)));
-    	}
-    }*/
+    methods: {
+    	search : function(event) {
+			event.preventDefault();
+			somethingFound = false;
+			this.facilitiesToShow = [];
+			for(let i=0; i<this.allFacilities.length; i++){
+				if(this.propToSearchBy==0 && (this.allFacilities[i]).name.replaceAll(" ", "").toLowerCase().includes(this.valueToSearchBy.replaceAll(" ", "").toLowerCase())){
+					this.facilitiesToShow.push(this.allFacilities[i]);
+					somethingFound = true;
+				}
+				else if(this.propToSearchBy==1 && (this.allFacilities[i]).type.trim().toLowerCase()==this.valueToSearchBy.trim().toLowerCase()){
+					this.facilitiesToShow.push(this.allFacilities[i]);
+					somethingFound = true;
+				}
+				else if(this.propToSearchBy==2 && (this.allFacilities[i]).location.address.replaceAll(" ", "").toLowerCase().includes(this.valueToSearchBy.replaceAll(" ", "").toLowerCase())){
+					this.facilitiesToShow.push(this.allFacilities[i]);
+					somethingFound = true;
+				}
+				else if(this.propToSearchBy==3 && (this.allFacilities[i]).rating>=this.valueToSearchBy){
+					this.facilitiesToShow.push(this.allFacilities[i]);
+					somethingFound = true;
+				}
+			}
+			if(!somethingFound)
+					this.facilitiesToShow = this.allFacilities;		
+    	},
+    	showAll : function(){
+			this.facilitiesToShow = this.allFacilities;	
+		}
+    }
 });
