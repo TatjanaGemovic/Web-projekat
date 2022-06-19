@@ -10,6 +10,7 @@ Vue.component("startup", {
 	},
 	template: ` 
 <div>
+	<body class="backgroundStart">
 	<h1>Our facilities:</h1>
 	<form style="font-size:20px" >
 		<label>Choose a parameter to search by:</label>
@@ -32,6 +33,7 @@ Vue.component("startup", {
 		<p>{{facility.location.address}}</p>
 		<p>{{facility.rating}}</p>
 	</div>
+	</body>
 </div>		  
     	`,
     mounted() {
