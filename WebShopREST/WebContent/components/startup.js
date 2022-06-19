@@ -11,7 +11,7 @@ Vue.component("startup", {
 	template: ` 
 <div>
 	<h1>Our facilities:</h1>
-	<form>
+	<form style="font-size:20px" >
 		<label>Choose a parameter to search by:</label>
 		<section>
 		<input type="radio" value="0" name="searchBy" v-model="propToSearchBy">name
@@ -20,14 +20,16 @@ Vue.component("startup", {
     	<input type="radio" value="3" name="searchBy" v-model="propToSearchBy">minimum rating
     	</section>
     	<br><br>
-    	<input type="text" v-model="valueToSearchBy" name="searchInput" placeholder="Enter here..."/> <br>
-    	<button v-on:click="search">Search</button>
-    	<button v-on:click="showAll">Show All</button>
+    	<input type="text" class="inputFields" style="margin-bottom:30px;font-size: 16px;"v-model="valueToSearchBy" name="searchInput" placeholder="Search..."/> <br>
+    	<button class="loginButton" style="width: 150px;font-size: 16px;" v-on:click="search">Search</button>
+    	<button class="loginButton" style="width: 150px;font-size: 16px;" v-on:click="showAll">Show All</button>
 	</form>
 	<br>
 	<br>
 	<div v-for="facility in facilitiesToShow" class="facility_div" v-bind:style="{ background: 'url(' + facility.imageURI + ')' }"> 
-		<p>{{facility.name}}</p><br>
+		<p>{{facility.name}}</p>
+		<p>{{facility.type.toLowerCase()}}</p>
+		<p>{{facility.location.address}}</p>
 		<p>{{facility.rating}}</p>
 	</div>
 </div>		  
