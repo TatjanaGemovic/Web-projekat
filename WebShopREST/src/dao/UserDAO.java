@@ -1,8 +1,12 @@
 package dao;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileReader;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -22,7 +26,7 @@ import beans.User;
  */
 public class UserDAO {
 	private Map<String, User> users = new HashMap<>();
-	
+	private String path;
 	
 	public UserDAO() {
 		
@@ -33,6 +37,7 @@ public class UserDAO {
 	 */
 	public UserDAO(String contextPath) {
 		loadUsers(contextPath);
+		path = contextPath;
 	}
 	
 	/**

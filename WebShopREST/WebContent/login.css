@@ -28,6 +28,8 @@
 	font-size:20px;
 	border:none;
 	border-radius: 8px;	
+	transition: background-color 0.5s ease;
+	transition: border 0.5s ease;
 }
 
 .loginButton:hover {
@@ -44,6 +46,10 @@
 	cursor:default;
 	height:760px;
 	margin:-7px;
+}
+
+a:hover {
+	color: #F15412;
 }
 
 #error {
