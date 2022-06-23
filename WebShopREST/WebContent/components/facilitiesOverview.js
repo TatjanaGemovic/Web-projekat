@@ -38,7 +38,7 @@ template: `
 		    </div>
 		    
 		    <form class="d-flex" style="margin-left: 30px">
-	      		<button class="btn btn-outline-secondary" v-on:click="LogOut" type="submit">Log out</button>
+	      		<button class="loginButton" v-on:click="LogOut" style="width: 120px">Log out</button>
 	    	</form>
 	    </div>
 	</nav>
