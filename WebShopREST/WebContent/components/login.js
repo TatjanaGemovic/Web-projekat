@@ -26,7 +26,7 @@ Vue.component("login", {
     	checkUser : function(event) {
 			event.preventDefault();
 			axios.post('rest/login/', this.user)
-				.then(response => (router.push(`/startup`)))
+				.then(response => window.location.href = 'loggedUserIndex.html')
 				.catch(this.error = 'Wrong password/username',
 				event.preventDefault());
     	},
