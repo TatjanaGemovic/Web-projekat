@@ -28,13 +28,14 @@ Vue.component("login", {
     	checkUser : function(event) {
 			event.preventDefault();
 			axios.post('rest/login/', this.user)
-				.then(response => (router.push(`/startup`)))
+				.then(response => window.location.href = 'loggedUserIndex.html')
 				.catch(this.error = 'Wrong password/username',
 				event.preventDefault());
     	},
     	GuestUser : function(){
-			//event.preventDefault();
-			router.push(`/startup`);
+			event.preventDefault();
+			//router.push(`/startup`);
+			window.location.href = 'loggedUserIndex.html';
 		},
     	Register : function(){
 			router.push(`/register`);
