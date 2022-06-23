@@ -11,6 +11,14 @@ Vue.component("startup", {
 	template: ` 
 <div>
 	<body class="backgroundStart">
+	<nav class="navbar fixed-top navbar-light bg-light" style="background-color: #e7e7e5;font-size:50px; height: 70px">
+  		<div class="container-fluid">
+			<a class="navbar-brand" style="margin-left: 20px">
+      			<img src="pictures/barbell-2.png" alt="" width="65" height="55" style="margin-right: 10px" class="d-inline-block">
+      			Fitpass
+    		</a>  		
+    	</div>
+	</nav>
 	<h1>Our facilities:</h1>
 	<form style="font-size:20px" >
 		<label>Choose a parameter to search by:</label>
