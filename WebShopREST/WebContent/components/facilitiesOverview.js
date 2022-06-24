@@ -25,10 +25,10 @@ template: `
 		</select>
 		<input type="text" class="form-control-sm" v-if="inputTextNeeded" v-model="textInputValueToSearchBy" name="searchInput" placeholder="Type here..." :style="{ 'width': '80%'}">
 		<select class="form-select form-select-sm" v-else  v-on:change="facilityTypeSelectionChanged($event)" :style="{ 'width': '80%'}">
-  			<option selected value="GYM" v-model="searchedFacilityType">Gym</option>
-  			<option value="POOL" v-model="searchedFacilityType">Pool</option>
-  			<option value="SPORTS_CENTRE" v-model="searchedFacilityType">Sports center</option>
-  			<option value="DANCE_STUDIO" v-model="searchedFacilityType">Dance studio</option>
+  			<option selected value="GYM">Gym</option>
+  			<option value="POOL">Pool</option>
+  			<option value="SPORTS_CENTRE">Sports center</option>
+  			<option value="DANCE_STUDIO">Dance studio</option>
 		</select>
     	 <br>
     	<button class="btn btn-primary btn-sm" v-on:click="search">Search</button>
@@ -36,19 +36,16 @@ template: `
 	</form>
 	<div class="col-1"></div>
 	
-		<div v-for="facility in facilitiesToShow" class="col-md-3 card m-3"> 
-			<img v-bind:src="facility.imageURI" class="card-img-top pt-2" /> 
-			<div class="card-body">
-				<p class="card-title">{{facility.name}}</p>
-				<p class="card-text ps-2">Rating: {{parseFloat(facility.rating).toFixed(1)}}/5.0</p>
-			</div>
+	<div v-for="facility in facilitiesToShow" class="col-md-3 card m-3"> 
+		<img v-bind:src="facility.imageURI" class="card-img-top pt-2" /> 
+		<div class="card-body">
+			<p class="card-title">{{facility.name}}</p>
+			<p class="card-text ps-2">Rating: {{parseFloat(facility.rating).toFixed(1)}}/5.0</p>
 		</div>
+	</div>
+	</div>
 </div>		  
     	`,
-    mounted() {
-		axios.get('rest/facilities/allFacilities')
-			.then(response => (this.facilitiesToShow = response.data, this.allFacilities = response.data))
-	},
     methods: {
     	search : function(event) {
 			event.preventDefault();
@@ -87,6 +84,37 @@ template: `
 		},
 		facilityTypeSelectionChanged : function(event){
 			this.searchedFacilityType = event.target.value;
+		},
+		initialSort : function(){
+			let tempArray = [];
+			let currentTime = new Date();
+			let currentFacilityWorkingHours = [];
+			let start = [];
+			let end = [];
+			for(let i=0; i<this.allFacilities.length; i++){
+				currentFacilityWorkingHours = this.allFacilities[i].workingHours.split("-");
+				start = currentFacilityWorkingHours[0].split(":");
+				end = currentFacilityWorkingHours[1].split(":");
+				if(start[0]<=(currentTime.getHours()+1) && (currentTime.getHours()+1)<=end[0])
+					tempArray.push(this.allFacilities[i]);
+			}
+			for(let i=0; i<this.allFacilities.length; i++){
+				currentFacilityWorkingHours = this.allFacilities[i].workingHours.split("-");
+				start = currentFacilityWorkingHours[0].split(":");
+				end = currentFacilityWorkingHours[1].split(":");
+				if(!(start[0]<=(currentTime.getHours()+1) && (currentTime.getHours()+1)<=end[0]))
+					tempArray.push(this.allFacilities[i]);
+			}
+			this.allFacilities = [];
+			this.allFacilities = tempArray;
+			this.facilitiesToShow = this.allFacilities;
 		}
-    }
+    },
+    mounted() {
+		axios.get('rest/facilities/allFacilities')
+			.then((response) => {
+				this.allFacilities = response.data;
+				this.initialSort();
+			})	
+	}
 });
