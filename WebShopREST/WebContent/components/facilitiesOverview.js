@@ -1,5 +1,4 @@
-var facilitiesOverview = new Vue({
-	el: '#facilitiesOverviewSection',
+Vue.component("startpage", {
 	data: function () {
 		    return {
 		      facilitiesToShow: null,
@@ -43,29 +42,30 @@ template: `
 	    </div>
 	</nav>
 	<section id="intro">
-	<h1 style="margin-top: 120px">Our facilities:</h1>
-	<form style="font-size:20px" >
+	<h2 style="margin-top:10%; margin-bottom:5%" class="text-center">Our facilities:</h2>
+	<div class="row justify-content-center">
+		<div class="col-lg-7 col-xs-4 col-sm-4 col-md-4"></div>
+		<form style="font-size:16px;margin-bottom:3%" class="col-lg-4 col-xs-7 col-sm-7 col-md-7">
 		<label>Search by:</label>
-		<select class="form-select form-select-sm" v-on:change="propertyToSearchBySelectionChanged($event)">
+		<select class="form-select form-select-sm" v-on:change="propertyToSearchBySelectionChanged($event)" :style="{ 'width': '80%'}">
   			<option selected value="0">Name</option>
   			<option value="1">Type</option>
   			<option value="2">Location</option>
   			<option value="3">Minimum rating</option>
 		</select>
-		<input type="text" v-if="inputTextNeeded" v-model="textInputValueToSearchBy" name="searchInput" placeholder="Type here..."/>
-		<select class="form-select form-select-sm" v-else  v-on:change="facilityTypeSelectionChanged($event)">
-  			<option selected value="GYM" v-model="searchedFacilityType">Gym</option>
-  			<option value="POOL" v-model="searchedFacilityType">Pool</option>
-  			<option value="SPORTS_CENTRE" v-model="searchedFacilityType">Sports center</option>
-  			<option value="DANCE_STUDIO" v-model="searchedFacilityType">Dance studio</option>
+		<input type="text" class="form-control-sm" v-if="inputTextNeeded" v-model="textInputValueToSearchBy" name="searchInput" placeholder="Type here..." :style="{ 'width': '80%'}">
+		<select class="form-select form-select-sm" v-else  v-on:change="facilityTypeSelectionChanged($event)" :style="{ 'width': '80%'}">
+  			<option selected value="GYM">Gym</option>
+  			<option value="POOL">Pool</option>
+  			<option value="SPORTS_CENTRE">Sports center</option>
+  			<option value="DANCE_STUDIO">Dance studio</option>
 		</select>
-    	 
-    	<button class="btn btn-primary" v-on:click="search">Search</button>
-    	<button class="btn btn-secondary" v-on:click="resetSearch">Reset search</button>
+    	 <br>
+    	<button class="btn btn-primary btn-sm" v-on:click="search">Search</button>
+    	<button class="btn btn-secondary btn-sm" v-on:click="resetSearch">Reset search</button>
 	</form>
-	<br>
-	<br>
-	<div class="row justify-content-center">
+	<div class="col-1"></div>
+	
 		<div v-for="facility in facilitiesToShow" class="col-md-3 card m-3"> 
 			<img v-bind:src="facility.imageURI" class="card-img-top pt-2" /> 
 			<div class="card-body">
@@ -78,11 +78,12 @@ template: `
 	</body>
 </div>		  
     	`,
-    mounted() {
-		axios.get('rest/facilities/allFacilities')
-			.then(response => (this.facilitiesToShow = response.data, this.allFacilities = response.data))
-	},
     methods: {
+		LogOut : function(){
+			event.preventDefault();
+			router.push(`/`);
+			//window.location.href = 'products.html';
+		},
     	search : function(event) {
 			event.preventDefault();
 			somethingFound = false;
@@ -111,11 +112,6 @@ template: `
     	resetSearch : function(){
 			this.facilitiesToShow = this.allFacilities;	
 		},
-		LogOut : function(){
-			event.preventDefault();
-			//router.push(`/startup`);
-			window.location.href = 'products.html';
-		},
 		propertyToSearchBySelectionChanged : function(event){
 			this.propToSearchBy = event.target.value;
 			if(event.target.value==1)
@@ -125,6 +121,37 @@ template: `
 		},
 		facilityTypeSelectionChanged : function(event){
 			this.searchedFacilityType = event.target.value;
+		},
+		initialSort : function(){
+			let tempArray = [];
+			let currentTime = new Date();
+			let currentFacilityWorkingHours = [];
+			let start = [];
+			let end = [];
+			for(let i=0; i<this.allFacilities.length; i++){
+				currentFacilityWorkingHours = this.allFacilities[i].workingHours.split("-");
+				start = currentFacilityWorkingHours[0].split(":");
+				end = currentFacilityWorkingHours[1].split(":");
+				if(start[0]<=(currentTime.getHours()+1) && (currentTime.getHours()+1)<=end[0])
+					tempArray.push(this.allFacilities[i]);
+			}
+			for(let i=0; i<this.allFacilities.length; i++){
+				currentFacilityWorkingHours = this.allFacilities[i].workingHours.split("-");
+				start = currentFacilityWorkingHours[0].split(":");
+				end = currentFacilityWorkingHours[1].split(":");
+				if(!(start[0]<=(currentTime.getHours()+1) && (currentTime.getHours()+1)<=end[0]))
+					tempArray.push(this.allFacilities[i]);
+			}
+			this.allFacilities = [];
+			this.allFacilities = tempArray;
+			this.facilitiesToShow = this.allFacilities;
 		}
-    }
+    },
+    mounted() {
+		axios.get('rest/facilities/allFacilities')
+			.then((response) => {
+				this.allFacilities = response.data;
+				this.initialSort();
+			})	
+	}
 });
