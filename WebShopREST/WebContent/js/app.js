@@ -3,6 +3,8 @@ const Register = { template: '<register></register>' }
 const Profile = { template: '<profile></profile>' }
 const StartPage = { template: '<startpage></startpage>' }
 const Guest = { template: '<guestUser></guestUser>' }
+const AllProfiles = { template: '<profilesOverview></profilesOverview>' }
+
 
 const router = new VueRouter({
 	mode: 'hash',
@@ -12,6 +14,7 @@ const router = new VueRouter({
 		{ path: '/startpage',  component: StartPage},
 		{ path: '/profile',  component: Profile},
 		{ path: '/guestUser',  component: Guest},
+		{ path: '/profilesOverview',  component: AllProfiles},
 	  ]
 });
 

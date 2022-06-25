@@ -32,7 +32,7 @@ template: `
 		        <li class="nav-item" >
 		          <a class="nav-link" href="#" v-bind:hidden="this.user.uloga!='Kupac'">Treninzi</a>
 		          <a class="nav-link" href="#" v-bind:hidden="this.user.uloga!='Trener'">Treninzi</a>
-		          <a class="nav-link" href="#" v-bind:hidden="this.user.uloga!='Administrator'">Korisnici</a>
+		          <a class="nav-link" href="#" v-bind:hidden="this.user.uloga!='Administrator'" v-on:click="ShowAllProfiles">Korisnici</a>
 		          <a class="nav-link" href="#" v-bind:hidden="this.user.uloga!='Menadzer'">Moj objekat</a>
 		        </li>
 		        <li class="nav-item" >
@@ -51,7 +51,7 @@ template: `
 	<section class="sc1" style="margin-top:5%;">
 		<h1 class="sc2">#FitPass</h1>
 	</section>
-	<section class="sc3" id="intro">
+	<section id="intro">
 	<h2 style="margin-top:7%; margin-bottom:5%" class="text-center">Our facilities:</h2>
 	<div class="row justify-content-center">
 		<div class="col-lg-7 col-xs-4 col-sm-4 col-md-4"></div>
@@ -97,6 +97,11 @@ template: `
 		ProfilePage : function(){
 			event.preventDefault();
 			router.push(`/profile`);
+			//window.location.href = 'products.html';
+		},
+		ShowAllProfiles : function(){
+			event.preventDefault();
+			router.push(`/profilesOverview`);
 			//window.location.href = 'products.html';
 		},
     	search : function(event) {
