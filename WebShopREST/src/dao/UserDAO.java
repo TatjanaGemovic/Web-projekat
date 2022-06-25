@@ -15,6 +15,7 @@ import java.util.StringTokenizer;
 import beans.TipKupca;
 import beans.Uloga;
 import beans.User;
+import enums.FacilityType;
 
 /***
  * <p>Klasa namenjena da u�ita korisnike iz fajla i pru�a operacije nad njima (poput pretrage).
@@ -92,10 +93,17 @@ public class UserDAO {
 					String password = st.nextToken().trim();
 					String uloga = st.nextToken().trim();
 					Uloga u;
-					if(uloga == "Trener")
-						u = Uloga.Trener;
-					else
-						u=Uloga.Kupac;
+					u = Uloga.Kupac;
+					switch(uloga) {
+					case "Trener": u = Uloga.Trener;
+						break;
+					case "Menadzer": u = Uloga.Menadzer;
+						break;
+					case "Administrator": u = Uloga.Administrator;
+						break;
+					case "Kupac": u = Uloga.Kupac;
+						break;
+					}
 					String istTreninga = st.nextToken().trim();
 					int clanarina = Integer.parseInt(st.nextToken().trim());
 					String sportskiObjekat = st.nextToken().trim();

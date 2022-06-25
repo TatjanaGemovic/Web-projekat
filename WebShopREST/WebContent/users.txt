@@ -1,3 +1,4 @@
 Pera;Peric;musko;5.5.2022;pera;pera;Kupac;nema;0;nema;nema;0;Srebrni
-Jovana;Jovanovic;zensko;5.5.5555;jovana;jj123;Kupac;nema;0;nema;nema;0;Srebrni
-Stojanka;Novakovic;zensko;4.4.4444;st.nov;100ja;Kupac;nema;0;nema;nema;0;Srebrni
+Jovana;Jovanovic;zensko;5.5.5555;jovana;jovana;Trener;nema;0;nema;nema;0;Srebrni
+Stojanka;Novakovic;zensko;4.4.4444;stoja;stoja;Administrator;nema;0;nema;nema;0;Srebrni
+Nikola;Nikolic;musko;4.4.4444;nik;nik;Menadzer;nema;0;nema;nema;0;Srebrni

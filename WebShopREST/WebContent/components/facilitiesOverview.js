@@ -8,7 +8,7 @@ Vue.component("startpage", {
 		      searchedFacilityType : "GYM",
 		      inputTextNeeded : true,
 		      user: null,
-		      gender: null
+		      uloga: null
 		    }
 	},
 template: ` 
@@ -29,8 +29,14 @@ template: `
 		        <li class="nav-item">
 		          <a class="nav-link active" aria-current="page" href="#intro">Pocetna</a>
 		        </li>
-		        <li class="nav-item">
-		          <a class="nav-link" href="#">Treninzi</a>
+		        <li class="nav-item" >
+		          <a class="nav-link" href="#" v-bind:hidden="this.user.uloga!='Kupac'">Treninzi</a>
+		          <a class="nav-link" href="#" v-bind:hidden="this.user.uloga!='Trener'">Treninzi</a>
+		          <a class="nav-link" href="#" v-bind:hidden="this.user.uloga!='Administrator'">Korisnici</a>
+		          <a class="nav-link" href="#" v-bind:hidden="this.user.uloga!='Menadzer'">Moj objekat</a>
+		        </li>
+		        <li class="nav-item" >
+		          <a class="nav-link" href="#" v-bind:hidden="this.user.uloga!='Kupac'">Clanarine</a>
 		        </li>
 		        <li class="nav-item">
 		          <a class="nav-link" v-on:click="ProfilePage" href="#">Profil</a>
@@ -165,7 +171,7 @@ template: `
 		axios.get('rest/currentUser')
 			.then((response) => {
 				this.user = response.data;
-				this.gender = this.user.gender;
+				this.uloga = this.user.uloga2;
 			})	
 	}
 });

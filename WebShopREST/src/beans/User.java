@@ -41,7 +41,6 @@ public class User implements Serializable {
 	}
 
 
-
 	public Uloga getUloga() {
 		return uloga;
 	}
