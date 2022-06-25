@@ -1,4 +1,4 @@
-Vue.component("startpage", {
+Vue.component("guestUser", {
 	data: function () {
 		    return {
 		      facilitiesToShow: null,
@@ -7,8 +7,6 @@ Vue.component("startpage", {
 		      propToSearchBy: 0,
 		      searchedFacilityType : "GYM",
 		      inputTextNeeded : true,
-		      user: null,
-		      gender: null
 		    }
 	},
 template: ` 
@@ -30,13 +28,7 @@ template: `
 		          <a class="nav-link active" aria-current="page" href="#intro">Pocetna</a>
 		        </li>
 		        <li class="nav-item">
-		          <a class="nav-link" href="#">Treninzi</a>
-		        </li>
-		        <li class="nav-item">
-		          <a class="nav-link" v-on:click="ProfilePage" href="#">Profil</a>
-		        </li>
-		        <li class="nav-item">
-			      <button class="nav-link" class="loginButton" v-on:click="LogOut" style="width: 120px; margin-left: 20px">Log out</button>
+			      <button class="nav-link" class="loginButton" v-on:click="Register" style="width: 120px; margin-left: 20px">Sign Up</button>
 		        </li>
 		      </ul>
 		    </div>
@@ -83,15 +75,13 @@ template: `
 </div>		  
     	`,
     methods: {
-		LogOut : function(){
+		Register : function(){
 			event.preventDefault();
-			router.push(`/`);
-			//window.location.href = 'products.html';
+			router.push(`/register`);
 		},
 		ProfilePage : function(){
 			event.preventDefault();
 			router.push(`/profile`);
-			//window.location.href = 'products.html';
 		},
     	search : function(event) {
 			event.preventDefault();
@@ -161,11 +151,6 @@ template: `
 			.then((response) => {
 				this.allFacilities = response.data;
 				this.initialSort();
-			}),
-		axios.get('rest/currentUser')
-			.then((response) => {
-				this.user = response.data;
-				this.gender = this.user.gender;
 			})	
 	}
 });

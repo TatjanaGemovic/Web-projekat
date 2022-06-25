@@ -34,7 +34,7 @@ Vue.component("login", {
     	},
     	GuestUser : function(){
 			event.preventDefault();
-			router.push(`/startpage`);
+			router.push(`/guestUser`);
 			//window.location.href = 'loggedUserIndex.html';
 			
 		},
