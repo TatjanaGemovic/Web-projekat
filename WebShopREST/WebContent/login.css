@@ -82,6 +82,10 @@
 	padding-bottom: 0px;
 }
 
+.active {
+    font-weight: bold;
+}
+
 .background {
 	background:url('pictures/naslovna2.jpg');
 	background-size:cover;

@@ -21,13 +21,19 @@ template: `
 		    <div class="collapse navbar-collapse justify-content-end align-center gap-2" id="navbar" style="font-size: 20px">
 		      <ul class="navbar-nav d-flex gap-2">
 		        <li class="nav-item">
-		          <a class="nav-link" v-on:click="StartPage"  href="#">Pocetna</a>
+		          <a class="nav-link" href="#intro" v-on:click="StartPage">Pocetna</a>
+		        </li>
+		        <li class="nav-item" >
+		          <a class="nav-link" href="#" v-bind:hidden="this.user.uloga!='Kupac'">Treninzi</a>
+		          <a class="nav-link" href="#" v-bind:hidden="this.user.uloga!='Trener'">Treninzi</a>
+		          <a class="nav-link" href="#" v-bind:hidden="this.user.uloga!='Administrator'">Korisnici</a>
+		          <a class="nav-link" href="#" v-bind:hidden="this.user.uloga!='Menadzer'">Moj objekat</a>
+		        </li>
+		        <li class="nav-item" >
+		          <a class="nav-link" href="#" v-bind:hidden="this.user.uloga!='Kupac'">Clanarine</a>
 		        </li>
 		        <li class="nav-item">
-		          <a class="nav-link" href="#">Treninzi</a>
-		        </li>
-		        <li class="nav-item">
-		          <a class="nav-link active" aria-current="page" v-on:click="ProfilePage"  href="#" style="">Profil</a>
+		          <a class="nav-link active" aria-current="page" href="#">Profil</a>
 		        </li>
 		        <li class="nav-item">
 			      <button class="nav-link" class="loginButton" v-on:click="LogOut" style="width: 120px; margin-left: 20px">Log out</button>
