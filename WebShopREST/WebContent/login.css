@@ -1,14 +1,13 @@
 .loginTable {
+	position:relative;
+	left:150px;
+	top:190px;
 	border-radius: 8px;
 	background-color: #e7e7e5; 
 	border-spacing:25px;
 	width:280px;
 	height:270px;
 	border: 5px solid #3e3e3e;
-	padding-top: 70px;
-	padding-bottom: 25px;
-	padding-left:35px;
-	padding-right:30px
 }
 
 .inputFields {

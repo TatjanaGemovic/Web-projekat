@@ -1,6 +1,6 @@
 const Login = { template: '<login></login>' }
 const Register = { template: '<register></register>' }
-const Startup = { template: '<startup></startup>' }
+const Profile = { template: '<profile></profile>' }
 const StartPage = { template: '<startpage></startpage>' }
 
 const router = new VueRouter({
@@ -9,6 +9,7 @@ const router = new VueRouter({
 		{ path: '/',  component: Login},
 		{ path: '/register', component: Register},
 		{ path: '/startpage',  component: StartPage},
+		{ path: '/profile',  component: Profile},
 	  ]
 });
 

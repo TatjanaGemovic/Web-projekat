@@ -12,15 +12,15 @@ Vue.component("register", {
 <div>
 	<body class="background">
 	<form>
-		<table style="position:relative;left:150px;top:100px" class="loginTable">
-			<tr><td><input type="text" placeholder="First name" v-model="user.firstName" class="inputFields" required></td></tr>
-			<tr><td><input type="text" placeholder="Last name" v-model="user.lastName" class="inputFields" required></td></tr>
-			<tr><td><input type="date" placeholder="Birth date" v-model="user.birthDate" class="inputFields" required></td></tr>
-			<tr><td><input type="text" placeholder="Gender" v-model="user.gender" class="inputFields" required></td></tr>
-			<tr><td><input type="text" placeholder="Username" v-model="user.username" class="inputFields" required></td></tr>
-			<tr><td><input type="password" placeholder="Password" v-model="user.password" class="inputFields" required></td></tr>
-			<tr><td><input type="submit" value="Register" v-on:click = "registerUser" class="loginButton">
-			<p id="error">{{error}}</p></td></tr>
+		<table style="position:relative;left:150px;top:135px" class="loginTable">
+			<tr><td style="padding-top: 60px;padding-bottom: 17px;padding-left:40px;padding-right:40px"><input type="text" placeholder="First name" v-model="user.firstName" class="inputFields" required></td></tr>
+			<tr><td style="padding-bottom: 17px;padding-left:40px;padding-right:40px"><input type="text" placeholder="Last name" v-model="user.lastName" class="inputFields" required></td></tr>
+			<tr><td style="padding-bottom: 17px;padding-left:40px;padding-right:40px"><input type="date" placeholder="Birth date" v-model="user.birthDate" class="inputFields" required></td></tr>
+			<tr><td style="padding-bottom: 17px;padding-left:40px;padding-right:40px"><input type="text" placeholder="Gender" v-model="user.gender" class="inputFields" required></td></tr>
+			<tr><td style="padding-bottom: 17px;padding-left:40px;padding-right:40px"><input type="text" placeholder="Username" v-model="user.username" class="inputFields" required></td></tr>
+			<tr><td style="padding-bottom: 25px;padding-left:40px;padding-right:40px"><input type="password" placeholder="Password" v-model="user.password" class="inputFields" required></td></tr>
+			<tr><td style="padding-bottom: 25px;padding-left:40px;padding-right:40px"><input type="submit" value="Register" v-on:click = "registerUser" class="loginButton">
+			<p style="padding-top: 10px;" id="error">{{error}}</p></td></tr>
 		</table>
 	</form>
 	</body>
