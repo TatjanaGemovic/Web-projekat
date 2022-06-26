@@ -8,11 +8,11 @@ Vue.component("profile", {
 template: ` 
 <div>
 	<body>
-	<nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light shadow-lg p-3 mb-5 bg-white" style="background-color: #b4b5b3;font-size:50px; height: 80px; border-bottom: 3px solid #3e3e3e">
+	<nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light shadow-lg p-3 mb-5 bg-white" style="background-color: #b4b5b3;font-size:50px; height: 80px; border-bottom: 2px solid #3e3e3e">
   		<div class="container-fluid" style="margin-bottom: 0px">
 			<a class="navbar-brand" style="margin-left: 20px;margin-right: 120px; font-size: 28px">
       			<img src="pictures/barbell-2.png" alt="" width="65" height="55" style="margin-right: 10px" class="d-inline-block">
-      			FitPass
+      			FitPro
     		</a>  		
     	
 	    	<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -52,7 +52,7 @@ template: `
 
         <div class="col-md-4">
           
-          <form>
+          <form @submit="Save">
             <label class="form-label">First Name:</label>
             <div class="input-group mb-3">
               <input type="text" id="firstName" class="form-control" v-model="user.firstName"/>
@@ -71,14 +71,14 @@ template: `
             </div>
             <label class="form-label">Username:</label>
             <div class="mb-3 input-group">
-              <input type="text" id="username" class="form-control" v-model="user.username"/>
+              <input type="text" id="username" class="form-control" v-model="user.username" disabled/>
             </div>
             <label class="form-label">Password</label>
             <div class="mb-3 input-group">
               <input type="password" id="password" class="form-control" v-model="user.password"/>
             </div>
             <div class="mb-3 text-center">
-              <button type="submit" style="width: 150px" class="loginButton">Save</button>
+            	<input type="submit" value="Save" style="width: 150px" class="loginButton"/>
             </div>
           </form>
         </div>
@@ -101,7 +101,14 @@ template: `
 		ShowAllProfiles : function(){
 			event.preventDefault();
 			router.push(`/profilesOverview`);
-			//window.location.href = 'products.html';
+		},
+		Save : function(event){
+			axios.put('rest/changeUser/' + this.user.username, this.user)
+				.then((response) => {
+					alert('Uspesno izmenjen korisnik')
+				}),
+			axios.post('rest/login/', this.user);
+			event.preventDefault();
 		},
 	},   
     mounted() {

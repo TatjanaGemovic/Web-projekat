@@ -14,11 +14,11 @@ Vue.component("startpage", {
 template: ` 
 <div>
 	<body>
-	<nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light shadow-lg p-3 mb-5 bg-white" style="background-color: #b4b5b3;font-size:50px; height: 80px; border-bottom: 1px solid #3e3e3e">
+	<nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light shadow-lg p-3 mb-5 bg-white" style="background-color: #b4b5b3;font-size:50px; height: 80px; border-bottom: 2px solid #3e3e3e">
   		<div class="container-fluid" style="margin-bottom: 0px">
 			<a class="navbar-brand" style="margin-left: 20px;margin-right: 120px; font-size: 28px">
       			<img src="pictures/barbell-2.png" alt="" width="65" height="55" style="margin-right: 10px" class="d-inline-block">
-      			FitPass
+      			FitPro
     		</a>  		
     	
 	    	<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -49,7 +49,7 @@ template: `
 	    </div>
 	</nav>
 	<section class="sc1" style="margin-top:5%;">
-		<h1 class="sc2">#FitPass</h1>
+		<h1 class="sc2">#FitPro</h1>
 	</section>
 	<section id="intro">
 	<h2 style="margin-top:7%; margin-bottom:5%" class="text-center">Our facilities:</h2>

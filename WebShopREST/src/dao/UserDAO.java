@@ -5,8 +5,10 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -26,8 +28,8 @@ import enums.FacilityType;
  *
  */
 public class UserDAO {
-	private Map<String, User> users = new HashMap<>();
-	private String path;
+	public Map<String, User> users = new HashMap<>();
+	private String path; //tatjana path
 	
 	public UserDAO() {
 		
@@ -38,7 +40,7 @@ public class UserDAO {
 	 */
 	public UserDAO(String contextPath) {
 		loadUsers(contextPath);
-		path = contextPath;
+		path = "/Users/tatjanagemovic/Desktop/Web-projekat/WebShopREST/WebContent/users.txt";
 	}
 	
 	/**
@@ -64,7 +66,33 @@ public class UserDAO {
 	
 	public User save(User user) {
 		users.put(user.getUsername(), user);
+		saveUsers();
 		return user;
+	}
+	
+	private void saveUsers()  {
+		PrintWriter out = null;
+		try {
+			FileWriter w = new FileWriter(path);
+			for(User u : users.values()) {
+				String st = u.getFirstName()+";"+u.getLastName()+";"+u.getGender()+";"+u.getBirthDate()+";"+u.getUsername()
+				+";"+u.getPassword()+";"+u.getUloga()+";"+u.getIstorijaTreninga()+";"+u.getClanarina()+";"+u.getSportskiObjekat()
+				+";"+u.getPoseceniObjekti()+";"+u.getSakupljeniBodovi()+";"+u.getTipKupca();
+				w.append(st);
+				w.append(System.lineSeparator());
+			}
+			w.flush();
+			w.close();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			if (out != null) {
+				try {
+					out.close();
+				}
+				catch (Exception e) { }
+			}
+		}
 	}
 	
 	/**
@@ -131,6 +159,11 @@ public class UserDAO {
 				catch (Exception e) { }
 			}
 		}
+	}
+
+	public User change(User user) {
+		users.put(user.getUsername(), user);
+		return user;
 	}
 	
 }
