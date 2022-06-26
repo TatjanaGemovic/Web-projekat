@@ -148,7 +148,7 @@ template: `
 			this.facilitiesToShow = this.allFacilities;
 		},
 		goFacilityPage : function (facilityToShow){
-			router.push(`/facility/${facilityToShow}`);
+			router.push(`/showFacility/${facilityToShow}`);
 		}
     },
     mounted() {
