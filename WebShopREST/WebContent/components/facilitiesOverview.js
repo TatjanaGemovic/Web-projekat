@@ -71,6 +71,7 @@ template: `
 			<div class="card-body">
 				<p class="card-title">{{facility.name}}</p>
 				<p class="card-text ps-2">Rating: {{parseFloat(facility.rating).toFixed(1)}}/5.0</p>
+				<button class="btn" v-on:click="goFacilityPage(facility)">View facility</button>
 			</div>
 		</div>
 	</div>
@@ -145,6 +146,9 @@ template: `
 			this.allFacilities = [];
 			this.allFacilities = tempArray;
 			this.facilitiesToShow = this.allFacilities;
+		},
+		goFacilityPage : function (facilityToShow){
+			router.push(`/facility/${facilityToShow}`);
 		}
     },
     mounted() {

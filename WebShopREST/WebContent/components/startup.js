@@ -1,7 +1,6 @@
 Vue.component("startup", {
 	data: function () {
 		    return {
-		      title: "Start",
 		      facilitiesToShow: null,
 		      allFacilities: null,
 		      valueToSearchBy: "",
