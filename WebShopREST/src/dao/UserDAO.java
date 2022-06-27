@@ -14,10 +14,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.StringTokenizer;
 
-import beans.TipKupca;
-import beans.Uloga;
 import beans.User;
 import enums.FacilityType;
+import enums.TipKupca;
+import enums.Uloga;
 
 /***
  * <p>Klasa namenjena da u�ita korisnike iz fajla i pru�a operacije nad njima (poput pretrage).
@@ -28,7 +28,7 @@ import enums.FacilityType;
  *
  */
 public class UserDAO {
-	public Map<String, User> users = new HashMap<>();
+	public static Map<String, User> users = new HashMap<>();
 	private String path; //tatjana path
 	
 	public UserDAO() {
@@ -57,6 +57,14 @@ public class UserDAO {
 		if (!user.getPassword().equals(password)) {
 			return null;
 		}
+		return user;
+	}
+	
+	public User findByUsername(String username) {
+		if (!users.containsKey(username)) {
+			return null;
+		}
+		User user = users.get(username);
 		return user;
 	}
 	

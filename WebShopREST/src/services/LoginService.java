@@ -17,9 +17,9 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import beans.Uloga;
 import beans.User;
 import dao.UserDAO;
+import enums.Uloga;
 
 @Path("")
 public class LoginService {
@@ -91,6 +91,26 @@ public class LoginService {
 	public User newUser(User user) {
 		UserDAO userDao = (UserDAO) ctx.getAttribute("userDAO");
 		user.setUloga(Uloga.Kupac);
+		return userDao.save(user);
+	}
+	
+	@POST
+	@Path("/registerMenadzer/")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public User newMenadzer(User user) {
+		UserDAO userDao = (UserDAO) ctx.getAttribute("userDAO");
+		user.setUloga(Uloga.Menadzer);
+		return userDao.save(user);
+	}
+	
+	@POST
+	@Path("/registerTrener/")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public User newTrener(User user) {
+		UserDAO userDao = (UserDAO) ctx.getAttribute("userDAO");
+		user.setUloga(Uloga.Trener);
 		return userDao.save(user);
 	}
 	
