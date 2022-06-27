@@ -26,7 +26,7 @@ public class SportsFacilityDAO {
 		loadFacilities(contextPath);
 	}
 	
-	public SportsFacility find(String name) {
+	public SportsFacility findByName(String name) {
 		if (!facilities.containsKey(name)) {
 			return null;
 		}

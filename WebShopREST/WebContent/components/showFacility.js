@@ -1,45 +1,56 @@
 Vue.component("showFacility", {
 	data: function () {
 		    return {
-		      title: "Login",
-		      value: "Login",
-		      user: { username:null, password:null},
-		      error: '',
+		      facilityName : "",
+		      facility : null
 		    }
 	},
 	template: ` 
 <div>
-	<body class="background">
-	<form>
-		<table style="position:relative;left:150px;top:190px" class="loginTable">
-			<tr><td><input type="text" placeholder="Username" v-model="user.username" class="inputFields"></td></tr>
-			<tr><td><input type="password" placeholder="Password" v-model="user.password" class="inputFields"></td></tr>
-			<tr><td><button value="LogIn" text="LogIn" v-on:click="checkUser" class="loginButton" style="margin-bottom:5px;">Log In</button><br>
-			<button value="SignUp" text="SignUp" v-on:click="Register" class="loginButton" style="border-spacing:5em;">Sign Up</button>
-			<p style="text-align:center">or</p>
-			<button value="Guest" text="Guest" v-on:click="GuestUser" class="loginButton">Enter as guest</button>
-			<p id="error">{{error}}</p></td></tr>
-		</table>
-	</form>
+	<body>
+	<nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light" style="background-color: #e7e7e5;font-size:50px; height: 70px;">
+  		<div class="container-fluid" style="margin-bottom: 0px">
+			<a class="navbar-brand" style="margin-left: 20px;margin-right: 120px; font-size: 28px">
+      			<img src="pictures/barbell-2.png" alt="" width="65" height="55" style="margin-right: 10px" class="d-inline-block">
+      			Fitpass
+    		</a>  		
+    	
+	    	<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+		      <span class="navbar-toggler-icon"></span>
+		    </button>
+		    <div class="collapse navbar-collapse d-flex flex-row-reverse gap-2" id="navbarNav" style="font-size: 20px">
+		      <ul class="navbar-nav d-flex gap-2">
+		        <li class="nav-item">
+		          <a class="nav-link active" aria-current="page" href="#">Pocetna</a>
+		        </li>
+		        <li class="nav-item">
+		          <a class="nav-link" href="#">Treninzi</a>
+		        </li>
+		        <li class="nav-item">
+		          <a class="nav-link" v-on:click="LogOut" href="#">Profil</a>
+		        </li>
+		      </ul>
+		    </div>
+		    
+		    <form class="d-flex" style="margin-left: 30px">
+	      		<button class="loginButton" v-on:click="LogOut" style="width: 120px">Log out</button>
+	    	</form>
+	    </div>
+	</nav>
+	<p>{{facility.name}}</p>
 	</body>
 </div>		  
     	`,
+    mounted() {
+		this.facilityName = this.$route.params.name;
+		axios
+			.get('rest/facilities/' + this.facilityName)
+			.then(response => (this.facility = response.data))
+	},
     methods: {
-    	checkUser : function(event) {
+    	LogOut : function(event){
 			event.preventDefault();
-			axios.post('rest/login/', this.user)
-				.then(response => router.push(`/startpage`))
-				.catch(this.error = 'Wrong password/username',
-				event.preventDefault());
-    	},
-    	GuestUser : function(){
-			event.preventDefault();
-			router.push(`/startpage`);
-			//window.location.href = 'loggedUserIndex.html';
-			
-		},
-    	Register : function(){
-			router.push(`/register`);
+			router.push(`/`);
 		}
     }
 });

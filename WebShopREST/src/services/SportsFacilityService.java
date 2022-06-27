@@ -80,6 +80,14 @@ public class SportsFacilityService {
 		return sportsFacilityDAO.findAll();
 	}
 	
+	@GET
+	@Path("/{name}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public SportsFacility getByName(@PathParam("name") String name) {
+		SportsFacilityDAO sportsFacilityDAO = (SportsFacilityDAO) ctx.getAttribute("sportsFacilityDAO");
+		return sportsFacilityDAO.findByName(name);
+	}
+	
 	/*@POST
 	@Path("/add/")
 	@Consumes(MediaType.APPLICATION_JSON)
