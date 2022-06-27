@@ -4,6 +4,7 @@ const Profile = { template: '<profile></profile>' }
 const StartPage = { template: '<startpage></startpage>' }
 const Guest = { template: '<guestUser></guestUser>' }
 const AllProfiles = { template: '<profilesOverview></profilesOverview>' }
+const Facility = { template: '<showFacility></showFacility>' }
 
 
 const router = new VueRouter({
@@ -15,6 +16,7 @@ const router = new VueRouter({
 		{ path: '/profile',  component: Profile},
 		{ path: '/guestUser',  component: Guest},
 		{ path: '/profilesOverview',  component: AllProfiles},
+		{ path: '/showFacility/:name',  component: Facility},
 	  ]
 });
 

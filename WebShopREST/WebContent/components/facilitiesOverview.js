@@ -81,6 +81,7 @@ template: `
 			<div class="card-body">
 				<p class="card-title">{{facility.name}}</p>
 				<p class="card-text ps-2">Rating: {{parseFloat(facility.rating).toFixed(1)}}/5.0</p>
+				<button class="btn" v-on:click="goFacilityPage(facility.name)">View facility</button>
 			</div>
 		</div>
 	</div>
@@ -89,10 +90,9 @@ template: `
 </div>		  
     	`,
     methods: {
-		LogOut : function(){
+		LogOut : function(event){
 			event.preventDefault();
 			router.push(`/`);
-			//window.location.href = 'products.html';
 		},
 		ProfilePage : function(){
 			event.preventDefault();
@@ -165,6 +165,10 @@ template: `
 			this.allFacilities = [];
 			this.allFacilities = tempArray;
 			this.facilitiesToShow = this.allFacilities;
+		},
+		goFacilityPage : function (name){
+			name = name.replaceAll(" ", "_");
+			router.push(`/showFacility/${name}`);
 		}
     },
     mounted() {
