@@ -27,6 +27,7 @@ public class SportsFacilityDAO {
 	}
 	
 	public SportsFacility findByName(String name) {
+		
 		if (!facilities.containsKey(name)) {
 			return null;
 		}

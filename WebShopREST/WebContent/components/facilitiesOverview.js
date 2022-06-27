@@ -147,6 +147,7 @@ template: `
 			this.facilitiesToShow = this.allFacilities;
 		},
 		goFacilityPage : function (name){
+			name = name.replaceAll(" ", "_");
 			router.push(`/showFacility/${name}`);
 		}
     },

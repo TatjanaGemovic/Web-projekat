@@ -85,6 +85,7 @@ public class SportsFacilityService {
 	@Produces(MediaType.APPLICATION_JSON)
 	public SportsFacility getByName(@PathParam("name") String name) {
 		SportsFacilityDAO sportsFacilityDAO = (SportsFacilityDAO) ctx.getAttribute("sportsFacilityDAO");
+		name = name.replaceAll("_", " ");
 		return sportsFacilityDAO.findByName(name);
 	}
 	
