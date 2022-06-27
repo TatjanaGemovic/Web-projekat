@@ -36,7 +36,7 @@ template: `
 		          <a class="nav-link" href="#" v-bind:hidden="this.user.uloga!='Menadzer'">Moj objekat</a>
 		        </li>
 		        <li class="nav-item" >
-		          <a class="nav-link" href="#" v-bind:hidden="this.user.uloga!='Kupac'">Clanarine</a>
+		          <a class="nav-link" v-on:click="Subscriptions" href="#" v-bind:hidden="this.user.uloga!='Kupac'">Clanarine</a>
 		        </li>
 		        <li class="nav-item">
 		          <a class="nav-link" v-on:click="ProfilePage" href="#">Profil</a>
@@ -97,6 +97,11 @@ template: `
 		ProfilePage : function(){
 			event.preventDefault();
 			router.push(`/profile`);
+			//window.location.href = 'products.html';
+		},
+		Subscriptions : function(){
+			event.preventDefault();
+			router.push(`/subscriptionsOverview`);
 			//window.location.href = 'products.html';
 		},
 		ShowAllProfiles : function(){

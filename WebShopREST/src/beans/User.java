@@ -2,6 +2,9 @@ package beans;
 
 import java.io.Serializable;
 
+import enums.TipKupca;
+import enums.Uloga;
+
 public class User implements Serializable {
 	
 	private String firstName;

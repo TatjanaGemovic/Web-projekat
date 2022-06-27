@@ -2,13 +2,14 @@ Vue.component("showFacility", {
 	data: function () {
 		    return {
 		      facilityName : "",
-		      facility : null
+		      facility : null,
+		      user: null
 		    }
 	},
 	template: ` 
 <div>
 	<body>
-	<nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light" style="background-color: #e7e7e5;font-size:50px; height: 70px;">
+	<nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light shadow-lg p-3 mb-5 bg-white" style="background-color: #b4b5b3;font-size:50px; height: 80px; border-bottom: 2px solid #3e3e3e">
   		<div class="container-fluid" style="margin-bottom: 0px">
 			<a class="navbar-brand" style="margin-left: 20px;margin-right: 120px; font-size: 28px">
       			<img src="pictures/barbell-2.png" alt="" width="65" height="55" style="margin-right: 10px" class="d-inline-block">
@@ -21,20 +22,25 @@ Vue.component("showFacility", {
 		    <div class="collapse navbar-collapse d-flex flex-row-reverse gap-2" id="navbarNav" style="font-size: 20px">
 		      <ul class="navbar-nav d-flex gap-2">
 		        <li class="nav-item">
-		          <a class="nav-link active" aria-current="page" href="#">Pocetna</a>
+		          <a class="nav-link" href="#intro" v-on:click="StartPage">Pocetna</a>
+		        </li>
+		        <li class="nav-item" >
+		          <a class="nav-link" href="#" v-bind:hidden="this.user.uloga!='Kupac'">Treninzi</a>
+		          <a class="nav-link" href="#" v-bind:hidden="this.user.uloga!='Trener'">Treninzi</a>
+		          <a class="nav-link" href="#" v-bind:hidden="this.user.uloga!='Administrator'">Korisnici</a>
+		          <a class="nav-link" href="#" v-bind:hidden="this.user.uloga!='Menadzer'">Moj objekat</a>
+		        </li>
+		        <li class="nav-item" >
+		          <a class="nav-link" v-on:click="Subscriptions" href="#" v-bind:hidden="this.user.uloga!='Kupac'">Clanarine</a>
 		        </li>
 		        <li class="nav-item">
-		          <a class="nav-link" href="#">Treninzi</a>
+		          <a class="nav-link" v-on:click="ProfilePage" href="#">Profil</a>
 		        </li>
 		        <li class="nav-item">
-		          <a class="nav-link" v-on:click="LogOut" href="#">Profil</a>
+			      <button class="nav-link" class="loginButton" v-on:click="LogOut" style="width: 120px; margin-left: 20px">Log out</button>
 		        </li>
 		      </ul>
 		    </div>
-		    
-		    <form class="d-flex" style="margin-left: 30px">
-	      		<button class="loginButton" v-on:click="LogOut" style="width: 120px">Log out</button>
-	    	</form>
 	    </div>
 	</nav>
 	<div class="row" style="margin-top: 12%; margin-left:6%">
@@ -77,12 +83,31 @@ Vue.component("showFacility", {
 		this.facilityName = this.$route.params.name;
 		axios
 			.get('rest/facilities/' +  this.facilityName)
-			.then(response => (this.facility = response.data))
+			.then(response => (this.facility = response.data)
+			),
+		axios.get('rest/currentUser')
+			.then((response) => {
+				this.user = response.data;
+			})
 	},
     methods: {
     	LogOut : function(event){
 			event.preventDefault();
 			router.push(`/`);
-		}
+		},
+		ProfilePage : function(){
+			event.preventDefault();
+			router.push(`/profile`);
+			//window.location.href = 'products.html';
+		},
+		Subscriptions : function(){
+			event.preventDefault();
+			router.push(`/subscriptionsOverview`);
+			//window.location.href = 'products.html';
+		},
+		StartPage : function(){
+			event.preventDefault();
+			router.push(`/startpage`);
+		},
     }
 });
