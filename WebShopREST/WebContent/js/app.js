@@ -5,7 +5,7 @@ const StartPage = { template: '<startpage></startpage>' }
 const Guest = { template: '<guestUser></guestUser>' }
 const AllProfiles = { template: '<profilesOverview></profilesOverview>' }
 const Facility = { template: '<showFacility></showFacility>' }
-
+const AddFacility = {template: '<addFacility></addFacility>'}
 
 const router = new VueRouter({
 	mode: 'hash',
@@ -17,6 +17,7 @@ const router = new VueRouter({
 		{ path: '/guestUser',  component: Guest},
 		{ path: '/profilesOverview',  component: AllProfiles},
 		{ path: '/showFacility/:name',  component: Facility},
+		{ path: '/addFacility',  component:  AddFacility},
 	  ]
 });
 

@@ -42,7 +42,7 @@ template: `
 		          <a class="nav-link" v-on:click="ProfilePage" href="#">Profil</a>
 		        </li>
 		        <li class="nav-item">
-			      <button class="nav-link" class="loginButton" v-on:click="LogOut" style="width: 120px; margin-left: 20px">Log out</button>
+			      <button class="nav-link loginButton"  v-on:click="LogOut" style="width: 120px; margin-left: 20px">Log out</button>
 		        </li>
 		      </ul>
 		    </div>
@@ -54,8 +54,11 @@ template: `
 	<section id="intro">
 	<h2 style="margin-top:7%; margin-bottom:5%" class="text-center">Our facilities:</h2>
 	<div class="row justify-content-center">
-		<div class="col-lg-7 col-xs-4 col-sm-4 col-md-4"></div>
+		<div class="col-lg-7 col-xs-4 col-sm-4 col-md-4">
+			<button v-on:click="goToAddPage" v-bind:hidden="this.user.uloga!='Administrator'">Add a facility</button>
+		</div>
 		<form style="font-size:16px;margin-bottom:3%" class="col-lg-4 col-xs-7 col-sm-7 col-md-7">
+		
 		<label>Search by:</label>
 		<select class="form-select form-select-sm" v-on:change="propertyToSearchBySelectionChanged($event)" :style="{ 'width': '80%'}">
   			<option selected value="0">Name</option>
@@ -97,12 +100,10 @@ template: `
 		ProfilePage : function(){
 			event.preventDefault();
 			router.push(`/profile`);
-			//window.location.href = 'products.html';
 		},
 		ShowAllProfiles : function(){
 			event.preventDefault();
 			router.push(`/profilesOverview`);
-			//window.location.href = 'products.html';
 		},
     	search : function(event) {
 			event.preventDefault();
@@ -169,6 +170,9 @@ template: `
 		goFacilityPage : function (name){
 			name = name.replaceAll(" ", "_");
 			router.push(`/showFacility/${name}`);
+		},
+		goToAddPage : function (){
+			router.push(`/addFacility`);
 		}
     },
     mounted() {
