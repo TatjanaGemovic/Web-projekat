@@ -9,6 +9,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -40,7 +41,7 @@ public class UserDAO {
 	 */
 	public UserDAO(String contextPath) {
 		loadUsers(contextPath);
-		path = "/Users/tatjanagemovic/Desktop/Web-projekat/WebShopREST/WebContent/users.txt";
+		path = "C:/Users/User/Desktop/Web Projekat/Web-projekat/WebShopREST/WebContent/users.txt";
 	}
 	
 	/**
@@ -62,6 +63,15 @@ public class UserDAO {
 	
 	public Collection<User> findAll() {
 		return users.values();
+	}
+	
+	public Collection<User> getAvailableManagers(){
+		Collection<User> availableManagers = new ArrayList<User>();
+		for(User current : users.values()) {
+			if(current.getSportskiObjekat().equals("_") && current.getUloga()==Uloga.Menadzer)
+				availableManagers.add(current);
+		}
+		return availableManagers;
 	}
 	
 	public User save(User user) {
@@ -145,7 +155,8 @@ public class UserDAO {
 						t = TipKupca.Srebrni;
 					else
 						t = TipKupca.Bronzani;
-					users.put(username, new User(firstName, lastName, gender, birthDate, username, password, u, istTreninga, clanarina, sportskiObjekat, poseceniObjekti, bodovi, t));
+					String facilityName = st.nextToken().trim();
+					users.put(username, new User(firstName, lastName, gender, birthDate, username, password, u, istTreninga, clanarina, sportskiObjekat, poseceniObjekti, bodovi, t, facilityName));
 				}
 				
 			}

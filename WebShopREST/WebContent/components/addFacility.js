@@ -5,7 +5,12 @@ Vue.component("addFacility", {
 		      error: '',
 		      facilities: null,
 		      user : null,
-		      uloga : null
+		      uloga : null,
+		      managers : null,
+		      hasAvailable : true,
+		      newUser: { firstName:null, lastName:null, gender:null, birthDate:null, username:null, password:null,
+				uloga: null, istorijaTreninga: null, clanarina: 0, sportskiObjekat: null, poseceniObjekti: null, sakupljeniBodovi: 0, tipKupca: null},
+				gender: null
 		    }
 	},
 	template: ` 
@@ -45,22 +50,81 @@ Vue.component("addFacility", {
 		    </div>
 	    </div>
 	</nav>
-	<form style="margin-top:10%; margin-left:15%">
+	<div class="row">
+	<form class="col-lg-6" style="margin-top:10%; margin-left:15%">
 		<input type="text" placeholder="Facility name" v-model="facility.name" >
 		
-			<select class="form-select form-select-sm" v-on:change="facilityTypeSelectionChanged($event)" :style="{ 'width': '80%'}">
+			<select class="form-select form-select-sm" v-on:change="facilityTypeSelectionChanged($event)" :style="{ 'width': '50%'}">
   			<option selected value="GYM">Gym</option>
   			<option value="POOL">Pool</option>
   			<option value="SPORTS_CENTRE">Sports center</option>
   			<option value="DANCE_STUDIO">Dance studio</option>
 			</select>
 			
-			<input type="text" placeholder="Facility street and number" v-model="facility.streetAndNumber">
-			<input type="text" placeholder="City" v-model="facility.city">
-			<input type="text" placeholder="City postal code" v-model="facility.postal">
+			<input type="text" placeholder="Facility street and number" v-model="facility.streetAndNumber"> <br>
+			<input type="text" placeholder="City" v-model="facility.city"> <br>
+			<input type="text" placeholder="City postal code" v-model="facility.postal"> <br>
+			
+			<p class="text-danger" v-if="!hasAvailable">Looks like there are currently no available managers! <a class="text-success" data-bs-toggle="modal" data-bs-target="#addManager">Click here</a> to create a new one for this facility</p>
+			<select v-else class="form-select form-select-sm" v-on:change="managerSelectionChanged($event)" :style="{ 'width': '50%'}">
+			    <option v-for="manager in managers" :value="manager.username">{{manager.firstName}} {{manager.lastName}}</option>
+			</select>
 			<input type="submit" value="Add" v-on:click = "addFacility" >
 			<p id="error">{{error}}</p>
 	</form>
+	</div>
+	<div class="modal fade" id="addManager" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+ 	 <div class="modal-dialog modal-dialog-centered"">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Create a new manager</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      		<form>
+            <label class="form-label">First Name:</label>
+            <div class="input-group mb-3">
+              <input type="text" id="firstName" class="form-control" v-model="newUser.firstName"/>
+            </div>
+            <label class="form-label">Second Name:</label>
+            <div class="mb-3 input-group">
+              <input type="text" id="secondName" class="form-control" v-model="newUser.lastName"/>
+            </div>
+        	<label class="form-label">Gender:</label>
+            <div class="mb-3 form-check form-check-inline">
+              <input class="form-check-input" type="radio" id="F" value="zensko" v-model="newUser.gender"/>
+              <label class="form-check-label" for="F">Female</label>
+            </div>
+            <div class="mb-3 form-check form-check-inline">
+              <input class="form-check-input" type="radio" id="M" value="musko" v-model="newUser.gender"/>
+              <label class="form-check-label" for="M">Male</label>
+            </div>
+            </br>
+            <label class="form-label">Birthday:</label>
+            <div class="mb-3 input-group">
+              <input type="date" id="birthDay" class="form-control" v-model="newUser.birthDate"/>
+            </div>  
+            </br>
+            <label class="form-label">Username:</label>
+            <div class="mb-3 input-group">
+              <input type="text" id="username" class="form-control" v-model="newUser.username"/>
+            </div>
+            <label class="form-label">Password</label>
+            <div class="mb-3 input-group">
+              <input type="password" id="password" class="form-control" v-model="newUser.password"/>
+            </div>
+            <div class="mb-3 text-center">
+            	<input type="submit" value="Save" v-on:click = "addUser" style="width: 150px" class="loginButton"/>
+            </div>
+          </form>
+      </div>
+      <div class="modal-footer">
+      	<button type="button" class="btn btn-primary" v-on:click="createManager">Create</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 	</body>
 </div>		  
     	`,
@@ -73,6 +137,14 @@ Vue.component("addFacility", {
 			.then((response) => {
 				this.user = response.data;
 			})	
+		axios.get('rest/availableManagers')
+			.then((response) => {
+				this.managers = response.data;
+				if(this.managers.length==0)
+					this.hasAvailable = false;
+				else
+					this.hasAvailable = true;
+			})
 	},
     methods: {	
     	addFacility : function(event) {
@@ -96,6 +168,12 @@ Vue.component("addFacility", {
     	},
     	facilityTypeSelectionChanged : function(event){
 			this.facility.type = event.target.value;
+		},
+		managerSelectionChanged : function(event){
+			this.manager = event.target.value;
+		},
+		createManager : function(){
+			
 		},
     	LogOut : function(){
 			event.preventDefault();

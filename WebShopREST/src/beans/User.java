@@ -17,13 +17,22 @@ public class User implements Serializable {
 	private String poseceniObjekti;
 	private int sakupljeniBodovi;
 	private TipKupca tipKupca;
+	private String managersFacility;
 	
+	public String getManagersFaciltiy() {
+		return managersFacility;
+	}
+
+	public void setManagersFaciltiy(String managersFaciltiy) {
+		this.managersFacility = managersFaciltiy;
+	}
+
 	public User() {
 	}
 
 	public User(String firstName, String lastName, String gender, String birthDate, String username, String password,
 			Uloga uloga, String istorijaTreninga, int clanarina, String sportskiObjekat, String poseceniObjekti,
-			int sakupljeniBodovi, TipKupca tipKupca) {
+			int sakupljeniBodovi, TipKupca tipKupca, String managerFacility) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -38,6 +47,7 @@ public class User implements Serializable {
 		this.poseceniObjekti = poseceniObjekti;
 		this.sakupljeniBodovi = sakupljeniBodovi;
 		this.tipKupca = tipKupca;
+		this.managersFacility = managerFacility;
 	}
 
 
