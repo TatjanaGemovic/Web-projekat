@@ -3,7 +3,7 @@ Vue.component("register", {
 		    return {
 		      title: "Register",
 		      user: { firstName:null, lastName:null, gender:null, birthDate:null, username:null, password:null,
-		      uloga: null, istorijaTreninga: null, clanarina: 0, sportskiObjekat: null, poseceniObjekti: null, sakupljeniBodovi: 0, tipKupca: null},
+		      uloga: null, istorijaTreninga: null, clanarina: null, sportskiObjekat: null, poseceniObjekti: null, sakupljeniBodovi: 0, tipKupca: null},
 		      error: '',
 		      users: null
 		    }

@@ -11,6 +11,7 @@ public class Subscription implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	String id;
+	int paket;
 	TipClanarine tip;
 	Date datumPlacanja;
 	Date datumVazenja;
@@ -23,10 +24,11 @@ public class Subscription implements Serializable {
 	public Subscription() {
 		
 	}
-	public Subscription(String id, TipClanarine tip, Date datumPlacanja, Date datumVazenja, int cena, User kupac,
+	public Subscription(String id, int paket, TipClanarine tip, Date datumPlacanja, Date datumVazenja, int cena, User kupac,
 			StatusClanarine status, int brojTermina) {
 		super();
 		this.id = id;
+		this.paket = paket;
 		this.tip = tip;
 		this.datumPlacanja = datumPlacanja;
 		this.datumVazenja = datumVazenja;
@@ -34,6 +36,13 @@ public class Subscription implements Serializable {
 		this.kupac = kupac;
 		this.status = status;
 		this.brojTermina = brojTermina;
+	}
+	
+	public int getPaket() {
+		return paket;
+	}
+	public void setPaket(int paket) {
+		this.paket = paket;
 	}
 	public String getId() {
 		return id;

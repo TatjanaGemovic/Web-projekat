@@ -48,13 +48,17 @@ public class SubscriptionService {
 		SubscriptionDAO subsDAO = (SubscriptionDAO) ctx.getAttribute("subsDAO");
 		Subscription subs;
 		if(name.equals("1")) {
-			subs = new Subscription(user.getUsername(), TipClanarine.mesecna, null, null, 30, user, StatusClanarine.aktivna, 15);
+			subs = new Subscription(user.getUsername(), 15, TipClanarine.mesecna, null, null, 23, user, StatusClanarine.aktivna, 15);
 		}else if(name.equals("2")) {
-			subs = new Subscription(user.getUsername(), TipClanarine.mesecna, null, null, 30, user, StatusClanarine.aktivna, 90);
+			subs = new Subscription(user.getUsername(), 90, TipClanarine.mesecna, null, null, 30, user, StatusClanarine.aktivna, 90);
 		}else {
-			subs = new Subscription(user.getUsername(), TipClanarine.godisnja, null, null, 30, user, StatusClanarine.aktivna, 9000);
+			subs = new Subscription(user.getUsername(), 9000, TipClanarine.godisnja, null, null, 330, user, StatusClanarine.aktivna, 9000);
 		}
+		user.setClanarina(subs);
 		
+		UserDAO userDao = (UserDAO) ctx.getAttribute("userDAO");
+		userDao.change(user);
+		userDao.saveUsers();
 		return subsDAO.save(subs);
 	}
 }

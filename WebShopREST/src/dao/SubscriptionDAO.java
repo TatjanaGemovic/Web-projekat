@@ -21,7 +21,7 @@ import enums.StatusClanarine;
 import enums.TipClanarine;
 
 public class SubscriptionDAO {
-	public Map<String, Subscription> subscriptions = new HashMap<>();
+	public static Map<String, Subscription> subscriptions = new HashMap<>();
 	private String path; //tatjana path
 	public Map<String, User> users1 = UserDAO.users;
 	
@@ -63,7 +63,7 @@ public class SubscriptionDAO {
 		try {
 			FileWriter w = new FileWriter(path);
 			for(Subscription s: subscriptions.values()) {
-				String st = s.getId()+";"+s.getTip()+";"+s.getDatumPlacanja()+";"+s.getDatumVazenja()+";"+s.getCena()
+				String st = s.getId()+";"+s.getPaket()+";"+s.getTip()+";"+s.getDatumPlacanja()+";"+s.getDatumVazenja()+";"+s.getCena()
 				+";"+s.getKupac().getUsername() +";"+s.getStatus()+";"+s.getBrojTermina();
 				w.append(st);
 				w.append(System.lineSeparator());
@@ -101,6 +101,7 @@ public class SubscriptionDAO {
 				st = new StringTokenizer(line, ";");
 				while (st.hasMoreTokens()) {
 					String id = st.nextToken().trim();
+					int paket = Integer.parseInt(st.nextToken().trim());
 					String tip1 = st.nextToken().trim();
 					TipClanarine tip = TipClanarine.godisnja;
 					switch(tip1) {
@@ -130,7 +131,7 @@ public class SubscriptionDAO {
 					
 					int brt = Integer.parseInt(st.nextToken().trim());
 
-					subscriptions.put(id, new Subscription(id, tip, datumPlacanja, datumVazenja, cena, user, status, brt));
+					subscriptions.put(id, new Subscription(id, paket, tip, datumPlacanja, datumVazenja, cena, user, status, brt));
 				}
 				
 			}
@@ -144,5 +145,13 @@ public class SubscriptionDAO {
 				catch (Exception e) { }
 			}
 		}
+	}
+
+	public Subscription findBySubId(String subsId) {
+		if (!subscriptions.containsKey(subsId)) {
+			return null;
+		}
+		Subscription sub = subscriptions.get(subsId);
+		return sub;
 	}
 }

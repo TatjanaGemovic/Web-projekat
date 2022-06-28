@@ -14,6 +14,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.StringTokenizer;
 
+import javax.servlet.ServletContext;
+import javax.ws.rs.core.Context;
+
+import beans.Subscription;
 import beans.User;
 import enums.FacilityType;
 import enums.TipKupca;
@@ -30,6 +34,10 @@ import enums.Uloga;
 public class UserDAO {
 	public static Map<String, User> users = new HashMap<>();
 	private String path; //tatjana path
+	public Map<String, Subscription> subs1 = SubscriptionDAO.subscriptions;
+	
+	@Context
+	ServletContext ctx;
 	
 	public UserDAO() {
 		
@@ -78,14 +86,19 @@ public class UserDAO {
 		return user;
 	}
 	
-	private void saveUsers()  {
+	public void saveUsers()  {
 		PrintWriter out = null;
 		try {
 			FileWriter w = new FileWriter(path);
 			for(User u : users.values()) {
 				String st = u.getFirstName()+";"+u.getLastName()+";"+u.getGender()+";"+u.getBirthDate()+";"+u.getUsername()
-				+";"+u.getPassword()+";"+u.getUloga()+";"+u.getIstorijaTreninga()+";"+u.getClanarina()+";"+u.getSportskiObjekat()
+				+";"+u.getPassword()+";"+u.getUloga()+";"+u.getIstorijaTreninga()+";"+u.getSportskiObjekat()
 				+";"+u.getPoseceniObjekti()+";"+u.getSakupljeniBodovi()+";"+u.getTipKupca();
+				if(u.getClanarina() != null) {
+					st += ";"+u.getClanarina().getId();
+				}else {
+					st += ";null";
+				}
 				w.append(st);
 				w.append(System.lineSeparator());
 			}
@@ -141,7 +154,6 @@ public class UserDAO {
 						break;
 					}
 					String istTreninga = st.nextToken().trim();
-					int clanarina = Integer.parseInt(st.nextToken().trim());
 					String sportskiObjekat = st.nextToken().trim();
 					String poseceniObjekti = st.nextToken().trim();
 					int bodovi = Integer.parseInt(st.nextToken().trim());
@@ -153,6 +165,9 @@ public class UserDAO {
 						t = TipKupca.Srebrni;
 					else
 						t = TipKupca.Bronzani;
+					
+					String subsId = st.nextToken().trim();
+					Subscription clanarina = null;
 					users.put(username, new User(firstName, lastName, gender, birthDate, username, password, u, istTreninga, clanarina, sportskiObjekat, poseceniObjekti, bodovi, t));
 				}
 				

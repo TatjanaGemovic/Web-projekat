@@ -1,3 +1,2 @@
-pera;godisnja;null;null;30;pera;aktivna;9000
-jaki;mesecna;null;null;30;jaki;aktivna;90
-aki;mesecna;null;null;30;aki;aktivna;15
+pera;15;mesecna;null;null;23;pera;aktivna;15
+aki;90;mesecna;null;null;30;aki;aktivna;90
