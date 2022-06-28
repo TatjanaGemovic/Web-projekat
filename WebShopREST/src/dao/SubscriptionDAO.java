@@ -17,11 +17,8 @@ import javax.ws.rs.core.Context;
 
 import beans.Subscription;
 import beans.User;
-import enums.BrojTermina;
 import enums.StatusClanarine;
 import enums.TipClanarine;
-import enums.TipKupca;
-import enums.Uloga;
 
 public class SubscriptionDAO {
 	public Map<String, Subscription> subscriptions = new HashMap<>();
@@ -67,7 +64,7 @@ public class SubscriptionDAO {
 			FileWriter w = new FileWriter(path);
 			for(Subscription s: subscriptions.values()) {
 				String st = s.getId()+";"+s.getTip()+";"+s.getDatumPlacanja()+";"+s.getDatumVazenja()+";"+s.getCena()
-				+";"+s.getKupac().getUsername()+";"+s.getStatus()+";"+s.getBrojTermina();
+				+";"+s.getKupac().getUsername() +";"+s.getStatus()+";"+s.getBrojTermina();
 				w.append(st);
 				w.append(System.lineSeparator());
 			}
@@ -120,7 +117,8 @@ public class SubscriptionDAO {
 					int cena = Integer.parseInt(st.nextToken().trim());
 					String userUsername = st.nextToken().trim();
 					UserDAO userDao = (UserDAO) ctx.getAttribute("userDAO");
-					User user = ((SubscriptionDAO) users1).findByUsername(userUsername);
+					//User user = ((SubscriptionDAO) users1).findByUsername(userUsername);
+					User user = userDao.findByUsername(userUsername);
 					String sta = st.nextToken().trim();
 					StatusClanarine status = StatusClanarine.aktivna;
 					switch(sta) {
@@ -130,14 +128,7 @@ public class SubscriptionDAO {
 						break;
 					}
 					
-					String br = st.nextToken().trim();
-					BrojTermina brt = BrojTermina.neograniceno;
-					switch(br) {
-					case "jedan": brt = BrojTermina.jedan;
-						break;
-					case "neograniceno": brt = BrojTermina.neograniceno;
-						break;
-					}
+					int brt = Integer.parseInt(st.nextToken().trim());
 
 					subscriptions.put(id, new Subscription(id, tip, datumPlacanja, datumVazenja, cena, user, status, brt));
 				}

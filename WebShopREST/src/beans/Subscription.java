@@ -3,11 +3,13 @@ package beans;
 import java.io.Serializable;
 import java.util.Date;
 
-import enums.BrojTermina;
 import enums.StatusClanarine;
 import enums.TipClanarine;
 
 public class Subscription implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
+	
 	String id;
 	TipClanarine tip;
 	Date datumPlacanja;
@@ -16,13 +18,13 @@ public class Subscription implements Serializable {
 	User kupac;
 	String username;
 	StatusClanarine status;
-	BrojTermina brojTermina;
+	int brojTermina;
 	
 	public Subscription() {
-		super();
+		
 	}
 	public Subscription(String id, TipClanarine tip, Date datumPlacanja, Date datumVazenja, int cena, User kupac,
-			StatusClanarine status, BrojTermina brojTermina) {
+			StatusClanarine status, int brojTermina) {
 		super();
 		this.id = id;
 		this.tip = tip;
@@ -75,10 +77,10 @@ public class Subscription implements Serializable {
 	public void setStatus(StatusClanarine status) {
 		this.status = status;
 	}
-	public BrojTermina getBrojTermina() {
+	public int getBrojTermina() {
 		return brojTermina;
 	}
-	public void setBrojTermina(BrojTermina brojTermina) {
+	public void setBrojTermina(int brojTermina) {
 		this.brojTermina = brojTermina;
 	}
 	

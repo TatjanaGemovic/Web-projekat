@@ -135,44 +135,27 @@ Vue.component("showPlan", {
 			else
 				return "$329.99";
 		},
-		buyPlan : function(event) {
+		BuyPlan : function(event) {
 			event.preventDefault();
 			if(this.planId == 1){
-				this.newSubs.id = axa
-				this.newSubs.tip = mesecna
-				this.newSubs.cena = 23
-				this.newSubs.status = aktivna
-				this.newSubs.brojTermina = 15
-				axios.post('rest/subscription/addSubscription/', this.newSubs)
+				axios.post('rest/subscription/addSubscription/' + 1, this.user)
 					.then((response) => {
 						alert('Uspesno kupljena clanarina')
 						router.push(`/subscriptionsOverview`)
 					})
 			}else if(this.planId == 2) {
-				this.newSubs.id = axa
-				this.newSubs.tip = mesecna
-				this.newSubs.cena = 30
-				this.newSubs.status = aktivna
-				this.newSubs.brojTermina = 90
-				axios.post('rest/subscription/addSubscription/', this.newSubs)
+				axios.post('rest/subscription/addSubscription/' + 2, this.user)
 					.then((response) => {
 						alert('Uspesno kupljena clanarina')
 						router.push(`/subscriptionsOverview`)
 					})
 			} else{
-				this.newSubs.id = axa
-				this.newSubs.tip = godisnja
-				this.newSubs.cena = 330
-				this.newSubs.status = aktivna
-				this.newSubs.brojTermina = 5000
-				axios.post('rest/subscription/addSubscription/', this.newSubs)
+				axios.post('rest/subscription/addSubscription/' + 3, this.user)
 					.then((response) => {
 						alert('Uspesno kupljena clanarina')
-						router.push(`/subscriptionsOverview`)
 					})
 			}
 			
-			router.push(`/subscriptionsOverview`)
     	}
     }
 });
