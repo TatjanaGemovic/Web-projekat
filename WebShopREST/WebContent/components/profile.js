@@ -30,7 +30,7 @@ template: `
 		          <a class="nav-link" href="#" v-bind:hidden="this.user.uloga!='Menadzer'">Moj objekat</a>
 		        </li>
 		        <li class="nav-item" >
-		          <a class="nav-link" href="#" v-bind:hidden="this.user.uloga!='Kupac'">Clanarine</a>
+		          <a class="nav-link" href="#" v-on:click="Subscriptions" v-bind:hidden="this.user.uloga!='Kupac'">Clanarine</a>
 		        </li>
 		        <li class="nav-item">
 		          <a class="nav-link active" aria-current="page" href="#">Profil</a>
@@ -101,6 +101,10 @@ template: `
 		ShowAllProfiles : function(){
 			event.preventDefault();
 			router.push(`/profilesOverview`);
+		},
+		Subscriptions : function(){
+			event.preventDefault();
+			router.push(`/subscriptionsOverview`);
 		},
 		Save : function(event){
 			axios.put('rest/changeUser/' + this.user.username, this.user)
