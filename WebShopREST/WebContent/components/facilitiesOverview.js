@@ -8,7 +8,8 @@ Vue.component("startpage", {
 		      searchedFacilityType : "GYM",
 		      inputTextNeeded : true,
 		      user: null,
-		      uloga: null
+		      uloga: null,
+		      promoCode: {oznaka: null, period:null, brojIskoriscenih: 0, popust: 0.0}
 		    }
 	},
 template: ` 
@@ -37,6 +38,7 @@ template: `
 		        </li>
 		        <li class="nav-item" >
 		          <a class="nav-link" v-on:click="Subscriptions" href="#" v-bind:hidden="this.user.uloga!='Kupac'">Clanarine</a>
+		          <a class="nav-link" data-bs-toggle="modal" data-bs-target="#exampleModal2" href="#" v-bind:hidden="this.user.uloga!='Administrator'">Promo</a>
 		        </li>
 		        <li class="nav-item">
 		          <a class="nav-link" v-on:click="ProfilePage" href="#">Profil</a>
@@ -85,6 +87,53 @@ template: `
 			</div>
 		</div>
 	</div>
+	<div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+ 	 <div class="modal-dialog modal-dialog-centered"">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Promo Code</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Add Code"></button>
+      </div>
+      <div class="modal-body">
+      	<div class="row g-3 align-items-center">
+		  <div class="col-5">
+		    <label for="input1" class="col-form-label">Oznaka koda: </label>
+		  </div>
+		  <div class="col-auto">
+		    <input type="password" id="input1" class="form-control" v-model="promoCode.oznaka">
+		  </div>
+		</div><br>
+		<div class="row g-3 align-items-center">
+		  <div class="col-5">
+		    <label for="input1" class="col-form-label">Kraj vazenja koda: </label>
+		  </div>
+		  <div class="col-auto">
+		    <input type="date" id="input1" class="form-control" v-model="promoCode.period">
+		  </div>
+		</div><br>
+		<div class="row g-3 align-items-center">
+		  <div class="col-5">
+		    <label for="input1" class="col-form-label">Broj koriscenja: </label>
+		  </div>
+		  <div class="col-auto">
+		    <input type="number" id="input1" class="form-control" v-model="promoCode.brojIskoriscenih">
+		  </div>
+		</div><br>
+		<div class="row g-3 align-items-center">
+		  <div class="col-5">
+		    <label for="input1" class="col-form-label">Popust (format 0.x): </label>
+		  </div>
+		  <div class="col-auto">
+		    <input type="number" id="input1" class="form-control" v-model="promoCode.popust">
+		  </div>
+		</div>
+      </div>
+      <div class="modal-footer text-center">
+        <button class="loginButton" v-on:click="AddPromo" data-bs-dismiss="modal" style="width: 160px;margin-right:10%">Add Code</button>
+      </div>
+    </div>
+  </div>
+</div>
 	</section>
 	</body>
 </div>		  
@@ -104,6 +153,14 @@ template: `
 			router.push(`/subscriptionsOverview`);
 			//window.location.href = 'products.html';
 		},
+		AddPromo : function(event) {
+			event.preventDefault();
+
+				axios.post('rest/promo/addPromoCode/', this.promoCode)
+					.then((response) => {
+						alert('Uspesno dodat novi promo kod')
+					})
+    	},
 		ShowAllProfiles : function(){
 			event.preventDefault();
 			router.push(`/profilesOverview`);

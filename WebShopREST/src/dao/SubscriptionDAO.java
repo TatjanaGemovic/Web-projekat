@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
@@ -21,12 +22,9 @@ import enums.StatusClanarine;
 import enums.TipClanarine;
 
 public class SubscriptionDAO {
-	public static Map<String, Subscription> subscriptions = new HashMap<>();
+	public Map<String, Subscription> subscriptions = new HashMap<>();
 	private String path; //tatjana path
-	public Map<String, User> users1 = UserDAO.users;
-	
-	@Context
-	ServletContext ctx;
+	public Collection<User> users1;
 	
 	public SubscriptionDAO() {
 		
@@ -34,8 +32,11 @@ public class SubscriptionDAO {
 	
 	/***
 	 * @param contextPath Putanja do aplikacije u Tomcatu. Mo�e se pristupiti samo iz servleta.
+	 * @param map 
+	 * @param userDao 
 	 */
-	public SubscriptionDAO(String contextPath) {
+	public SubscriptionDAO(String contextPath, Map<String, User> map) {
+		users1 = map.values();
 		loadSubscriptions(contextPath);
 		path = "/Users/tatjanagemovic/Desktop/Web-projekat/WebShopREST/WebContent/subscriptions.txt";
 	}
@@ -50,21 +51,13 @@ public class SubscriptionDAO {
 		return subs;
 	}
 	
-	public User findByUsername(String username) {
-		if (!users1.containsKey(username)) {
-			return null;
-		}
-		User user = users1.get(username);
-		return user;
-	}
-	
 	private void saveSubscriptions()  {
 		PrintWriter out = null;
 		try {
 			FileWriter w = new FileWriter(path);
 			for(Subscription s: subscriptions.values()) {
 				String st = s.getId()+";"+s.getPaket()+";"+s.getTip()+";"+s.getDatumPlacanja()+";"+s.getDatumVazenja()+";"+s.getCena()
-				+";"+s.getKupac().getUsername() +";"+s.getStatus()+";"+s.getBrojTermina();
+				+";"+s.getKupac().getUsername()+";"+s.getStatus()+";"+s.getBrojTermina();
 				w.append(st);
 				w.append(System.lineSeparator());
 			}
@@ -113,13 +106,13 @@ public class SubscriptionDAO {
 						break;
 					}
 					SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-					Date datumPlacanja = formatter.parse(st.nextToken().trim());
-					Date datumVazenja = formatter.parse(st.nextToken().trim());
+					LocalDate datumPlacanja = LocalDate.parse(st.nextToken().trim());
+					LocalDate datumVazenja = LocalDate.parse(st.nextToken().trim());
+					//String datumPlacanja = st.nextToken().trim();
+					//String datumVazenja = st.nextToken().trim();
 					int cena = Integer.parseInt(st.nextToken().trim());
 					String userUsername = st.nextToken().trim();
-					UserDAO userDao = (UserDAO) ctx.getAttribute("userDAO");
-					//User user = ((SubscriptionDAO) users1).findByUsername(userUsername);
-					User user = userDao.findByUsername(userUsername);
+					User user = findByUsername(userUsername);
 					String sta = st.nextToken().trim();
 					StatusClanarine status = StatusClanarine.aktivna;
 					switch(sta) {
@@ -145,6 +138,17 @@ public class SubscriptionDAO {
 				catch (Exception e) { }
 			}
 		}
+	}
+	
+	public User findByUsername(String username) {
+		User user=null;
+		for(User u : users1) {
+			if(u.getUsername().equals(username)) {
+				user = u;
+				break;
+			}
+		}
+		return user;
 	}
 
 	public Subscription findBySubId(String subsId) {

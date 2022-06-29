@@ -1,5 +1,8 @@
 package services;
 
+import java.sql.Date;
+import java.time.LocalDate;
+
 import javax.annotation.PostConstruct;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -36,7 +39,8 @@ public class SubscriptionService {
 		// Inicijalizacija treba da se obavi samo jednom
 		if (ctx.getAttribute("subsDAO") == null) {
 	    	String contextPath = ctx.getRealPath("");
-			ctx.setAttribute("subsDAO", new SubscriptionDAO(contextPath));
+	    	UserDAO userDao = (UserDAO) ctx.getAttribute("userDAO");
+			ctx.setAttribute("subsDAO", new SubscriptionDAO(contextPath, userDao.getAllUsers()));
 		}
 	}
 	
@@ -47,12 +51,14 @@ public class SubscriptionService {
 	public Subscription newSubscription(User user, @PathParam("name") String name) {
 		SubscriptionDAO subsDAO = (SubscriptionDAO) ctx.getAttribute("subsDAO");
 		Subscription subs;
+		LocalDate date = LocalDate.now();
+		LocalDate newDate = date.plusMonths(1);
 		if(name.equals("1")) {
-			subs = new Subscription(user.getUsername(), 15, TipClanarine.mesecna, null, null, 23, user, StatusClanarine.aktivna, 15);
+			subs = new Subscription(user.getUsername(), 15, TipClanarine.mesecna, date, newDate, 23, user, StatusClanarine.aktivna, 15);
 		}else if(name.equals("2")) {
-			subs = new Subscription(user.getUsername(), 90, TipClanarine.mesecna, null, null, 30, user, StatusClanarine.aktivna, 90);
+			subs = new Subscription(user.getUsername(), 90, TipClanarine.mesecna, date, newDate, 30, user, StatusClanarine.aktivna, 90);
 		}else {
-			subs = new Subscription(user.getUsername(), 9000, TipClanarine.godisnja, null, null, 330, user, StatusClanarine.aktivna, 9000);
+			subs = new Subscription(user.getUsername(), 9000, TipClanarine.godisnja, date, newDate, 330, user, StatusClanarine.aktivna, 9000);
 		}
 		user.setClanarina(subs);
 		

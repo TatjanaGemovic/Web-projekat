@@ -32,12 +32,9 @@ import enums.Uloga;
  *
  */
 public class UserDAO {
-	public static Map<String, User> users = new HashMap<>();
+	public Map<String, User> users = new HashMap<>();
 	private String path; //tatjana path
-	public Map<String, Subscription> subs1 = SubscriptionDAO.subscriptions;
-	
-	@Context
-	ServletContext ctx;
+	//public Map<String, Subscription> subs1 = SubscriptionDAO.subscriptions;
 	
 	public UserDAO() {
 		
@@ -78,6 +75,10 @@ public class UserDAO {
 	
 	public Collection<User> findAll() {
 		return users.values();
+	}
+	
+	public Map<String, User> getAllUsers(){
+		return users;
 	}
 	
 	public User save(User user) {

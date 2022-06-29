@@ -1,4 +1,4 @@
-Pera;Peric;musko;5.5.2022;pera;pera;Kupac;nema;nema;nema;0;Bronzani;pera
+Pera;Peric;musko;5.5.2022;pera;pera;Kupac;nema;nema;nema;0;Bronzani;null
 Marko;Markovic;musko;4.4.4444;maki;maki;Trener;nema;nema;nema;0;Bronzani;null
 Nikola;Nikolic;musko;4.4.4444;nik;nik;Menadzer;nema;nema;nema;0;Bronzani;null
 gema;gema;zensko;null;gema;gema;Trener;null;null;null;0;Bronzani;null
