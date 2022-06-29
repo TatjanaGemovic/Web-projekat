@@ -1,14 +1,18 @@
 Vue.component("addFacility", {
 	data: function () {
 		    return {
-		      facility: { name:null, type:null, streetAndNumber:null, city:null, postal:null},
+		      facility: { name:null, type:null, offer: "", location:null, status: true, rating: 0.0, workingHours: "00:00-24:00",imageURI: null, manager: ""},
 		      error: '',
+		      location: {address: "", longitude: 11.0, latitude: 12.0},
 		      facilities: null,
 		      user : null,
 		      uloga : null,
 		      managers : null,
 		      manager : null,
 		      hasAvailable : true,
+		      streetAndNumber: "",
+		      city: "",
+		      postal: "",
 		      newUser: { firstName:null, lastName:null, gender:null, birthDate:null, username:null, password:null,
 				uloga: null, istorijaTreninga: null, clanarina: 0, sportskiObjekat: null, poseceniObjekti: null, sakupljeniBodovi: 0, tipKupca: null},
 				gender: null
@@ -62,9 +66,9 @@ Vue.component("addFacility", {
   			<option value="DANCE_STUDIO">Dance studio</option>
 			</select>
 			
-			<input type="text" placeholder="Facility street and number" v-model="facility.streetAndNumber"> <br>
-			<input type="text" placeholder="City" v-model="facility.city"> <br>
-			<input type="text" placeholder="City postal code" v-model="facility.postal"> <br>
+			<input type="text" placeholder="Facility street and number" v-model="streetAndNumber"> <br>
+			<input type="text" placeholder="City" v-model="city"> <br>
+			<input type="text" placeholder="City postal code" v-model="postal"> <br>
 			
 			<p class="text-danger" v-if="!hasAvailable">Looks like there are currently no available managers! <a class="text-success" data-bs-toggle="modal" data-bs-target="#addManager">Click here</a> to create a new one for this facility</p>
 			<select v-else class="form-select form-select-sm" v-on:change="managerSelectionChanged($event)" :style="{ 'width': '50%'}">
@@ -157,6 +161,8 @@ Vue.component("addFacility", {
 			}
 			
 			if(!facilityExists){ 
+				this.location.address = this.streetAndNumber + ", " + this.city + ", " + this.postal ;
+				this.facility.location = this.location;
 				axios.post('rest/addFacility/', this.facility)
 				.then((response) => {
 					alert('Facility added successfully')
@@ -168,7 +174,7 @@ Vue.component("addFacility", {
 			this.facility.type = event.target.value;
 		},
 		managerSelectionChanged : function(event){
-			this.manager = event.target.value;
+			this.facility.manager = event.target.value;
 		},
 		createManager : function(){
 			this.newUser.sportskiObjekat = this.facility.name;
@@ -176,6 +182,7 @@ Vue.component("addFacility", {
 						.then((response) => {
 							alert('Uspesno dodat novi menadzer')
 							this.managers.push(this.newUser);
+							this.facility.manager = this.newUser;
 							this.hasAvailable = true;
 						})
 		},

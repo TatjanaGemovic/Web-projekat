@@ -89,12 +89,12 @@ public class SportsFacilityService {
 		return sportsFacilityDAO.findByName(name);
 	}
 	
-	/*@POST
-	@Path("/add/")
+	@POST
+	@Path("/addFacility/{facility}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public User newUser(User user) {
-		UserDAO userDao = (UserDAO) ctx.getAttribute("userDAO");
-		return userDao.save(user);
-	}*/
+	public SportsFacility addFacility(@PathParam("facility") SportsFacility facility) {
+		SportsFacilityDAO facilityDAO = (SportsFacilityDAO) ctx.getAttribute("sportsFacilityDAO");
+		return facilityDAO.save(facility);
+	}
 }

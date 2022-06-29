@@ -3,6 +3,8 @@ package dao;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -17,13 +19,14 @@ import enums.FacilityType;
 
 public class SportsFacilityDAO {
 	private Map<String, SportsFacility> facilities = new HashMap<>();
-	
+	private String path;
 	public SportsFacilityDAO() {
 		
 	}
 	
 	public SportsFacilityDAO(String contextPath) {
 		loadFacilities(contextPath);
+		path = "C:/Users/User/Desktop/Web Projekat/Web-projekat/WebShopREST/WebContent/facilities.txt";
 	}
 	
 	public SportsFacility findByName(String name) {
@@ -41,7 +44,32 @@ public class SportsFacilityDAO {
 	
 	public SportsFacility save(SportsFacility facility) {
 		facilities.put(facility.getName(), facility);
+		saveFacilities();
 		return facility;
+	}
+	
+	private void saveFacilities()  {
+		PrintWriter out = null;
+		try {
+			FileWriter w = new FileWriter(path);
+			for(SportsFacility s: facilities.values()) {
+				String st = s.getName()+";"+s.getLocation()+";"+s.getOffer()+";"+s.getType()+";"+s.getStatus()+";"+s.getRating()
+				+";"+s.getWorkingHours()+";"+s.getImageURI()+";"+s.getManager();
+				w.append(st);
+				w.append(System.lineSeparator());
+			}
+			w.flush();
+			w.close();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			if (out != null) {
+				try {
+					out.close();
+				}
+				catch (Exception e) { }
+			}
+		}
 	}
 	
 	private void loadFacilities(String contextPath) {
@@ -78,7 +106,8 @@ public class SportsFacilityDAO {
 					String rating = st.nextToken().trim();
 					String workingHours = st.nextToken().trim();
 					String imageURI = st.nextToken().trim();
-					facilities.put(name, new SportsFacility(name, location, offer, facilityType, facilityStatus, Double.parseDouble(rating), workingHours, imageURI));
+					String manager = st.nextToken().trim();
+					facilities.put(name, new SportsFacility(name, location, offer, facilityType, facilityStatus, Double.parseDouble(rating), workingHours, imageURI, manager));
 				}
 				
 			}

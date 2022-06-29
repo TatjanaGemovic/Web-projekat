@@ -11,8 +11,9 @@ public class SportsFacility {
 	private double rating;
 	private String workingHours;
 	private String imageURI;
+	private String manager;
 	public SportsFacility(String name, Location location, String offer, FacilityType type, boolean status, double rating,
-			String workingHours, String imageURI) {
+			String workingHours, String imageURI, String manager) {
 		super();
 		this.name = name;
 		this.location = location;
@@ -22,6 +23,13 @@ public class SportsFacility {
 		this.rating = rating;
 		this.workingHours = workingHours;
 		this.imageURI = imageURI;
+		this.manager = manager;
+	}
+	public String getManager() {
+		return manager;
+	}
+	public void setManager(String manager) {
+		this.manager = manager;
 	}
 	public String getName() {
 		return name;
@@ -54,7 +62,7 @@ public class SportsFacility {
 	public void setType(FacilityType type) {
 		this.type = type;
 	}
-	public boolean isStatus() {
+	public boolean getStatus() {
 		return status;
 	}
 	public void setStatus(boolean status) {
