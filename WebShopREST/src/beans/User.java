@@ -20,7 +20,7 @@ public class User implements Serializable {
 	private String poseceniObjekti;
 	private int sakupljeniBodovi;
 	private TipKupca tipKupca;
-	
+
 	public User() {
 	}
 

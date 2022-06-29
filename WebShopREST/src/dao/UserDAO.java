@@ -9,6 +9,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -31,6 +32,7 @@ public class UserDAO {
 	public static Map<String, User> users = new HashMap<>();
 	private String path; //tatjana path
 	
+	
 	public UserDAO() {
 		
 	}
@@ -40,7 +42,7 @@ public class UserDAO {
 	 */
 	public UserDAO(String contextPath) {
 		loadUsers(contextPath);
-		path = "/Users/tatjanagemovic/Desktop/Web-projekat/WebShopREST/WebContent/users.txt";
+		path = "C:/Users/User/Desktop/Web Projekat/Web-projekat/WebShopREST/WebContent/users.txt";
 	}
 	
 	/**
@@ -70,6 +72,15 @@ public class UserDAO {
 	
 	public Collection<User> findAll() {
 		return users.values();
+	}
+	
+	public Collection<User> getAvailableManagers(){
+		Collection<User> availableManagers = new ArrayList<User>();
+		for(User current : users.values()) {
+			if(current.getSportskiObjekat().equals("_") && current.getUloga()==Uloga.Menadzer)
+				availableManagers.add(current);
+		}
+		return availableManagers;
 	}
 	
 	public User save(User user) {

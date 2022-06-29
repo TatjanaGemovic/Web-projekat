@@ -1,12 +1,13 @@
-Pera;Peric;musko;5.5.2022;pera;pera;Kupac;nema;0;nema;nema;0;Bronzani
-Nikola;Nikolic;musko;4.4.4444;nik;nik;Menadzer;nema;0;nema;nema;0;Bronzani
-Marko;Markovic;musko;4.4.4444;maki;maki;Trener;nema;0;nema;nema;0;Bronzani
-gema;gema;zensko;null;gema;gema;Trener;null;0;null;null;0;null
-Nina;Jankovic;zensko;4.4.4444;jaki;jaki;Kupac;nema;0;nema;nema;0;Bronzani
-Jovana;Jovanovic;zensko;5.5.5555;jovana;jovana;Trener;nema;0;nema;nema;0;Bronzani
-Nemanja;Mihic;musko;null;nem;nem;Menadzer;null;0;null;null;0;null
-Vuk;Petrovic;musko;4.4.4444;vuk;vuk;Trener;nema;0;nema;nema;0;Bronzani
-m;m;zensko;null;m;m;Trener;null;0;null;null;0;null
-Aleksandra;Aleksica;zensko;4.4.4444;aki;aki;Kupac;nema;0;nema;nema;0;Bronzani
-n;n;musko;null;n;n;Menadzer;null;0;null;null;0;null
-Stojanka;Novakovic;zensko;4.4.4444;stoja;stoja;Administrator;nema;0;nema;nema;0;Bronzani
+Marko;Markovic;musko;4.4.4444;maki;maki;Trener;nema;0;_;nema;0;Bronzani
+gema;gema;zensko;null;gema;gema;Trener;null;0;_;null;0;Bronzani
+Nina;Jankovic;zensko;4.4.4444;jaki;jaki;Kupac;nema;0;_;nema;0;Bronzani
+Filip;Stefanov;musko;2022-06-30;fstefanovftn;pass;Menadzer;null;0;null;null;0;null
+Vuk;Petrovic;musko;4.4.4444;vuk;vuk;Trener;nema;0;_;nema;0;Bronzani
+m;m;zensko;null;m;m;Trener;null;0;_;null;0;Bronzani
+n;n;musko;null;n;n;Menadzer;null;0;Bazen Sole Mio;null;0;Bronzani
+Stojanka;Novakovic;zensko;4.4.4444;stoja;stoja;Administrator;nema;0;_;nema;0;Bronzani
+Pera;Peric;musko;5.5.2022;pera;pera;Kupac;nema;0;_;nema;0;Bronzani
+Nikola;Nikolic;musko;4.4.4444;nik;nik;Menadzer;nema;0;Teretana Centar;nema;0;Bronzani
+Jovana;Jovanovic;zensko;5.5.5555;jovana;jovana;Trener;nema;0;_;nema;0;Bronzani
+Nemanja;Mihic;musko;null;nem;nem;Menadzer;null;0;Teretana Liman;null;0;Bronzani
+Aleksandra;Aleksica;zensko;4.4.4444;aki;aki;Kupac;nema;0;_;nema;0;Bronzani
