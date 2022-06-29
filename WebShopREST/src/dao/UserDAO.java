@@ -184,5 +184,4 @@ public class UserDAO {
 		users.put(user.getUsername(), user);
 		return user;
 	}
-	
 }
