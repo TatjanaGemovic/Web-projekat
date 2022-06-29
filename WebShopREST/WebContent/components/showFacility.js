@@ -3,7 +3,8 @@ Vue.component("showFacility", {
 		    return {
 		      facilityName : "",
 		      facility : null,
-		      user: null
+		      user: null,
+		      comments: null
 		    }
 	},
 	template: ` 
@@ -60,7 +61,7 @@ Vue.component("showFacility", {
 		</div>
 	</div>
 	<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
- 	 <div class="modal-dialog modal-dialog-centered"">
+ 	<div class="modal-dialog modal-dialog-centered"">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">{{this.facility.name}}</h5>
@@ -74,8 +75,16 @@ Vue.component("showFacility", {
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
       </div>
     </div>
-  </div>
-</div>
+    </div>
+    </div>
+    <h2>Comments</h2>
+    <div class="row">
+    	<div v-for="comment in comments" class="col-md-8 border-bottom-2">
+    		<p class="fw-bold">{{comment.user}}</p>
+    		<p class="ps-3">{{comment.comment}}</p>
+    		<p class="fw-bold">Rated: {{comment.mark}}/5</p>
+    	</div>
+    </div>
 	</body>
 </div>		  
     	`,
@@ -83,6 +92,10 @@ Vue.component("showFacility", {
 		this.facilityName = this.$route.params.name;
 		axios
 			.get('rest/facilities/' +  this.facilityName)
+			.then(response => (this.facility = response.data)
+			),
+		axios
+			.get('rest/comments/commentsByFacility/' +  this.facilityName)
 			.then(response => (this.facility = response.data)
 			),
 		axios.get('rest/currentUser')

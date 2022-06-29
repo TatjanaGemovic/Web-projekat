@@ -106,7 +106,7 @@ public class LoginService {
 	@Path("/registerMenadzer/")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public User newManager(User user) {
+	public User newMenadzer(User user) {
 		UserDAO userDao = (UserDAO) ctx.getAttribute("userDAO");
 		user.setUloga(Uloga.Menadzer);
 		return userDao.save(user);
