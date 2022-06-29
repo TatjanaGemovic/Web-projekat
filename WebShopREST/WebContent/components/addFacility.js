@@ -173,6 +173,7 @@ Vue.component("addFacility", {
 			this.manager = event.target.value;
 		},
 		createManager : function(){
+			this.newUser.sportskiObjekat = this.facility.name;
 			
 		},
     	LogOut : function(){
