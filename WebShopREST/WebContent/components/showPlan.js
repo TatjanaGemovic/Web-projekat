@@ -5,7 +5,10 @@ Vue.component("showPlan", {
 		      user: null,
 		      codes: null,
 		      newSubs: { id: null, tip: null, datumPlacanja: null, datumVazenja: null, cena: 0,
-		      kupac: null, status: null, brojTermina: 0}
+		      kupac: null, status: null, brojTermina: 0},
+		      popust: 1.0,
+		      Kod: "",
+		      cena:0
 		    }
 	},
 	template: ` 
@@ -51,13 +54,13 @@ Vue.component("showPlan", {
 			<h4>Type:   {{PlanType()}}</h4> <br>
 			<h4>Number of pactices included:   {{PrNum()}}</h4> <br>
 			<h4>Duration:   {{Duration()}}</h4> <br>
-			<h3>Price: </h3><p class="display-5 my-4 fw-bold" style="color: #F15412">{{Price()}}</p>
+			<h3>Price: </h3><p class="display-5 my-4 fw-bold" style="color: #F15412">{{cena}}</p>
 		</div>
 		<div class="col-lg-1"></div>
 		<div class="col-lg-6" style="margin-top: 2%;">
 			<p class="display-5 my-4 fw-bold" style="color: #F15412; font-size: 32px">Promo code:</p>
 			<form>
-				<input type="text" placeholder="Enter code..." class="inputFields">
+				<input type="text" placeholder="Enter code..." class="inputFields" v-model="Kod">
 				<button class="loginButton" style="width: 140px; height:40px; margin-left:4%" v-on:click="ApplyCode">
                 	Apply code
             	</button>
@@ -77,10 +80,19 @@ Vue.component("showPlan", {
     	`,
     mounted() {
 		this.planId = this.$route.params.name;
+		if(this.planId == 1)
+				this.cena = "$" +  21.99;
+			else if(this.planId == 2)
+				this.cena = "$" +  29.99;
+			else
+				this.cena = "$" + 329.99;
 		axios.get('rest/currentUser')
 			.then((response) => {
 				this.user = response.data;
-			})
+			}),
+		axios.get('rest/promo/allPromoCodes')
+				.then(response => (this.codes = response.data))
+		
 	},
     methods: {
     	LogOut : function(event){
@@ -101,8 +113,22 @@ Vue.component("showPlan", {
 		},
 		ApplyCode : function(){
 			event.preventDefault();
-			axios.get('rest/promo/allPromoCodes')
-				.then(response => (this.codes = response.data))
+			for(let i=0; i<this.codes.length; i++){
+				if(this.codes[i].oznaka==this.Kod){
+					this.popust = 1.0-this.codes[i].popust;
+					break;
+				}
+			}
+			
+			if(this.planId == 1)
+				this.cena = this.popust*21.99;
+			else if(this.planId == 2)
+				this.cena = this.popust*29.99;
+			else
+				this.cena = this.popust*329.99;
+				
+			this.cena =	"$" + parseFloat(this.cena).toFixed(2)
+			
 		},
 		PlanName: function(){
 			if(this.planId == 1)
@@ -135,14 +161,6 @@ Vue.component("showPlan", {
 				return "1 Month";
 			else
 				return "1 Year";
-		},
-		Price: function(){
-			if(this.planId == 1)
-				return "$21.99";
-			else if(this.planId == 2)
-				return "$29.99";
-			else
-				return "$329.99";
 		},
 		BuyPlan : function(event) {
 			event.preventDefault();
