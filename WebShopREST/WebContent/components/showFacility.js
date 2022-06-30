@@ -3,7 +3,8 @@ Vue.component("showFacility", {
 		    return {
 		      facilityName : "",
 		      facility : null,
-		      user: null
+		      user: null,
+		      comments: null
 		    }
 	},
 	template: ` 
@@ -37,7 +38,7 @@ Vue.component("showFacility", {
 		          <a class="nav-link" v-on:click="ProfilePage" href="#">Profil</a>
 		        </li>
 		        <li class="nav-item">
-			      <button class="nav-link" class="loginButton" v-on:click="LogOut" style="width: 120px; margin-left: 20px">Log out</button>
+			      <button  class="loginButton" v-on:click="LogOut" style="width: 120px; margin-left: 20px">Log out</button>
 		        </li>
 		      </ul>
 		    </div>
@@ -76,6 +77,14 @@ Vue.component("showFacility", {
     </div>
   </div>
 </div>
+<h2>Comments</h2>
+    <div class="row">
+    	<div v-for="comment in comments" class="col-md-8 border-bottom-2">
+    		<p class="fw-bold">{{comment.user}}</p>
+    		<p class="ps-3">{{comment.comment}}</p>
+    		<p class="fw-bold">Rated: {{comment.mark}}/5</p>
+    	</div>
+    </div>
 	</body>
 </div>		  
     	`,
@@ -88,7 +97,11 @@ Vue.component("showFacility", {
 		axios.get('rest/currentUser')
 			.then((response) => {
 				this.user = response.data;
-			})
+			}),
+		axios
+			.get('rest/comments/commentsByFacility/' +  this.facilityName)
+			.then(response => (this.comments = response.data)
+		)
 	},
     methods: {
     	LogOut : function(event){

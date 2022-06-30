@@ -10,7 +10,7 @@ Vue.component("addFacility", {
 		      manager : null,
 		      hasAvailable : true,
 		      newUser: { firstName:null, lastName:null, gender:null, birthDate:null, username:null, password:null,
-				uloga: null, istorijaTreninga: null, clanarina: 0, sportskiObjekat: null, poseceniObjekti: null, sakupljeniBodovi: 0, tipKupca: null},
+				uloga: null, istorijaTreninga: null, clanarina: 0, sportskiObjekat: "_", poseceniObjekti: null, sakupljeniBodovi: 0, tipKupca: Bronzani},
 				gender: null
 		    }
 	},
