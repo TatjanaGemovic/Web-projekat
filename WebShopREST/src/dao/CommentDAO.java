@@ -107,7 +107,7 @@ public class CommentDAO {
 	private void loadComments(String contextPath) {
 		BufferedReader in = null;
 		try {
-			File file = new File("C:/Users/User/Desktop/Web Projekat/Web-projekat/WebShopREST/WebContent/comments.txt");
+			File file = new File(contextPath + "/comments.txt");
 			in = new BufferedReader(new FileReader(file));
 			String line;
 			StringTokenizer st;
