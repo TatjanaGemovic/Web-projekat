@@ -9,7 +9,7 @@ Vue.component("startpage", {
 		      inputTextNeeded : true,
 		      user: null,
 		      uloga: null,
-		      promoCode: {oznaka: null, period:null, brojIskoriscenih: 0, popust: 0.0}
+		      promoCode: {oznaka: null, period:null, brojIskoriscenih: 0, popust: 0.0, trajanje: 0},
 		    }
 	},
 template: ` 
@@ -100,7 +100,7 @@ template: `
 		    <label for="input1" class="col-form-label">Oznaka koda: </label>
 		  </div>
 		  <div class="col-auto">
-		    <input type="password" id="input1" class="form-control" v-model="promoCode.oznaka">
+		    <input type="text" id="input1" class="form-control" v-model="promoCode.oznaka">
 		  </div>
 		</div><br>
 		<div class="row g-3 align-items-center">
@@ -108,7 +108,7 @@ template: `
 		    <label for="input1" class="col-form-label">Kraj vazenja koda: </label>
 		  </div>
 		  <div class="col-auto">
-		    <input type="date" id="input1" class="form-control" v-model="promoCode.period">
+		    <input type="number" id="input1" class="form-control" v-model="promoCode.trajanje">
 		  </div>
 		</div><br>
 		<div class="row g-3 align-items-center">
@@ -156,7 +156,7 @@ template: `
 		AddPromo : function(event) {
 			event.preventDefault();
 
-				axios.post('rest/promo/addPromoCode/', this.promoCode)
+				axios.post('rest/promo/addPromoCode/' + this.promoCode.trajanje, this.promoCode)
 					.then((response) => {
 						alert('Uspesno dodat novi promo kod')
 					})

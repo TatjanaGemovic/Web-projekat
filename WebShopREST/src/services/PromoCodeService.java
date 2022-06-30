@@ -1,10 +1,15 @@
 package services;
 
+import java.time.LocalDate;
+import java.util.Collection;
+
 import javax.annotation.PostConstruct;
 import javax.servlet.ServletContext;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
@@ -38,11 +43,22 @@ public class PromoCodeService {
 	
 	
 	@POST
-	@Path("/addPromoCode/")
+	@Path("/addPromoCode/{period}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public PromoCode newCode(PromoCode code) {
+	public PromoCode newCode(PromoCode code, @PathParam("period") String period) {
 		PromoCodeDAO promoDAO = (PromoCodeDAO) ctx.getAttribute("promoDAO");
+		LocalDate date = LocalDate.now();
+		LocalDate newDate = date.plusDays(Integer.parseInt(period));
+		code.setPeriod(newDate);
 		return promoDAO.save(code);
+	}
+	
+	@GET
+	@Path("/allPromoCodes")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Collection<PromoCode> getAll() {
+		PromoCodeDAO promoDAO = (PromoCodeDAO) ctx.getAttribute("promoDAO");
+		return promoDAO.findAllPromoCodes();
 	}
 }

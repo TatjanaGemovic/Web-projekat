@@ -3,6 +3,7 @@ Vue.component("showPlan", {
 		    return {
 		      planId : "",
 		      user: null,
+		      codes: null,
 		      newSubs: { id: null, tip: null, datumPlacanja: null, datumVazenja: null, cena: 0,
 		      kupac: null, status: null, brojTermina: 0}
 		    }
@@ -57,6 +58,9 @@ Vue.component("showPlan", {
 			<p class="display-5 my-4 fw-bold" style="color: #F15412; font-size: 32px">Promo code:</p>
 			<form>
 				<input type="text" placeholder="Enter code..." class="inputFields">
+				<button class="loginButton" style="width: 140px; height:40px; margin-left:4%" v-on:click="ApplyCode">
+                	Apply code
+            	</button>
 			</form><br><br>
 			<h4>Note</h4>
 			<p>- Kupovinom nove clanarine automatski ponistavate prethodno kupljenu<br>
@@ -94,6 +98,11 @@ Vue.component("showPlan", {
 		StartPage : function(){
 			event.preventDefault();
 			router.push(`/startpage`);
+		},
+		ApplyCode : function(){
+			event.preventDefault();
+			axios.get('rest/promo/allPromoCodes')
+				.then(response => (this.codes = response.data))
 		},
 		PlanName: function(){
 			if(this.planId == 1)

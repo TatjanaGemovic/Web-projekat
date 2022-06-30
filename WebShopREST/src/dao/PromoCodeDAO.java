@@ -6,12 +6,18 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
 
 import beans.PromoCode;
+import beans.User;
 
 public class PromoCodeDAO {
 	
@@ -41,7 +47,7 @@ public PromoCodeDAO() {
 		try {
 			FileWriter w = new FileWriter(path);
 			for(PromoCode p : codes.values()) {
-				String st = p.getOznaka()+";"+p.getPeriod()+";"+p.getBrojIskoriscenih()+";"+p.getPopust();
+				String st = p.getOznaka()+";"+p.getPeriod()+";"+p.getBrojIskoriscenih()+";"+p.getPopust()+";"+p.getTrajanje();
 				w.append(st);
 				w.append(System.lineSeparator());
 			}
@@ -67,7 +73,7 @@ public PromoCodeDAO() {
 	private void loadCodes(String contextPath) {
 		BufferedReader in = null;
 		try {
-			File file = new File(contextPath + "/users.txt");
+			File file = new File(contextPath + "/codes.txt");
 			in = new BufferedReader(new FileReader(file));
 			String line;
 			StringTokenizer st;
@@ -78,12 +84,12 @@ public PromoCodeDAO() {
 				st = new StringTokenizer(line, ";");
 				while (st.hasMoreTokens()) {
 					String oznaka = st.nextToken().trim();
+					LocalDate period = LocalDate.parse(st.nextToken().trim());
 					int brojIskoriscenih = Integer.parseInt(st.nextToken().trim());
-					SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-					Date period = formatter.parse(st.nextToken().trim());
 					double popust = Double.parseDouble(st.nextToken().trim());
+					int trajanje = Integer.parseInt(st.nextToken().trim());
 
-					codes.put(oznaka, new PromoCode(oznaka, period, brojIskoriscenih, popust));
+					codes.put(oznaka, new PromoCode(oznaka, period, brojIskoriscenih, popust, trajanje));
 				}
 				
 			}
@@ -97,5 +103,16 @@ public PromoCodeDAO() {
 				catch (Exception e) { }
 			}
 		}
+	}
+
+	public List<PromoCode> findAllPromoCodes() {
+		LocalDate now = LocalDate.now();
+		List<PromoCode> cds = new ArrayList<PromoCode>();
+		for(PromoCode c : codes.values()) {
+			if(now.isBefore(c.getPeriod())) {
+				cds.add(c);
+			}
+		}
+		return cds;
 	}
 }
