@@ -230,8 +230,13 @@ template: `
 			this.facilitiesToShow = this.allFacilities;
 		},
 		goFacilityPage : function (name){
-			name = name.replaceAll(" ", "_");
-			router.push(`/showFacility/${name}`);
+			if(this.user.uloga == "Kupac"){
+				name = name.replaceAll(" ", "_");
+				router.push(`/showFacilityForCustomer/${name}`);
+			}else{
+				name = name.replaceAll(" ", "_");
+				router.push(`/showFacility/${name}`);
+			}
 		},
 		goToAddPage : function (){
 			router.push(`/addFacility`);
