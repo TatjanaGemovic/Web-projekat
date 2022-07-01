@@ -8,7 +8,8 @@ Vue.component("showPlan", {
 		      kupac: null, status: null, brojTermina: 0},
 		      popust: 1.0,
 		      Kod: "",
-		      cena:0
+		      cena:0,
+		      error: '',
 		    }
 	},
 	template: ` 
@@ -64,7 +65,8 @@ Vue.component("showPlan", {
 				<button class="loginButton" style="width: 140px; height:40px; margin-left:4%" v-on:click="ApplyCode">
                 	Apply code
             	</button>
-			</form><br><br>
+			</form>
+			<p style="padding-top: 10px;" id="error">{{error}}</p><br><br>
 			<h4>Note</h4>
 			<p>- Kupovinom nove clanarine automatski ponistavate prethodno kupljenu<br>
 			- Clanarina postaje aktivna na dan kupovine i traje odredjen period<br>
@@ -113,11 +115,18 @@ Vue.component("showPlan", {
 		},
 		ApplyCode : function(){
 			event.preventDefault();
+			this.error = "";
+			codeExists = false;
 			for(let i=0; i<this.codes.length; i++){
 				if(this.codes[i].oznaka==this.Kod){
 					this.popust = 1.0-this.codes[i].popust;
+					codeExists = true;
 					break;
 				}
+			}
+			if(!codeExists){
+				this.error = "Code expired or doesn't exists";
+				return;
 			}
 			
 			if(this.planId == 1)
