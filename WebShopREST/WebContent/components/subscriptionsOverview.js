@@ -61,7 +61,7 @@ template: `
               <h3 class="card-title">Starter</h3>
               <p class="lead card-subtitle">3 times a week</p>
               <p class="display-5 my-4 fw-bold" style="color: #F15412">$21.99<span style="font-size:16px">/month</span></p>
-              <button href="#" class="loginButton" style="width: 140px">
+              <button href="#" class="loginButton" style="width: 140px" v-on:click="SeePlan(1)">
                 See plan
               </button>
             </div>
@@ -75,7 +75,7 @@ template: `
               <h3 class="card-title">Basic</h3>
               <p class="lead card-subtitle">All month unlimited</p>
               <p class="display-4 my-4 fw-bold" style="color: #F15412">$29.99<span style="font-size:18px">/month</span></p>
-              <button href="#" class="loginButton" style="width: 140px">
+              <button href="#" class="loginButton" style="width: 140px" v-on:click="SeePlan(2)">
                 See plan
               </button>
             </div>
@@ -88,7 +88,7 @@ template: `
               <h3 class="card-title">Ultimate</h3>
               <p class="lead card-subtitle">All year unlimited</p>
               <p class="display-5 my-4 fw-bold" style="color: #F15412">$329.99</p>
-              <button href="#" class="loginButton" style="width: 140px">
+              <button href="#" class="loginButton" style="width: 140px" v-on:click="SeePlan(3)">
                 See plan
               </button>
             </div>
@@ -114,6 +114,9 @@ template: `
 			event.preventDefault();
 			router.push(`/startpage`);
 		},
+		SeePlan : function (name){
+			router.push(`/showPlan/${name}`);
+		}
     },
     mounted() {
 		axios.get('rest/currentUser')
