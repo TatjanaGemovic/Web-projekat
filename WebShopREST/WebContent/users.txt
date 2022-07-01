@@ -3,9 +3,10 @@ Marko;Markovic;musko;2022-07-08;maki;maki;Trener;nema;nema;0;Bronzani;null;nema
 gema;gema;zensko;2022-07-08;gema;gema;Trener;null;null;0;Bronzani;null;nema
 Nina;Jankovic;zensko;2022-07-08;jaki;jaki;Kupac;nema;nema;0;Bronzani;null;nema
 p;p;musko;2022-07-08;peraa;pera;Menadzer;null;null;0;Bronzani;null;Random Tera
-Sako;Polumenta;musko;2022-07-30;sako;pass;Menadzer;null;null;0;null;null;Spens
+Sako;Polumenta;musko;2022-07-30;sako;pass;Menadzer;null;null;0;Bronzani;null;Spens
 Vuk;Petrovic;musko;2022-07-08;vuk;vuk;Trener;nema;nema;0;Bronzani;null;nema
 Stojanka;Novakovic;zensko;2022-07-08;stoja;stoja;Administrator;nema;nema;0;Bronzani;null;nema
+Aleksa;Colovic;musko;2022-07-02;cola;pass;Menadzer;null;null;0;null;null;Neki Kurac
 Pera;Peric;musko;2020-06-05;pera;pera;Kupac;nema;nema;0;Bronzani;null;nema
 Nikola;Nikolic;musko;2022-07-08;nik;nik;Menadzer;nema;nema;0;Bronzani;null;Teretana Sajam
 r;r;musko;null;r;r;Kupac;null;null;0;Bronzani;null;nema
