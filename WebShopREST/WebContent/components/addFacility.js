@@ -10,8 +10,8 @@ Vue.component("addFacility", {
 		      manager : null,
 		      hasAvailable : true,
 		      newUser: { firstName:null, lastName:null, gender:null, birthDate:null, username:null, password:null,
-				uloga: null, istorijaTreninga: null, clanarina: 0, sportskiObjekat: null, poseceniObjekti: null, sakupljeniBodovi: 0, tipKupca: null},
-				gender: null
+				uloga: null, istorijaTreninga: null, clanarina: null, sportskiObjekat: null, poseceniObjekti: null, sakupljeniBodovi: 0, tipKupca: null},
+			  gender: null
 		    }
 	},
 	template: ` 
@@ -45,7 +45,7 @@ Vue.component("addFacility", {
 		          <a class="nav-link" v-on:click="ProfilePage" href="#">Profil</a>
 		        </li>
 		        <li class="nav-item">
-			      <button class="nav-link loginButton" v-on:click="LogOut" style="width: 120px; margin-left: 20px">Log out</button>
+			      <button class="loginButton" v-on:click="LogOut" style="width: 120px; margin-left: 20px">Log out</button>
 		        </li>
 		      </ul>
 		    </div>
