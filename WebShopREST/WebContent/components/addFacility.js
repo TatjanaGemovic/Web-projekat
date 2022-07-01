@@ -1,16 +1,21 @@
 Vue.component("addFacility", {
 	data: function () {
 		    return {
-		      facility: { name:null, type:null, streetAndNumber:null, city:null, postal:null},
+		      facility: { name:null, type:null, offer: "nista", location:null, status: true, rating: 0.0, workingHours: "00:00-24:00",imageURI: null},
 		      error: '',
+		       location: {address: "", longitude: 11.0, latitude: 12.0},
 		      facilities: null,
 		      user : null,
 		      uloga : null,
 		      managers : null,
 		      manager : null,
 		      hasAvailable : true,
+		      addedManager : false,
+		      streetAndNumber: "",
+		      city: "",
+		      postal: "",
 		      newUser: { firstName:null, lastName:null, gender:null, birthDate:null, username:null, password:null,
-				uloga: null, istorijaTreninga: null, clanarina: null, sportskiObjekat: null, poseceniObjekti: null, sakupljeniBodovi: 0, tipKupca: null},
+				uloga: null, istorijaTreninga: null, clanarina: null, sportskiObjekat: null, poseceniObjekti: null, sakupljeniBodovi: 0, tipKupca: null, facilityId: ""},
 			  gender: null
 		    }
 	},
@@ -62,13 +67,13 @@ Vue.component("addFacility", {
   			<option value="DANCE_STUDIO">Dance studio</option>
 			</select>
 			
-			<input type="text" placeholder="Facility street and number" v-model="facility.streetAndNumber"> <br>
-			<input type="text" placeholder="City" v-model="facility.city"> <br>
-			<input type="text" placeholder="City postal code" v-model="facility.postal"> <br>
+			<input type="text" placeholder="Facility street and number" v-model="streetAndNumber"> <br>
+			<input type="text" placeholder="City" v-model="city"> <br>
+			<input type="text" placeholder="City postal code" v-model="postal"> <br>
 			
 			<p class="text-danger" v-if="!hasAvailable">Looks like there are currently no available managers! <a class="text-success" data-bs-toggle="modal" data-bs-target="#addManager">Click here</a> to create a new one for this facility</p>
 			<select v-else class="form-select form-select-sm" v-on:change="managerSelectionChanged($event)" :style="{ 'width': '50%'}">
-			    <option v-for="manager in managers" :value="manager.username">{{manager.firstName}} {{manager.lastName}}</option>
+			    <option v-for="manager in managers" :value="manager.username" >{{manager.firstName}} {{manager.lastName}}</option>
 			</select>
 			<input type="submit" value="Add" v-on:click = "addFacility" >
 			<p id="error">{{error}}</p>
@@ -130,6 +135,7 @@ Vue.component("addFacility", {
 		axios.get('rest/facilities/allFacilities')
 			.then((response) => {
 				this.facilities = response.data;
+				this.facility.type = "GYM";
 			})
 		axios.get('rest/currentUser')
 			.then((response) => {
@@ -140,8 +146,10 @@ Vue.component("addFacility", {
 				this.managers = response.data;
 				if(this.managers.length==0)
 					this.hasAvailable = false;
-				else
+				else {
 					this.hasAvailable = true;
+					this.manager = this.managers[0];
+				}
 			})
 	},
     methods: {	
@@ -157,27 +165,46 @@ Vue.component("addFacility", {
 			}
 			
 			if(!facilityExists){ 
-				axios.post('rest/addFacility/', this.facility)
+				this.location.address = this.streetAndNumber + "," + this.city + "," + this.postal ;
+				this.facility.location = this.location;
+				this.manager.sportskiObjekat = this.facility;
+				this.manager.facilityId = this.facility.name;
+				if(!this.addedManager){	
+					axios.put('rest/changeUser/' +this.manager.username, this.manager)
+					.then((response) => {
+						alert('Uspesno izmenjen korisnik')
+					})
+				}
+				else {
+					
+					axios.post('rest/registerMenadzer/', this.manager)
+						.then((response) => {
+							alert('Uspesno dodat novi menadzer')
+							this.hasAvailable = true;
+					})
+				}
+				axios.post('rest/facilities/add/', this.facility)
 				.then((response) => {
 					alert('Facility added successfully')
-					router.push(`/`)
+					router.push(`/startpage`)
 				})
 			}
     	},
+    	
     	facilityTypeSelectionChanged : function(event){
 			this.facility.type = event.target.value;
 		},
 		managerSelectionChanged : function(event){
-			this.manager = event.target.value;
+			for(let i=0; i<this.managers.length; i++)
+				if(this.managers[i].username==event.target.value){
+					this.manager = this.managers[i];
+				}
 		},
 		createManager : function(){
-			this.newUser.sportskiObjekat = this.facility.name;
-			axios.post('rest/registerMenadzer/', this.newUser)
-						.then((response) => {
-							alert('Uspesno dodat novi menadzer')
-							this.managers.push(this.newUser);
-							this.hasAvailable = true;
-						})
+			this.manager = this.newUser;
+			this.managers.push(this.manager);
+			this.addedManager = true;
+			this.hasAvailable = true;
 		},
     	LogOut : function(){
 			event.preventDefault();

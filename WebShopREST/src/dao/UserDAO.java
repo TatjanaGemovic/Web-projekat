@@ -46,8 +46,8 @@ public class UserDAO {
 	public UserDAO(String contextPath, Map<String, SportsFacility> map) {
 		facilities1 = map.values();
 		loadUsers(contextPath);
-		path = "/Users/tatjanagemovic/Desktop/Web-projekat/WebShopREST/WebContent/users.txt"; 
-		//path = "C:/Users/User/Desktop/Web Projekat/Web-projekat/WebShopREST/WebContent/users.txt";
+		//path = "/Users/tatjanagemovic/Desktop/Web-projekat/WebShopREST/WebContent/users.txt"; 
+		path = "C:/Users/User/Desktop/Web Projekat/Web-projekat/WebShopREST/WebContent/users.txt";
 	}
 	
 	/**
@@ -82,7 +82,7 @@ public class UserDAO {
 	public Collection<User> getAvailableManagers(){
 		Collection<User> availableManagers = new ArrayList<User>();
 		for(User current : users.values()) {
-			if(current.getUloga()==Uloga.Menadzer && current.getSportskiObjekat().equals(null))
+			if(current.getUloga()==Uloga.Menadzer && current.getFacilityId().equals("nema"))
 				availableManagers.add(current);
 		}
 		return availableManagers;
@@ -110,13 +110,15 @@ public class UserDAO {
 				if(u.getClanarina() != null) {
 					st += ";"+u.getClanarina().getId();
 				}else {
-					st += ";null";
+					st += ";null";	
 				}
+				st += ";"+u.getFacilityId();
+				/*
 				if(u.getSportskiObjekat() != null) {
 					st += ";"+u.getSportskiObjekat().getName();
 				}else {
 					st += ";null";
-				}
+				}*/
 				w.append(st);
 				w.append(System.lineSeparator());
 			}
@@ -188,7 +190,7 @@ public class UserDAO {
 					String sportskiObjekatId = st.nextToken().trim();
 					SportsFacility facility = findByName(sportskiObjekatId);
 					
-					users.put(username, new User(firstName, lastName, gender, birthDate, username, password, u, istTreninga, clanarina, facility, poseceniObjekti, bodovi, t));
+					users.put(username, new User(firstName, lastName, gender, birthDate, username, password, u, istTreninga, clanarina, facility, poseceniObjekti, bodovi, t, sportskiObjekatId));
 				}
 				
 			}
@@ -206,6 +208,7 @@ public class UserDAO {
 
 	public User change(User user) {
 		users.put(user.getUsername(), user);
+		saveUsers();
 		return user;
 	}
 	
