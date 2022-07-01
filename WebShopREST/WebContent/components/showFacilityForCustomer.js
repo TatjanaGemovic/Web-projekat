@@ -79,11 +79,12 @@ Vue.component("showFacilityForCustomer", {
 	</div>
 	<div>
 		<div class="row justify-content-center" style="margin-top: 5%">
-		<div v-for="workkut in workouts" class="col-md-2 card m-2"> 
+		<div v-for="w in workouts" class="col-md-2 card m-2"> 
 			<div class="card-body">
 				<p class="card-title" style="font-weight: bold; font-size: 20px">{{w.naziv}}</p>
 				<p class="card-text">{{w.workoutType}}</p>
 				<p class="card-text">{{w.trajanje}}</p>
+				<button class="loginButton">Join</button>
 			</div>
 		</div>
 	</div>
@@ -93,15 +94,14 @@ Vue.component("showFacilityForCustomer", {
     	`,
     mounted() {
 		this.facilityName = this.$route.params.name;
-		axios
-			.get('rest/facilities/' +  this.facilityName)
+		axios.get('rest/facilities/' +  this.facilityName)
 			.then(response => (this.facility = response.data)
 			),
 		axios.get('rest/currentUser')
 			.then((response) => {
 				this.user = response.data;
 			}),
-		axios.get('rest/workout/allWorkouts')
+		axios.get('rest/workout/allWorkoutsForFacility/' + this.facilityName)
 			.then((response) => {
 				this.workouts = response.data;
 			})

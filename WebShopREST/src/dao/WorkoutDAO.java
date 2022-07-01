@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -157,5 +158,16 @@ public class WorkoutDAO {
 			}
 		}
 		return null;
+	}
+
+	public Collection<Workout> findAllWorkoutsForFacility(String name) {
+		Collection<Workout> wrks = new ArrayList<Workout>();
+		name = name.replaceAll("_", " ");
+		for(Workout w : workouts.values()) {
+			if(w.getFacility().getName().equals(name)) {
+				wrks.add(w);
+			}
+		}
+		return wrks;
 	}
 }
