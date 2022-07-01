@@ -15,8 +15,10 @@ public class User implements Serializable {
 	private String password;
 	private Uloga uloga;
 	private String istorijaTreninga;
-	private int clanarina;
-	private String sportskiObjekat;
+	private Subscription clanarina;
+	private String SubsId;
+	private SportsFacility sportskiObjekat;
+	private String facilityId;
 	private String poseceniObjekti;
 	private int sakupljeniBodovi;
 	private TipKupca tipKupca;
@@ -25,8 +27,8 @@ public class User implements Serializable {
 	}
 
 	public User(String firstName, String lastName, String gender, String birthDate, String username, String password,
-			Uloga uloga, String istorijaTreninga, int clanarina, String sportskiObjekat, String poseceniObjekti,
-			int sakupljeniBodovi, TipKupca tipKupca) {
+			Uloga uloga, String istorijaTreninga, Subscription clanarina, SportsFacility sportskiObjekat, String poseceniObjekti,
+			int sakupljeniBodovi, TipKupca tipKupca, String facilityId) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -41,8 +43,26 @@ public class User implements Serializable {
 		this.poseceniObjekti = poseceniObjekti;
 		this.sakupljeniBodovi = sakupljeniBodovi;
 		this.tipKupca = tipKupca;
+		this.facilityId = facilityId;
+	}
+	
+	
+
+	public String getFacilityId() {
+		return facilityId;
 	}
 
+	public void setFacilityId(String facilityId) {
+		this.facilityId = facilityId;
+	}
+
+	public String getSubsId() {
+		return SubsId;
+	}
+
+	public void setSubsId(String subsId) {
+		SubsId = subsId;
+	}
 
 	public Uloga getUloga() {
 		return uloga;
@@ -60,19 +80,19 @@ public class User implements Serializable {
 		this.istorijaTreninga = istorijaTreninga;
 	}
 
-	public int getClanarina() {
+	public Subscription getClanarina() {
 		return clanarina;
 	}
 
-	public void setClanarina(int clanarina) {
+	public void setClanarina(Subscription clanarina) {
 		this.clanarina = clanarina;
 	}
 
-	public String getSportskiObjekat() {
+	public SportsFacility getSportskiObjekat() {
 		return sportskiObjekat;
 	}
 
-	public void setSportskiObjekat(String sportskiObjekat) {
+	public void setSportskiObjekat(SportsFacility sportskiObjekat) {
 		this.sportskiObjekat = sportskiObjekat;
 	}
 

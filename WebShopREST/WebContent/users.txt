@@ -1,13 +1,15 @@
-Marko;Markovic;musko;4.4.4444;maki;maki;Trener;nema;0;_;nema;0;Bronzani
-gema;gema;zensko;null;gema;gema;Trener;null;0;_;null;0;Bronzani
-Nina;Jankovic;zensko;4.4.4444;jaki;jaki;Kupac;nema;0;_;nema;0;Bronzani
-Filip;Stefanov;musko;2022-06-30;fstefanovftn;pass;Menadzer;null;0;null;null;0;null
-Vuk;Petrovic;musko;4.4.4444;vuk;vuk;Trener;nema;0;_;nema;0;Bronzani
-m;m;zensko;null;m;m;Trener;null;0;_;null;0;Bronzani
-n;n;musko;null;n;n;Menadzer;null;0;Bazen Sole Mio;null;0;Bronzani
-Stojanka;Novakovic;zensko;4.4.4444;stoja;stoja;Administrator;nema;0;_;nema;0;Bronzani
-Pera;Peric;musko;5.5.2022;pera;pera;Kupac;nema;0;_;nema;0;Bronzani
-Nikola;Nikolic;musko;4.4.4444;nik;nik;Menadzer;nema;0;Teretana Centar;nema;0;Bronzani
-Jovana;Jovanovic;zensko;5.5.5555;jovana;jovana;Trener;nema;0;_;nema;0;Bronzani
-Nemanja;Mihic;musko;null;nem;nem;Menadzer;null;0;Teretana Liman;null;0;Bronzani
-Aleksandra;Aleksica;zensko;4.4.4444;aki;aki;Kupac;nema;0;_;nema;0;Bronzani
+Mitar;Miric;musko;2022-07-01;tarmiricmi;pass;Menadzer;null;null;0;Bronzani;null;Neka terrrra
+Marko;Markovic;musko;2022-07-08;maki;maki;Trener;nema;nema;0;Bronzani;null;nema
+gema;gema;zensko;2022-07-08;gema;gema;Trener;null;null;0;Bronzani;null;nema
+Nina;Jankovic;zensko;2022-07-08;jaki;jaki;Kupac;nema;nema;0;Bronzani;null;nema
+p;p;musko;2022-07-08;peraa;pera;Menadzer;null;null;0;Bronzani;null;Random Tera
+Sako;Polumenta;musko;2022-07-30;sako;pass;Menadzer;null;null;0;null;null;Spens
+Vuk;Petrovic;musko;2022-07-08;vuk;vuk;Trener;nema;nema;0;Bronzani;null;nema
+Stojanka;Novakovic;zensko;2022-07-08;stoja;stoja;Administrator;nema;nema;0;Bronzani;null;nema
+Pera;Peric;musko;2020-06-05;pera;pera;Kupac;nema;nema;0;Bronzani;null;nema
+Nikola;Nikolic;musko;2022-07-08;nik;nik;Menadzer;nema;nema;0;Bronzani;null;Teretana Sajam
+r;r;musko;null;r;r;Kupac;null;null;0;Bronzani;null;nema
+u;u;musko;null;u;u;Kupac;null;null;0;Bronzani;null;nema
+Jovana;Jovanovic;zensko;2022-07-08;jovana;jovana;Trener;nema;nema;0;Bronzani;null;nema
+Nemanja;Mihic;musko;2022-07-08;nem;nem;Menadzer;null;null;0;Bronzani;null;Teretanica
+Aleksandra;Aleksica;zensko;2022-07-08;aki;aki;Kupac;nema;nema;0;Bronzani;null;nema

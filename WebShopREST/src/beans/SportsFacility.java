@@ -11,6 +11,9 @@ public class SportsFacility {
 	private double rating;
 	private String workingHours;
 	private String imageURI;
+	public SportsFacility() {
+		
+	}
 	public SportsFacility(String name, Location location, String offer, FacilityType type, boolean status, double rating,
 			String workingHours, String imageURI) {
 		super();
@@ -54,7 +57,7 @@ public class SportsFacility {
 	public void setType(FacilityType type) {
 		this.type = type;
 	}
-	public boolean isStatus() {
+	public boolean getStatus() {
 		return status;
 	}
 	public void setStatus(boolean status) {

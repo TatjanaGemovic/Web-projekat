@@ -5,6 +5,7 @@ Vue.component("login", {
 		      value: "Login",
 		      user: { username:null, password:null},
 		      error: '',
+		      allFacilities: null
 		    }
 	},
 	template: ` 
@@ -24,6 +25,12 @@ Vue.component("login", {
 	</body>
 </div>		  
     	`,
+    mounted() {
+		axios.get('rest/facilities/allFacilities')
+			.then((response) => {
+				this.allFacilities = response.data;
+			})
+	},	
     methods: {
     	checkUser : function(event) {
 			event.preventDefault();

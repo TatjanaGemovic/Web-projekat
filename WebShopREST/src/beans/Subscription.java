@@ -1,37 +1,48 @@
 package beans;
 
-import java.io.Serializable;
+
+import java.time.LocalDate;
 import java.util.Date;
 
-import enums.BrojTermina;
 import enums.StatusClanarine;
 import enums.TipClanarine;
 
-public class Subscription implements Serializable {
+public class Subscription{
+	
+	
 	String id;
+	int paket;
 	TipClanarine tip;
-	Date datumPlacanja;
-	Date datumVazenja;
+	LocalDate datumPlacanja;
+	LocalDate datumVazenja;
 	int cena;
 	User kupac;
 	String username;
 	StatusClanarine status;
-	BrojTermina brojTermina;
+	int brojTermina;
 	
 	public Subscription() {
-		super();
+		
 	}
-	public Subscription(String id, TipClanarine tip, Date datumPlacanja, Date datumVazenja, int cena, User kupac,
-			StatusClanarine status, BrojTermina brojTermina) {
+	public Subscription(String id, int paket, TipClanarine tip, LocalDate date, LocalDate newDate, int cena, User kupac,
+			StatusClanarine status, int brojTermina) {
 		super();
 		this.id = id;
+		this.paket = paket;
 		this.tip = tip;
-		this.datumPlacanja = datumPlacanja;
-		this.datumVazenja = datumVazenja;
+		this.datumPlacanja = date;
+		this.datumVazenja = newDate;
 		this.cena = cena;
 		this.kupac = kupac;
 		this.status = status;
 		this.brojTermina = brojTermina;
+	}
+	
+	public int getPaket() {
+		return paket;
+	}
+	public void setPaket(int paket) {
+		this.paket = paket;
 	}
 	public String getId() {
 		return id;
@@ -45,16 +56,16 @@ public class Subscription implements Serializable {
 	public void setTip(TipClanarine tip) {
 		this.tip = tip;
 	}
-	public Date getDatumPlacanja() {
+	public LocalDate getDatumPlacanja() {
 		return datumPlacanja;
 	}
-	public void setDatumPlacanja(Date datumPlacanja) {
+	public void setDatumPlacanja(LocalDate datumPlacanja) {
 		this.datumPlacanja = datumPlacanja;
 	}
-	public Date getDatumVazenja() {
+	public LocalDate getDatumVazenja() {
 		return datumVazenja;
 	}
-	public void setDatumVazenja(Date datumVazenja) {
+	public void setDatumVazenja(LocalDate datumVazenja) {
 		this.datumVazenja = datumVazenja;
 	}
 	public int getCena() {
@@ -75,10 +86,10 @@ public class Subscription implements Serializable {
 	public void setStatus(StatusClanarine status) {
 		this.status = status;
 	}
-	public BrojTermina getBrojTermina() {
+	public int getBrojTermina() {
 		return brojTermina;
 	}
-	public void setBrojTermina(BrojTermina brojTermina) {
+	public void setBrojTermina(int brojTermina) {
 		this.brojTermina = brojTermina;
 	}
 	

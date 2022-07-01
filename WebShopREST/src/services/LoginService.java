@@ -18,6 +18,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import beans.User;
+import dao.SportsFacilityDAO;
 import dao.UserDAO;
 import enums.Uloga;
 
@@ -38,7 +39,8 @@ public class LoginService {
 		// Inicijalizacija treba da se obavi samo jednom
 		if (ctx.getAttribute("userDAO") == null) {
 	    	String contextPath = ctx.getRealPath("");
-			ctx.setAttribute("userDAO", new UserDAO(contextPath));
+	    	SportsFacilityDAO sportsFacilityDAO = (SportsFacilityDAO) ctx.getAttribute("sportsFacilityDAO");
+			ctx.setAttribute("userDAO", new UserDAO(contextPath, sportsFacilityDAO.getAllFacilities()));
 		}
 	}
 	

@@ -15,6 +15,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.StringTokenizer;
 
+import javax.servlet.ServletContext;
+import javax.ws.rs.core.Context;
+
+import beans.SportsFacility;
+import beans.Subscription;
 import beans.User;
 import enums.FacilityType;
 import enums.TipKupca;
@@ -29,19 +34,19 @@ import enums.Uloga;
  *
  */
 public class UserDAO {
-	public static Map<String, User> users = new HashMap<>();
+	public Map<String, User> users = new HashMap<>();
 	private String path; //tatjana path
+	public Collection<SportsFacility> facilities1;
+	//public Map<String, Subscription> subs1 = SubscriptionDAO.subscriptions;
 	
-	
-	public UserDAO() {
-		
-	}
 	
 	/***
 	 * @param contextPath Putanja do aplikacije u Tomcatu. Mo�e se pristupiti samo iz servleta.
 	 */
-	public UserDAO(String contextPath) {
+	public UserDAO(String contextPath, Map<String, SportsFacility> map) {
+		facilities1 = map.values();
 		loadUsers(contextPath);
+		//path = "/Users/tatjanagemovic/Desktop/Web-projekat/WebShopREST/WebContent/users.txt"; 
 		path = "C:/Users/User/Desktop/Web Projekat/Web-projekat/WebShopREST/WebContent/users.txt";
 	}
 	
@@ -77,10 +82,15 @@ public class UserDAO {
 	public Collection<User> getAvailableManagers(){
 		Collection<User> availableManagers = new ArrayList<User>();
 		for(User current : users.values()) {
-			if(current.getSportskiObjekat().equals("_") && current.getUloga()==Uloga.Menadzer)
+			if(current.getUloga()==Uloga.Menadzer && current.getFacilityId().equals("nema"))
 				availableManagers.add(current);
 		}
 		return availableManagers;
+	}
+
+
+	public Map<String, User> getAllUsers(){
+		return users;
 	}
 	
 	public User save(User user) {
@@ -89,14 +99,26 @@ public class UserDAO {
 		return user;
 	}
 	
-	private void saveUsers()  {
+	public void saveUsers()  {
 		PrintWriter out = null;
 		try {
 			FileWriter w = new FileWriter(path);
 			for(User u : users.values()) {
 				String st = u.getFirstName()+";"+u.getLastName()+";"+u.getGender()+";"+u.getBirthDate()+";"+u.getUsername()
-				+";"+u.getPassword()+";"+u.getUloga()+";"+u.getIstorijaTreninga()+";"+u.getClanarina()+";"+u.getSportskiObjekat()
+				+";"+u.getPassword()+";"+u.getUloga()+";"+u.getIstorijaTreninga()
 				+";"+u.getPoseceniObjekti()+";"+u.getSakupljeniBodovi()+";"+u.getTipKupca();
+				if(u.getClanarina() != null) {
+					st += ";"+u.getClanarina().getId();
+				}else {
+					st += ";null";	
+				}
+				st += ";"+u.getFacilityId();
+				/*
+				if(u.getSportskiObjekat() != null) {
+					st += ";"+u.getSportskiObjekat().getName();
+				}else {
+					st += ";null";
+				}*/
 				w.append(st);
 				w.append(System.lineSeparator());
 			}
@@ -152,8 +174,6 @@ public class UserDAO {
 						break;
 					}
 					String istTreninga = st.nextToken().trim();
-					int clanarina = Integer.parseInt(st.nextToken().trim());
-					String sportskiObjekat = st.nextToken().trim();
 					String poseceniObjekti = st.nextToken().trim();
 					int bodovi = Integer.parseInt(st.nextToken().trim());
 					String tip = st.nextToken().trim();
@@ -164,7 +184,13 @@ public class UserDAO {
 						t = TipKupca.Srebrni;
 					else
 						t = TipKupca.Bronzani;
-					users.put(username, new User(firstName, lastName, gender, birthDate, username, password, u, istTreninga, clanarina, sportskiObjekat, poseceniObjekti, bodovi, t));
+					
+					String subsId = st.nextToken().trim();
+					Subscription clanarina = null;
+					String sportskiObjekatId = st.nextToken().trim();
+					SportsFacility facility = findByName(sportskiObjekatId);
+					
+					users.put(username, new User(firstName, lastName, gender, birthDate, username, password, u, istTreninga, clanarina, facility, poseceniObjekti, bodovi, t, sportskiObjekatId));
 				}
 				
 			}
@@ -182,7 +208,19 @@ public class UserDAO {
 
 	public User change(User user) {
 		users.put(user.getUsername(), user);
+		saveUsers();
 		return user;
+	}
+	
+	public SportsFacility findByName(String name) {
+		SportsFacility facility =null;
+		for(SportsFacility s : facilities1) {
+			if(s.getName().equals(name)) {
+				facility = s;
+				return facility;
+			}
+		}
+		return null;
 	}
 	
 }

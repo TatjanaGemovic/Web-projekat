@@ -3,9 +3,10 @@ Vue.component("addUser", {
 		    return {
 			user: null,
 			newUser: { firstName:null, lastName:null, gender:null, birthDate:null, username:null, password:null,
-			uloga: null, istorijaTreninga: null, clanarina: 0, sportskiObjekat: null, poseceniObjekti: null, sakupljeniBodovi: 0, tipKupca: null},
+			uloga: null, istorijaTreninga: null, clanarina: null, sportskiObjekat: null, poseceniObjekti: null, sakupljeniBodovi: 0, tipKupca: null},
 			gender: null,
-			users: null
+			users: null,
+			error: ''
 		    }
 	},
 template: ` 

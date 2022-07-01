@@ -3,6 +3,8 @@ package dao;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -17,6 +19,7 @@ import enums.FacilityType;
 
 public class SportsFacilityDAO {
 	private Map<String, SportsFacility> facilities = new HashMap<>();
+	private String path;
 	
 	public SportsFacilityDAO() {
 		
@@ -24,6 +27,8 @@ public class SportsFacilityDAO {
 	
 	public SportsFacilityDAO(String contextPath) {
 		loadFacilities(contextPath);
+		path = "C:/Users/User/Desktop/Web Projekat/Web-projekat/WebShopREST/WebContent/facilities.txt";
+
 	}
 	
 	public SportsFacility findByName(String name) {
@@ -39,9 +44,40 @@ public class SportsFacilityDAO {
 		return facilities.values();
 	}
 	
+	public Map<String, SportsFacility> getAllFacilities(){
+		return facilities;
+	}
+	
 	public SportsFacility save(SportsFacility facility) {
 		facilities.put(facility.getName(), facility);
+		saveFacilities();
 		return facility;
+	}
+	
+	private void saveFacilities()  {
+		PrintWriter out = null;
+		try {
+			FileWriter w = new FileWriter(path);
+			for(SportsFacility s: facilities.values()) {
+				Location location = s.getLocation();
+				String locationStr = location.getLatitude()+","+location.getLongitude()+","+location.getAddress();
+				String st = s.getName()+";"+locationStr+";"+s.getOffer()+";"+s.getType()+";"+s.getStatus()+";"+s.getRating()
+				+";"+s.getWorkingHours()+";"+s.getImageURI();
+				w.append(st);
+				w.append(System.lineSeparator());
+			}
+			w.flush();
+			w.close();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			if (out != null) {
+				try {
+					out.close();
+				}
+				catch (Exception e) { }
+			}
+		}
 	}
 	
 	private void loadFacilities(String contextPath) {
