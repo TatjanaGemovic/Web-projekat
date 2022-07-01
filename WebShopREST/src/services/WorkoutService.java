@@ -14,6 +14,7 @@ import javax.ws.rs.core.MediaType;
 
 import beans.User;
 import beans.Workout;
+import dao.SportsFacilityDAO;
 import dao.UserDAO;
 import dao.WorkoutDAO;
 import enums.Uloga;
@@ -35,7 +36,9 @@ public class WorkoutService {
 		// Inicijalizacija treba da se obavi samo jednom
 		if (ctx.getAttribute("workoutDAO") == null) {
 	    	String contextPath = ctx.getRealPath("");
-			ctx.setAttribute("workoutDAO", new WorkoutDAO(contextPath));
+	    	UserDAO userDao = (UserDAO) ctx.getAttribute("userDAO");
+	    	SportsFacilityDAO sportsFacilityDAO = (SportsFacilityDAO) ctx.getAttribute("sportsFacilityDAO");
+			ctx.setAttribute("workoutDAO", new WorkoutDAO(contextPath, userDao.getAllUsers(), sportsFacilityDAO.getAllFacilities()));
 		}
 	}
 	

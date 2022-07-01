@@ -1,11 +1,13 @@
-Pera;Peric;musko;2020-06-05;pera;pera;Kupac;nema;nema;nema;0;Bronzani;null
-Marko;Markovic;musko;2022-07-08;maki;maki;Trener;nema;nema;nema;0;Bronzani;null
-Nikola;Nikolic;musko;2022-07-08;nik;nik;Menadzer;nema;nema;nema;0;Bronzani;null
-gema;gema;zensko;2022-07-08;gema;gema;Trener;null;null;null;0;Bronzani;null
-Nina;Jankovic;zensko;2022-07-08;jaki;jaki;Kupac;nema;nema;nema;0;Bronzani;null
-p;p;musko;2022-07-08;peraa;pera;Menadzer;null;null;null;0;Bronzani;null
-Jovana;Jovanovic;zensko;2022-07-08;jovana;jovana;Trener;nema;nema;nema;0;Bronzani;null
-Nemanja;Mihic;musko;2022-07-08;nem;nem;Menadzer;null;null;null;0;Bronzani;null
-Vuk;Petrovic;musko;2022-07-08;vuk;vuk;Trener;nema;nema;nema;0;Bronzani;null
-Aleksandra;Aleksica;zensko;2022-07-08;aki;aki;Kupac;nema;nema;nema;0;Bronzani;null
-Stojanka;Novakovic;zensko;2022-07-08;stoja;stoja;Administrator;nema;nema;nema;0;Bronzani;null
+Marko;Markovic;musko;2022-07-08;maki;maki;Trener;nema;nema;0;Bronzani;null;null
+gema;gema;zensko;2022-07-08;gema;gema;Trener;null;null;0;Bronzani;null;null
+Nina;Jankovic;zensko;2022-07-08;jaki;jaki;Kupac;nema;nema;0;Bronzani;null;null
+p;p;musko;2022-07-08;peraa;pera;Menadzer;null;null;0;Bronzani;null;null
+Vuk;Petrovic;musko;2022-07-08;vuk;vuk;Trener;nema;nema;0;Bronzani;null;null
+Stojanka;Novakovic;zensko;2022-07-08;stoja;stoja;Administrator;nema;nema;0;Bronzani;null;null
+Pera;Peric;musko;2020-06-05;pera;pera;Kupac;nema;nema;0;Bronzani;null;null
+Nikola;Nikolic;musko;2022-07-08;nik;nik;Menadzer;nema;nema;0;Bronzani;null;Teretana Sajam
+r;r;musko;null;r;r;Kupac;null;null;0;null;null;null
+u;u;musko;null;u;u;Kupac;null;null;0;Bronzani;null;null
+Jovana;Jovanovic;zensko;2022-07-08;jovana;jovana;Trener;nema;nema;0;Bronzani;null;null
+Nemanja;Mihic;musko;2022-07-08;nem;nem;Menadzer;null;null;0;Bronzani;null;null
+Aleksandra;Aleksica;zensko;2022-07-08;aki;aki;Kupac;nema;nema;0;Bronzani;null;null

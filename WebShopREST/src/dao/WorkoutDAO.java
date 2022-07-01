@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.StringTokenizer;
 
+import beans.SportsFacility;
 import beans.Subscription;
 import beans.User;
 import beans.Workout;
@@ -21,15 +22,15 @@ public class WorkoutDAO {
 
 	public Map<String, Workout> workouts = new HashMap<>();
 	private String path; //tatjana path
-	
-	public WorkoutDAO() {
-		
-	}
+	public Collection<User> users1;
+	public Collection<SportsFacility> facilities1;
 	
 	/***
 	 * @param contextPath Putanja do aplikacije u Tomcatu. Mo�e se pristupiti samo iz servleta.
 	 */
-	public WorkoutDAO(String contextPath) {
+	public WorkoutDAO(String contextPath, Map<String, User> map, Map<String, SportsFacility> map2) {
+		users1 = map.values();
+		facilities1 = map2.values();
 		loadWorkouts(contextPath);
 		path = "/Users/tatjanagemovic/Desktop/Web-projekat/WebShopREST/WebContent/workouts.txt";
 	}
@@ -53,8 +54,13 @@ public class WorkoutDAO {
 		try {
 			FileWriter w = new FileWriter(path);
 			for(Workout u : workouts.values()) {
-				String st = u.getNaziv()+";"+u.getWorkoutType()+";"+"null"+";"+u.getTrajanje()+";"+"null"
-				+";"+u.getOpis()+";"+u.getImageURI();
+				String st = u.getNaziv()+";"+u.getWorkoutType()+";"+u.getTrajanje()
+				+";"+u.getOpis()+";"+u.getImageURI()+";"+u.getFacility().getName();
+				if(u.getTrener() != null) {
+					st += ";"+u.getTrener().getUsername();
+				}else {
+					st += ";null";
+				}
 				w.append(st);
 				w.append(System.lineSeparator());
 			}
@@ -106,14 +112,16 @@ public class WorkoutDAO {
 					case "Personal": t = WorkoutType.Personal;
 						break;
 					}
-					
-					String sportFacility = st.nextToken().trim();
+
 					String trajanje = st.nextToken().trim();
-					String trener = st.nextToken().trim();
 					String opis = st.nextToken().trim();
 					String slika = st.nextToken().trim();
-
-					workouts.put(naziv, new Workout(naziv, t, null, trajanje, null, opis, slika));
+					String sportFacility = st.nextToken().trim();
+					SportsFacility facility = findByName(sportFacility);
+					String trener = st.nextToken().trim();
+					User coach = findByUsername(trener);
+					
+					workouts.put(naziv, new Workout(naziv, t, facility, trajanje, coach, opis, slika));
 				}
 				
 			}
@@ -127,5 +135,27 @@ public class WorkoutDAO {
 				catch (Exception e) { }
 			}
 		}
+	}
+	
+	public User findByUsername(String username) {
+		User user=null;
+		for(User u : users1) {
+			if(u.getUsername().equals(username)) {
+				user = u;
+				return user;
+			}
+		}
+		return null;
+	}
+	
+	public SportsFacility findByName(String name) {
+		SportsFacility facility =null;
+		for(SportsFacility s : facilities1) {
+			if(s.getName().equals(name)) {
+				facility = s;
+				return facility;
+			}
+		}
+		return null;
 	}
 }

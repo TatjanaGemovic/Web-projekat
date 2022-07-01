@@ -39,6 +39,10 @@ public class SportsFacilityDAO {
 		return facilities.values();
 	}
 	
+	public Map<String, SportsFacility> getAllFacilities(){
+		return facilities;
+	}
+	
 	public SportsFacility save(SportsFacility facility) {
 		facilities.put(facility.getName(), facility);
 		return facility;

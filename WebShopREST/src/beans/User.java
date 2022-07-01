@@ -17,7 +17,8 @@ public class User implements Serializable {
 	private String istorijaTreninga;
 	private Subscription clanarina;
 	private String SubsId;
-	private String sportskiObjekat;
+	private SportsFacility sportskiObjekat;
+	private String FacilityId;
 	private String poseceniObjekti;
 	private int sakupljeniBodovi;
 	private TipKupca tipKupca;
@@ -26,7 +27,7 @@ public class User implements Serializable {
 	}
 
 	public User(String firstName, String lastName, String gender, String birthDate, String username, String password,
-			Uloga uloga, String istorijaTreninga, Subscription clanarina, String sportskiObjekat, String poseceniObjekti,
+			Uloga uloga, String istorijaTreninga, Subscription clanarina, SportsFacility sportskiObjekat, String poseceniObjekti,
 			int sakupljeniBodovi, TipKupca tipKupca) {
 		super();
 		this.firstName = firstName;
@@ -44,6 +45,14 @@ public class User implements Serializable {
 		this.tipKupca = tipKupca;
 	}
 	
+
+	public String getFacilityId() {
+		return FacilityId;
+	}
+
+	public void setFacilityId(String facilityId) {
+		FacilityId = facilityId;
+	}
 
 	public String getSubsId() {
 		return SubsId;
@@ -77,11 +86,11 @@ public class User implements Serializable {
 		this.clanarina = clanarina;
 	}
 
-	public String getSportskiObjekat() {
+	public SportsFacility getSportskiObjekat() {
 		return sportskiObjekat;
 	}
 
-	public void setSportskiObjekat(String sportskiObjekat) {
+	public void setSportskiObjekat(SportsFacility sportskiObjekat) {
 		this.sportskiObjekat = sportskiObjekat;
 	}
 
