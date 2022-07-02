@@ -33,7 +33,9 @@ public class WorkoutDAO {
 		users1 = map.values();
 		facilities1 = map2.values();
 		loadWorkouts(contextPath);
-		path = "/Users/tatjanagemovic/Desktop/Web-projekat/WebShopREST/WebContent/workouts.txt";
+		//path = "/Users/tatjanagemovic/Desktop/Web-projekat/WebShopREST/WebContent/workouts.txt";
+		path = "C:/Users/User/Desktop/Web Projekat/Web-projekat/WebShopREST/WebContent/workouts.txt";
+
 	}
 	
 	public Collection<Workout> findAll() {
