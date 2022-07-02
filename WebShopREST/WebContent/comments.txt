@@ -1,3 +1,4 @@
-maki;Bazen Sole Mio;moze bolje;3
-jaki;Bazen Sole Mio;top;2
-jovana;Bazen Sole Mio;bullshit;4
+pera;Bazen Sole Mio;top;2
+jaki;Bazen Sole Mio;okej bazen samo sto je na klisi;2
+jaki;Teretana Sajam;solidna teretana;4
+aki;Bazen Sole Mio;bullshit;4
