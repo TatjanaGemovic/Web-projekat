@@ -33,7 +33,9 @@ public PromoCodeDAO() {
 	 */
 	public PromoCodeDAO(String contextPath) {
 		loadCodes(contextPath);
-		path = "/Users/tatjanagemovic/Desktop/Web-projekat/WebShopREST/WebContent/codes.txt";
+		//path = "/Users/tatjanagemovic/Desktop/Web-projekat/WebShopREST/WebContent/codes.txt";
+		path = "C:/Users/User/Desktop/Web Projekat/Web-projekat/WebShopREST/WebContent/codes.txt";
+
 	}
 	
 	public PromoCode save(PromoCode code) {

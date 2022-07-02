@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -32,7 +33,9 @@ public class WorkoutDAO {
 		users1 = map.values();
 		facilities1 = map2.values();
 		loadWorkouts(contextPath);
-		path = "/Users/tatjanagemovic/Desktop/Web-projekat/WebShopREST/WebContent/workouts.txt";
+		//path = "/Users/tatjanagemovic/Desktop/Web-projekat/WebShopREST/WebContent/workouts.txt";
+		path = "C:/Users/User/Desktop/Web Projekat/Web-projekat/WebShopREST/WebContent/workouts.txt";
+
 	}
 	
 	public Collection<Workout> findAll() {
@@ -157,5 +160,16 @@ public class WorkoutDAO {
 			}
 		}
 		return null;
+	}
+
+	public Collection<Workout> findAllWorkoutsForFacility(String name) {
+		Collection<Workout> wrks = new ArrayList<Workout>();
+		name = name.replaceAll("_", " ");
+		for(Workout w : workouts.values()) {
+			if(w.getFacility().getName().equals(name)) {
+				wrks.add(w);
+			}
+		}
+		return wrks;
 	}
 }

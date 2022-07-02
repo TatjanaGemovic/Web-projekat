@@ -11,9 +11,9 @@ public class SportsFacility {
 	private double rating;
 	private String workingHours;
 	private String imageURI;
-	public SportsFacility() {
-		
-	}
+	
+	public SportsFacility() {}
+	
 	public SportsFacility(String name, Location location, String offer, FacilityType type, boolean status, double rating,
 			String workingHours, String imageURI) {
 		super();

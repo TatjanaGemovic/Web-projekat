@@ -4,7 +4,8 @@ Vue.component("showFacilityForCustomer", {
 		      facilityName : "",
 		      facility : null,
 		      user: null,
-		      workouts: null
+		      workouts: null,
+		      workoutHistory: {id: null, vremePrijave: null, workout: null, kupac: null, trener: null}
 		    }
 	},
 	template: ` 
@@ -79,11 +80,12 @@ Vue.component("showFacilityForCustomer", {
 	</div>
 	<div>
 		<div class="row justify-content-center" style="margin-top: 5%">
-		<div v-for="workkut in workouts" class="col-md-2 card m-2"> 
+		<div v-for="w in workouts" class="col-md-2 card m-2"> 
 			<div class="card-body">
 				<p class="card-title" style="font-weight: bold; font-size: 20px">{{w.naziv}}</p>
 				<p class="card-text">{{w.workoutType}}</p>
 				<p class="card-text">{{w.trajanje}}</p>
+				<button class="loginButton" v-on:click="JoinWorkout(w)">Join</button>
 			</div>
 		</div>
 	</div>
@@ -93,15 +95,14 @@ Vue.component("showFacilityForCustomer", {
     	`,
     mounted() {
 		this.facilityName = this.$route.params.name;
-		axios
-			.get('rest/facilities/' +  this.facilityName)
+		axios.get('rest/facilities/' +  this.facilityName)
 			.then(response => (this.facility = response.data)
 			),
 		axios.get('rest/currentUser')
 			.then((response) => {
 				this.user = response.data;
 			}),
-		axios.get('rest/workout/allWorkouts')
+		axios.get('rest/workout/allWorkoutsForFacility/' + this.facilityName)
 			.then((response) => {
 				this.workouts = response.data;
 			})
@@ -125,5 +126,14 @@ Vue.component("showFacilityForCustomer", {
 			event.preventDefault();
 			router.push(`/startpage`);
 		},
+		JoinWorkout: function(workout) {
+			event.preventDefault();
+			this.workoutHistory.workout = workout;
+			this.workoutHistory.kupac = this.user;
+			axios.post('rest/workoutHistory/addWorkoutHistory/', this.workoutHistory)
+						.then((response) => {
+							alert('Uspesno dodat novi trening')
+						})
+		}
     }
 });

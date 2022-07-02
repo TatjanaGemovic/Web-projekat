@@ -8,6 +8,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
@@ -48,6 +49,14 @@ public class WorkoutService {
 	public Collection<Workout> getAll() {
 		WorkoutDAO workoutDAO = (WorkoutDAO) ctx.getAttribute("workoutDAO");
 		return workoutDAO.findAll();
+	}
+	
+	@GET
+	@Path("/allWorkoutsForFacility/{name}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Collection<Workout> getAllWorkoutsForFacility(@PathParam("name") String name) {
+		WorkoutDAO workoutDAO = (WorkoutDAO) ctx.getAttribute("workoutDAO");
+		return workoutDAO.findAllWorkoutsForFacility(name);
 	}
 	
 	@POST
