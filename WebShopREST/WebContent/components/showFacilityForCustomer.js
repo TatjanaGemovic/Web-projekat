@@ -4,7 +4,8 @@ Vue.component("showFacilityForCustomer", {
 		      facilityName : "",
 		      facility : null,
 		      user: null,
-		      workouts: null
+		      workouts: null,
+		      workoutHistory: {id: null, vremePrijave: null, workout: null, kupac: null, trener: null}
 		    }
 	},
 	template: ` 
@@ -84,7 +85,7 @@ Vue.component("showFacilityForCustomer", {
 				<p class="card-title" style="font-weight: bold; font-size: 20px">{{w.naziv}}</p>
 				<p class="card-text">{{w.workoutType}}</p>
 				<p class="card-text">{{w.trajanje}}</p>
-				<button class="loginButton">Join</button>
+				<button class="loginButton" v-on:click="JoinWorkout(w)">Join</button>
 			</div>
 		</div>
 	</div>
@@ -125,5 +126,14 @@ Vue.component("showFacilityForCustomer", {
 			event.preventDefault();
 			router.push(`/startpage`);
 		},
+		JoinWorkout: function(workout) {
+			event.preventDefault();
+			this.workoutHistory.workout = workout;
+			this.workoutHistory.kupac = this.user;
+			axios.post('rest/workoutHistory/addWorkoutHistory/', this.workoutHistory)
+						.then((response) => {
+							alert('Uspesno dodat novi trening')
+						})
+		}
     }
 });
