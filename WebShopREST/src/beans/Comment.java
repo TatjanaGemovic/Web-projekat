@@ -5,6 +5,9 @@ public class Comment {
 	private String sportsFacility;
 	private String comment;
 	private int mark;
+	
+	public Comment() {}
+	
 	public String getUser() {
 		return user;
 	}

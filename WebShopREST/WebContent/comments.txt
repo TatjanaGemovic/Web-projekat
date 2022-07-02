@@ -1,3 +1,6 @@
-maki;Bazen Sole Mio;moze bolje;3
 jaki;Bazen Sole Mio;top;2
+maki;Bazen Sole Mio;moze bolje;3
 jovana;Bazen Sole Mio;bullshit;4
+pera;Bazen Klisa;evo sad konacno radi;0
+pera;Bazen Sole Mio;solidna prica;0
+pera;Teretana Sajam;sdfsdfds;0

@@ -78,6 +78,7 @@ Vue.component("showFacility", {
   </div>
 </div>
 <h2>Comments</h2>
+	
     <div class="row">
     	<div v-for="comment in comments" class="col-md-8 border-bottom-2">
     		<p class="fw-bold">{{comment.user}}</p>
@@ -111,16 +112,14 @@ Vue.component("showFacility", {
 		ProfilePage : function(){
 			event.preventDefault();
 			router.push(`/profile`);
-			//window.location.href = 'products.html';
 		},
 		Subscriptions : function(){
 			event.preventDefault();
 			router.push(`/subscriptionsOverview`);
-			//window.location.href = 'products.html';
 		},
 		StartPage : function(){
 			event.preventDefault();
 			router.push(`/startpage`);
-		},
+		}
     }
 });

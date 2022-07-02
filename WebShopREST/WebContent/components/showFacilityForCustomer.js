@@ -5,7 +5,11 @@ Vue.component("showFacilityForCustomer", {
 		      facility : null,
 		      user: null,
 		      workouts: null,
-		      workoutHistory: {id: null, vremePrijave: null, workout: null, kupac: null, trener: null}
+		      workoutHistory: {id: null, vremePrijave: null, workout: null, kupac: null, trener: null},
+		      comments: null,
+		      commentText: "",
+		      usersComment: {user: null, sportsFacility: null, comment: "", mark: 0},
+		      firstTimeHere: true
 		    }
 	},
 	template: ` 
@@ -90,6 +94,25 @@ Vue.component("showFacilityForCustomer", {
 		</div>
 	</div>
 	</div>
+	<h2>Comments</h2>
+	<div v-if="firstTimeHere" class="row border-bottom-2">
+		<div class="col-md-9">
+			<form>
+				<textarea class="form-control" v-model="commentText" rows="3"></textarea>
+			</form>
+		</div>
+		<div class="col-md-2">
+			<button class="btn btn-success" v-on:click="PostComment">Post</button>
+			<button class="btn btn-danger" v-on:click="ClearForm">Cancel</button>
+		</div>
+	</div>
+    <div class="row">
+    	<div v-for="comment in comments" class="col-md-8 border-bottom-2">
+    		<p class="fw-bold">{{comment.user}}</p>
+    		<p class="ps-3">{{comment.comment}}</p>
+    		<p class="fw-bold">Rated: {{comment.mark}}/5</p>
+    	</div>
+    </div>
 	</body>
 </div>		  
     	`,
@@ -101,11 +124,16 @@ Vue.component("showFacilityForCustomer", {
 		axios.get('rest/currentUser')
 			.then((response) => {
 				this.user = response.data;
+				//ovde proveriti na osnovu istorije trenigna da li je bio nekad pre, ako nije onda firstTimeHere ostaje true
 			}),
 		axios.get('rest/workout/allWorkoutsForFacility/' + this.facilityName)
 			.then((response) => {
 				this.workouts = response.data;
 			})
+		axios
+			.get('rest/comments/commentsByFacility/' +  this.facilityName)
+			.then(response => (this.comments = response.data)
+		)
 	},
     methods: {
     	LogOut : function(event){
@@ -134,6 +162,21 @@ Vue.component("showFacilityForCustomer", {
 						.then((response) => {
 							alert('Uspesno dodat novi trening')
 						})
+		},
+		PostComment : function(){
+			this.usersComment.user = this.user.username;
+			this.usersComment.sportsFacility = this.facility.name;
+			this.usersComment.comment = this.commentText;
+			axios.post('rest/comments/addComment/', this.usersComment)
+				.then((response) => {
+					alert('Comment posted')			
+					this.comments.push(this.usersComment);
+					this.commentText = "";
+			})
+			
+		},
+		ClearForm : function(){
+			this.commentText = "";
 		}
     }
 });
