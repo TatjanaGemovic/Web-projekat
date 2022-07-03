@@ -59,4 +59,12 @@ public class CommentService {
 		CommentDAO commentDAO = (CommentDAO) ctx.getAttribute("commentDAO");
 		return commentDAO.save(comment);
 	}
+	
+	@GET
+	@Path("/hasPendingComments")
+	@Produces(MediaType.APPLICATION_JSON)
+	public boolean hasPendingComments() {
+		CommentDAO commentDAO = (CommentDAO) ctx.getAttribute("commentDAO");
+		return commentDAO.hasPendingComments();
+	}
 }

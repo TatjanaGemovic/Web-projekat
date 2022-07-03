@@ -1,6 +1,8 @@
-jaki;Bazen Sole Mio;top;2
-maki;Bazen Sole Mio;moze bolje;3
-jovana;Bazen Sole Mio;bullshit;4
-pera;Bazen Klisa;evo sad konacno radi;0
-pera;Bazen Sole Mio;solidna prica;0
-pera;Teretana Sajam;sdfsdfds;0
+jaki;Bazen Sole Mio;top;2;approved
+maki;Bazen Sole Mio;moze bolje;3;pending
+jovana;Bazen Sole Mio;bullshit;4;approved
+pera;Bazen Klisa;solidno je;3;approved
+jaki;Bazen Klisa;okej;4;disapproved
+pera;Bazen Sole Mio;solidna prica;0;disapproved
+pera;Teretana Sajam;aj da vidimo jel radi;3;pending
+r;Bazen Klisa;odlican bazen;5;approved

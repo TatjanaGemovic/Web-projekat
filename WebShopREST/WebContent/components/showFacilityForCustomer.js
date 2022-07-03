@@ -7,8 +7,10 @@ Vue.component("showFacilityForCustomer", {
 		      workouts: null,
 		      workoutHistory: {id: null, vremePrijave: null, workout: null, kupac: null, trener: null},
 		      comments: null,
+		      commentsToShow: [],
 		      commentText: "",
-		      usersComment: {user: null, sportsFacility: null, comment: "", mark: 0},
+		      rating: 0,
+		      usersComment: {user: null, sportsFacility: null, comment: "", mark: 0, status: "pending"},
 		      firstTimeHere: true
 		    }
 	},
@@ -43,7 +45,7 @@ Vue.component("showFacilityForCustomer", {
 		          <a class="nav-link" v-on:click="ProfilePage" href="#">Profil</a>
 		        </li>
 		        <li class="nav-item">
-			      <button class="nav-link" class="loginButton" v-on:click="LogOut" style="width: 120px; margin-left: 20px">Log out</button>
+			      <button class="loginButton" v-on:click="LogOut" style="width: 120px; margin-left: 20px">Log out</button>
 		        </li>
 		      </ul>
 		    </div>
@@ -96,10 +98,19 @@ Vue.component("showFacilityForCustomer", {
 	</div>
 	<h2>Comments</h2>
 	<div v-if="firstTimeHere" class="row border-bottom-2">
-		<div class="col-md-9">
+		<div class="col-md-7">
 			<form>
 				<textarea class="form-control" v-model="commentText" rows="3"></textarea>
 			</form>
+		</div>
+		<div class="col-md-3">
+			<div class="rating">
+  				<input v-on:change="ratingChanged($event)" type="radio" name="rating" value="5" id="5"><label for="5">&#10025;</label>
+  				<input v-on:change="ratingChanged($event)" type="radio" name="rating" value="4" id="4"><label for="4">&#10025;</label>
+  				<input v-on:change="ratingChanged($event)" type="radio" name="rating" value="3" id="3"><label for="3">&#10025;</label>
+  				<input v-on:change="ratingChanged($event)" type="radio" name="rating" value="2" id="2"><label for="2">&#10025;</label>
+  				<input v-on:change="ratingChanged($event)" type="radio" name="rating" value="1" id="1"><label for="1">&#10025;</label>
+			</div>
 		</div>
 		<div class="col-md-2">
 			<button class="btn btn-success" v-on:click="PostComment">Post</button>
@@ -107,7 +118,7 @@ Vue.component("showFacilityForCustomer", {
 		</div>
 	</div>
     <div class="row">
-    	<div v-for="comment in comments" class="col-md-8 border-bottom-2">
+    	<div v-for="comment in commentsToShow" class="col-md-8 border-bottom-2">
     		<p class="fw-bold">{{comment.user}}</p>
     		<p class="ps-3">{{comment.comment}}</p>
     		<p class="fw-bold">Rated: {{comment.mark}}/5</p>
@@ -130,10 +141,15 @@ Vue.component("showFacilityForCustomer", {
 			.then((response) => {
 				this.workouts = response.data;
 			})
-		axios
-			.get('rest/comments/commentsByFacility/' +  this.facilityName)
-			.then(response => (this.comments = response.data)
-		)
+		axios.get('rest/comments/commentsByFacility/' +  this.facilityName)
+			.then((response) => {
+				this.comments = response.data;
+				
+				for(let i=0; i<this.comments.length; i++){
+					if(this.comments[i].status=="approved")
+						this.commentsToShow.push(this.comments[i]);
+				}
+			})
 	},
     methods: {
     	LogOut : function(event){
@@ -143,12 +159,10 @@ Vue.component("showFacilityForCustomer", {
 		ProfilePage : function(){
 			event.preventDefault();
 			router.push(`/profile`);
-			//window.location.href = 'products.html';
 		},
 		Subscriptions : function(){
 			event.preventDefault();
 			router.push(`/subscriptionsOverview`);
-			//window.location.href = 'products.html';
 		},
 		StartPage : function(){
 			event.preventDefault();
@@ -167,16 +181,34 @@ Vue.component("showFacilityForCustomer", {
 			this.usersComment.user = this.user.username;
 			this.usersComment.sportsFacility = this.facility.name;
 			this.usersComment.comment = this.commentText;
+			this.usersComment.mark = this.rating;
+			
+			//this.comments.push(this.usersComment);
+			this.commentText = "";
 			axios.post('rest/comments/addComment/', this.usersComment)
 				.then((response) => {
-					alert('Comment posted')			
-					this.comments.push(this.usersComment);
-					this.commentText = "";
-			})
-			
+					alert('Comment sent for review')			
+					
+			});
+			/*let count = 0;
+			let average = 0;
+			for(let i = 0; i<this.comments.length; i++){
+				if(this.comments[i].mark!=0){
+					count++;
+					average += parseInt(this.comments[i].mark);
+				}
+			}
+			this.facility.rating = average/count;
+			axios.post('rest/facilities/add/', this.facility)
+				.then((response) => {
+				})*/
 		},
 		ClearForm : function(){
 			this.commentText = "";
+		},
+		
+		ratingChanged : function(event){
+			this.rating = event.target.value;
 		}
     }
 });
