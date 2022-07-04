@@ -61,10 +61,20 @@ public class CommentService {
 	}
 	
 	@GET
-	@Path("/hasPendingComments")
+	@Path("/getAllPendingComments")
 	@Produces(MediaType.APPLICATION_JSON)
-	public boolean hasPendingComments() {
+	public Collection<Comment> getPendingComments() {
 		CommentDAO commentDAO = (CommentDAO) ctx.getAttribute("commentDAO");
-		return commentDAO.hasPendingComments();
+		return commentDAO.getPendingComments();
 	}
+	
+	@POST
+	@Path("/updatePendingComments/")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Collection<Comment> updatePendingComments(Collection<Comment> comments) {
+		CommentDAO commentDAO = (CommentDAO) ctx.getAttribute("commentDAO");
+		return commentDAO.updatePending(comments);
+	}
+	
 }

@@ -76,12 +76,21 @@ public class CommentDAO {
 		return comment;
 	}
 	
-	public boolean hasPendingComments() {
+	public Collection<Comment> getPendingComments() {
+		Collection<Comment> pendingComments = new ArrayList<Comment>();
 		for(Comment current : comments.values()) {
 			if(current.getStatus().equals("pending"))
-				return true;
+				pendingComments.add(current);
 		}
-		return false;
+		return pendingComments;
+	}
+	
+	public Collection<Comment> updatePending(Collection<Comment> pendingComments){
+		for(Comment c : pendingComments) {
+			comments.put(c.getUser()+c.getSportsFacility(), c);
+		}
+		saveComments();
+		return pendingComments;
 	}
 	
 	private void saveComments()  {

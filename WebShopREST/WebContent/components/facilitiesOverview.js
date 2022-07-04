@@ -10,7 +10,7 @@ Vue.component("startpage", {
 		      user: null,
 		      uloga: null,
 		      promoCode: {oznaka: null, period:null, brojIskoriscenih: 0, popust: 0.0, trajanje: 0},
-		      showAlert: false
+		      showAlert: true
 		    }
 	},
 template: ` 
@@ -139,12 +139,12 @@ template: `
   </div>
 </div>
 	</section>
-	<div class="alert alert-primary alert-dismissible fade show shadow-primary" role="alert" data-tor-parent="hover" data-tor="hover:shadow(sm)">
+	<div v-if="showAlert" class="alert alert-primary alert-dismissible fade show shadow-primary" role="alert" data-tor-parent="hover" data-tor="hover:shadow(sm)">
  		<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-left-text" viewBox="0 0 16 16">
   			<path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
   			<path d="M3 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM3 6a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 6zm0 2.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z"/>
 		</svg>
-  		<div>There are comments that need to be reviewed!<a v-on:click="GoToPendingComments">Click here</a> to see pending comments
+  		<div>There are comments that need to be reviewed! <a class="text-decoration-underline" v-on:click="GoToPendingComments">Click here</a> to see pending comments
   		</div>
   		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" data-tor="hover(p):[fade.in rotate.from(180deg)]"></button>
 	</div>
@@ -266,10 +266,13 @@ template: `
 				this.user = response.data;
 				this.uloga = this.user.uloga2;
 			})	
-			
-		axios.get('rest/comments/hasPendingComments')
+		//srediti ovo i alert u template (bez alert vec samo link u navbar?)
+		if(this.user.uloga=="Administrator"){
+			axios.get('rest/comments/hasPendingComments')
 			.then((response) => {
 				this.showAlert = response.data;
-			})
+			})	
+		}	
+		
 	}
 });
