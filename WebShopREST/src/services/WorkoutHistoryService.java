@@ -1,6 +1,7 @@
 package services;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 
 import javax.annotation.PostConstruct;
@@ -66,7 +67,10 @@ public class WorkoutHistoryService {
 	public WorkoutHistory newWorkoutHistory(WorkoutHistory workout) {
 		WorkoutHistoryDAO workoutHistoryDAO = (WorkoutHistoryDAO) ctx.getAttribute("workoutHistoryDAO");
 		workout.setId("1");
-		workout.setVremePrijave(LocalDateTime.now());
+		LocalDateTime now = LocalDateTime.now();  
+		DateTimeFormatter format = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
+		workout.setVremePrijave(format.format(now));
+		workout.setTrener(workout.getWorkout().getTrener());
 		return workoutHistoryDAO.save(workout);
 	}
 }
