@@ -5,13 +5,15 @@ Vue.component("showFacilityForCustomer", {
 		      facility : null,
 		      user: null,
 		      workouts: null,
-		      workoutHistory: {id: null, vremePrijave: null, workout: null, kupac: null, trener: null},
 		      comments: null,
 		      commentsToShow: [],
 		      commentText: "",
 		      rating: 0,
 		      usersComment: {user: null, sportsFacility: null, comment: "", mark: 0, status: "pending"},
-		      firstTimeHere: true
+		      firstTimeHere: true,
+		      subscription: null,  
+		      error: '',
+		      workoutHistory: {id: null, vremePrijave: null, workout: null, kupac: null, trener: null}
 		    }
 	},
 	template: ` 
@@ -92,6 +94,7 @@ Vue.component("showFacilityForCustomer", {
 				<p class="card-text">{{w.workoutType}}</p>
 				<p class="card-text">{{w.trajanje}}</p>
 				<button class="loginButton" v-on:click="JoinWorkout(w)">Join</button>
+				<p style="padding-top: 5px;" id="error">{{error}}</p>
 			</div>
 		</div>
 	</div>
@@ -150,6 +153,7 @@ Vue.component("showFacilityForCustomer", {
 						this.commentsToShow.push(this.comments[i]);
 				}
 			})
+
 	},
     methods: {
     	LogOut : function(event){
@@ -170,12 +174,22 @@ Vue.component("showFacilityForCustomer", {
 		},
 		JoinWorkout: function(workout) {
 			event.preventDefault();
-			this.workoutHistory.workout = workout;
-			this.workoutHistory.kupac = this.user;
-			axios.post('rest/workoutHistory/addWorkoutHistory/', this.workoutHistory)
-						.then((response) => {
-							alert('Uspesno dodat novi trening')
-						})
+			this.error = "";
+			axios.get('rest/subscription/allActiveSubscriptionsForCustomer/' + this.user.username)
+				.then((response) => {
+					this.subscription = response.data;
+				})
+			if(this.subscription != null){
+				this.workoutHistory.workout = workout;
+				this.workoutHistory.kupac = this.user;
+				event.preventDefault();
+				axios.post('rest/workoutHistory/addWorkoutHistory/', this.workoutHistory)
+							.then((response) => {
+								alert('Uspesno dodat novi trening')
+							})
+			}else{
+				this.error = "Subscription expired or doesn't exists";
+			}	
 		},
 		PostComment : function(){
 			this.usersComment.user = this.user.username;
@@ -206,7 +220,6 @@ Vue.component("showFacilityForCustomer", {
 		ClearForm : function(){
 			this.commentText = "";
 		},
-		
 		ratingChanged : function(event){
 			this.rating = event.target.value;
 		}

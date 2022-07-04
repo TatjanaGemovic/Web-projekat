@@ -36,7 +36,6 @@ public class WorkoutHistory {
 		this.id = id;
 	}
 
-
 	public String getVremePrijave() {
 		return vremePrijave;
 	}

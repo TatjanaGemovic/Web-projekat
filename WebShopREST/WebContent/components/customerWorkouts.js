@@ -2,7 +2,8 @@ Vue.component("customerWorkouts", {
 	data: function () {
 		    return {
 		      user: null,
-		      workoutsHistory: null,
+		      workoutsHistory: [],
+		      workoutsHistory2: [],
 		      workouts: null
 		    }
 	},
@@ -70,13 +71,18 @@ template: `
 		axios.get('rest/workout/allWorkouts')
 			.then((response) => {
 				this.workouts = response.data;
-			}),
-		axios.get('rest/workoutHistory/allWorkoutsHistory')
+				this.ShowWorkouts()
+			})
+			
+	},
+    methods: {
+		ShowWorkouts : function(){
+			event.preventDefault();
+			axios.get('rest/workoutHistory/allWorkoutsHistoryForCustomer/'+ this.user.username)
 			.then((response) => {
 				this.workoutsHistory = response.data;
 			})
-	},
-    methods: {
+		},
 		LogOut : function(){
 			event.preventDefault();
 			router.push(`/`);
