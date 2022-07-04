@@ -26,6 +26,9 @@ Vue.component("showFacility", {
 		        <li class="nav-item">
 		          <a class="nav-link" href="#intro" v-on:click="StartPage">Pocetna</a>
 		        </li>
+		        <li class="nav-item" v-bind:hidden="this.user.uloga!='Menadzer'">
+		        	<a class="nav-link" href="#"  v-on:click="FacilityWorkouts">Treninzi u mom objektu</a>
+		        </li>
 		        <li class="nav-item" >
 		          <a class="nav-link" href="#" v-bind:hidden="this.user.uloga!='Kupac'">Treninzi</a>
 		          <a class="nav-link" href="#" v-bind:hidden="this.user.uloga!='Trener'">Treninzi</a>
@@ -128,6 +131,9 @@ Vue.component("showFacility", {
 		StartPage : function(){
 			event.preventDefault();
 			router.push(`/startpage`);
+		},
+		FacilityWorkouts : function(){
+			router.push(`/facilityWorkouts`);
 		}
     }
 });

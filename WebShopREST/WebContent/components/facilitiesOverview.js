@@ -32,6 +32,9 @@ template: `
 		        <li class="nav-item">
 		          <a class="nav-link active" aria-current="page" href="#intro">Pocetna</a>
 		        </li>
+		        <li class="nav-item" v-bind:hidden="this.user.uloga!='Menadzer'">
+		        	<a class="nav-link" href="#"  v-on:click="FacilityWorkouts">Treninzi u mom objektu</a>
+		        </li>
 		        <li class="nav-item" >
 		          <a class="nav-link" href="#" v-bind:hidden="this.user.uloga!='Kupac'" v-on:click="Workouts">Treninzi</a>
 		          <a class="nav-link" href="#" v-bind:hidden="this.user.uloga!='Trener'">Treninzi</a>
@@ -258,6 +261,9 @@ template: `
 		},
 		GoToPendingComments : function(){
 			router.push(`/pendingComments`);
+		},
+		FacilityWorkouts : function(){
+			router.push(`/facilityWorkouts`);
 		}
     },
     mounted() {
