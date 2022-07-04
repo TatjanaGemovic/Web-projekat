@@ -76,12 +76,30 @@ public class CommentDAO {
 		return comment;
 	}
 	
+	public Collection<Comment> getPendingComments() {
+		Collection<Comment> pendingComments = new ArrayList<Comment>();
+		for(Comment current : comments.values()) {
+			if(current.getStatus().equals("pending"))
+				pendingComments.add(current);
+		}
+		return pendingComments;
+	}
+	
+	public Collection<Comment> updatePending(Collection<Comment> pendingComments){
+		for(Comment c : pendingComments) {
+			comments.put(c.getUser()+c.getSportsFacility(), c);
+		}
+		saveComments();
+		return pendingComments;
+	}
+	
 	private void saveComments()  {
 		PrintWriter out = null;
 		try {
 			FileWriter w = new FileWriter(path);
 			for(Comment comment : comments.values()) {
-				String st = comment.getUser() +";"+comment.getSportsFacility()+";"+comment.getComment()+";"+comment.getMark();
+				String st = comment.getUser() +";"+comment.getSportsFacility()+";"
+				+comment.getComment()+";"+comment.getMark()+";"+comment.getStatus();
 				w.append(st);
 				w.append(System.lineSeparator());
 			}
@@ -121,8 +139,8 @@ public class CommentDAO {
 					String facility = st.nextToken().trim();
 					String comment = st.nextToken().trim();
 					String mark = st.nextToken().trim();
-					
-					comments.put(user+facility, new Comment(user,facility,comment,Integer.parseInt(mark)));
+					String status = st.nextToken().trim();
+					comments.put(user+facility, new Comment(user,facility,comment,Integer.parseInt(mark), status));
 				}
 				
 			}

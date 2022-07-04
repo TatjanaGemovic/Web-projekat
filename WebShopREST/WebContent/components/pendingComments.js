@@ -1,11 +1,9 @@
-Vue.component("showFacility", {
+Vue.component("pendingComments", {
 	data: function () {
 		    return {
-		      facilityName : "",
-		      facility : null,
 		      user: null,
-		      comments: null,
-		      commentsToShow: []
+		      uloga: "Administrator",
+		      pendingComments: null
 		    }
 	},
 	template: ` 
@@ -45,72 +43,32 @@ Vue.component("showFacility", {
 		    </div>
 	    </div>
 	</nav>
-	<div class="row" style="margin-top: 12%; margin-left:6%">
-		<div class="col-lg-5">
-			<h1>{{this.facility.name}}</h1> <br>
-			<p>Type: {{this.facility.type}}</p>
-			<p>Location: {{this.facility.location.address}}</p>
-			<p>This object offers: {{this.facility.offer}}</p>
-			<p v-if="this.facility.status" class="text-success">Currently open</p>
-			<p v-else class="text-danger">Not open</p>
-			<p>Working hours: {{this.facility.workingHours}}</p>
-			<p>Rating: {{this.facility.rating}}</p>
-			<button class="btn btn-primary mt-2" data-bs-toggle="modal" data-bs-target="#exampleModal">Show on map</button>
-		</div>
-		<div class="col-lg-7"">
-			<img v-bind:src="this.facility.imageURI" style="width:90%; height:100%;">
+	<div class="row" style="margin-top:20%">
+		<div v-for="(comment, index) in pendingComments">
+			<div class="col-8">
+				<p>{{comment.user}}</p>
+				<p>{{comment.sportsFacility}}</p>
+				<p>{{comment.comment}}</p>
+			</div>
+			<div class="col-4">
+				<button class="btn btn-success" v-on:click="approve(index)">Approve</button>
+				<button class="btn btn-danger" v-on:click="disapprove(index)">Disapprove</button>
+			</div>
 		</div>
 	</div>
-	<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
- 	 <div class="modal-dialog modal-dialog-centered"">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">{{this.facility.name}}</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-       <h6>{{this.facility.location.address}}</h6>
-        <p>Map goes here</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
-<h2>Comments</h2>
-	
-    <div class="row">
-    	<div v-for="comment in commentsToShow" class="col-md-8 border-bottom-2">
-    		<p class="fw-bold">{{comment.user}}</p>
-    		<p class="ps-3">{{comment.comment}}</p>
-    		<p class="fw-bold">Rated: {{comment.mark}}/5</p>
-    	</div>
-    </div>
+	<button class="btn btn-primary" v-on:click="finish">Done</button>
 	</body>
 </div>		  
     	`,
     mounted() {
-		this.facilityName = this.$route.params.name;
-		axios
-			.get('rest/facilities/' +  this.facilityName)
-			.then(response => (this.facility = response.data)
-			),
 		axios.get('rest/currentUser')
 			.then((response) => {
 				this.user = response.data;
 			}),
-		axios.get('rest/comments/commentsByFacility/' +  this.facilityName)
-			.then((response) => {
-				this.comments = response.data;
-				if(this.user.uloga=="Trener")
-					for(let i=0; i<this.comments.length; i++){
-						if(this.comments[i].status=="approved")
-						this.commentsToShow.push(this.comments[i]);
-					}
-				else
-					this.commentsToShow = this.comments;
-			})
+		axios
+			.get('rest/comments/getAllPendingComments')
+			.then(response => (this.pendingComments = response.data)
+		)
 	},
     methods: {
     	LogOut : function(event){
@@ -128,6 +86,24 @@ Vue.component("showFacility", {
 		StartPage : function(){
 			event.preventDefault();
 			router.push(`/startpage`);
+		},
+		approve : function(index){
+			for(let i=0; i<this.pendingComments.length; i++){
+				if(i==index)
+					this.pendingComments[i].status = "approved";
+			}
+		},
+		disapprove : function(index){
+			for(let i=0; i<this.pendingComments.length; i++){
+				if(i==index)
+					this.pendingComments[i].status = "disapproved";
+			}
+		},
+		finish : function(){
+			axios
+			.post('rest/comments/updatePendingComments/', this.pendingComments)
+			.then(response => (router.push(`/startpage`))
+		)
 		}
     }
 });
