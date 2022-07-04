@@ -38,8 +38,8 @@ public class SubscriptionDAO {
 	public SubscriptionDAO(String contextPath, Map<String, User> map) {
 		users1 = map.values();
 		loadSubscriptions(contextPath);
-		//path = "/Users/tatjanagemovic/Desktop/Web-projekat/WebShopREST/WebContent/subscriptions.txt";
-		path = "C:/Users/User/Desktop/Web Projekat/Web-projekat/WebShopREST/WebContent/subscriptions.txt";
+		path = "/Users/tatjanagemovic/Desktop/Web-projekat/WebShopREST/WebContent/subscriptions.txt";
+		//path = "C:/Users/User/Desktop/Web Projekat/Web-projekat/WebShopREST/WebContent/subscriptions.txt";
 
 	}
 	
@@ -158,6 +158,30 @@ public class SubscriptionDAO {
 			return null;
 		}
 		Subscription sub = subscriptions.get(subsId);
+		return sub;
+	}
+
+	public Subscription activeSubscriptionForCustomer(String name) {
+		Subscription sub = null;
+		for(Subscription s : subscriptions.values()) {
+			if(s.getKupac().getUsername().equals(name)) {
+				if(s.getStatus().equals(StatusClanarine.aktivna)) {
+					if(s.getDatumVazenja().isAfter(LocalDate.now())) {
+						if(s.getBrojTermina() != 0) {
+							sub = s;
+							sub.setBrojTermina(sub.getBrojTermina()-1);
+							saveSubscriptions();
+							break;
+						}
+					}
+					else {
+						s.setStatus(StatusClanarine.neaktivna);
+						saveSubscriptions();
+						
+					}
+				}
+			}
+		}
 		return sub;
 	}
 }
