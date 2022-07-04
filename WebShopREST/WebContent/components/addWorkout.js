@@ -1,4 +1,4 @@
-Vue.component("facilityWorkouts", {
+Vue.component("addWorkout", {
 	data: function () {
 		    return {
 		      user: null,
@@ -46,19 +46,7 @@ template: `
 		    </div>
 	    </div>
 	</nav>
-	<section id="intro" style="margin-top:10%;">
-	<button class="btn btn-primary" v-on:click="AddContent">Add Content</button>
-	<div class="row justify-content-center" style="margin-top: 5%">
-		<div v-for="w in workouts" class="col-md-2 card m-2"> 
-			<div class="card-body">
-				<p class="card-title" style="font-weight: bold; font-size: 20px">{{w.naziv}}</p>
-				<p class="card-text">{{w.workoutType}}</p>
-				<p class="card-text">{{w.trajanje}}</p>
-				
-			</div>
-		</div>
-	</div>
-	</section>
+	<h1 style="margin-top:10%">welcome</h1>
 	</body>
 </div>		  
     	`,
@@ -97,8 +85,6 @@ template: `
 				this.workouts = response.data;
 			})
 		},
-		AddContent : function(){
-			router.push(`/addWorkout`)
-		}
+		
     },
 });

@@ -13,7 +13,7 @@ const Plan = { template: '<showPlan></showPlan>' }
 const CustomerWorkouts = { template: '<customerWorkouts></customerWorkouts>' }
 const PendingComments = { template: '<pendingComments></pendingComments>' }
 const FacilityWorkouts = { template: '<facilityWorkouts></facilityWorkouts>' }
-
+const AddWorkout = { template: '<addWorkout></addWorkout>' }
 
 const router = new VueRouter({
 	mode: 'hash',
@@ -32,7 +32,9 @@ const router = new VueRouter({
 		{ path: '/showPlan/:name',  component: Plan},
 		{ path: '/customerWorkouts',  component:  CustomerWorkouts},
 		{ path: '/pendingComments',  component: PendingComments},
-		{ path: '/facilityWorkouts',  component: FacilityWorkouts}
+		{ path: '/facilityWorkouts',  component: FacilityWorkouts},
+		{ path: '/addWorkout',  component: AddWorkout}
+		
 	  ]
 });
 
