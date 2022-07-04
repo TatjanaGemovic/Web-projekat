@@ -10,7 +10,8 @@ Vue.component("startpage", {
 		      user: null,
 		      uloga: null,
 		      promoCode: {oznaka: null, period:null, brojIskoriscenih: 0, popust: 0.0, trajanje: 0},
-		      showAlert: true
+		      showAlert: false,
+		      pendingComments: null
 		    }
 	},
 template: ` 
@@ -268,9 +269,11 @@ template: `
 			})	
 		//srediti ovo i alert u template (bez alert vec samo link u navbar?)
 		if(this.user.uloga=="Administrator"){
-			axios.get('rest/comments/hasPendingComments')
+			axios.get('rest/comments/getAllPendingComments')
 			.then((response) => {
-				this.showAlert = response.data;
+				this.pendingComments = response.data;
+				if(this.pendingComments.length!=0)
+					this.showAlert = true;
 			})	
 		}	
 		

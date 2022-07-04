@@ -4,7 +4,8 @@ Vue.component("showFacility", {
 		      facilityName : "",
 		      facility : null,
 		      user: null,
-		      comments: null
+		      comments: null,
+		      commentsToShow: []
 		    }
 	},
 	template: ` 
@@ -80,7 +81,7 @@ Vue.component("showFacility", {
 <h2>Comments</h2>
 	
     <div class="row">
-    	<div v-for="comment in comments" class="col-md-8 border-bottom-2">
+    	<div v-for="comment in commentsToShow" class="col-md-8 border-bottom-2">
     		<p class="fw-bold">{{comment.user}}</p>
     		<p class="ps-3">{{comment.comment}}</p>
     		<p class="fw-bold">Rated: {{comment.mark}}/5</p>
@@ -99,10 +100,17 @@ Vue.component("showFacility", {
 			.then((response) => {
 				this.user = response.data;
 			}),
-		axios
-			.get('rest/comments/commentsByFacility/' +  this.facilityName)
-			.then(response => (this.comments = response.data)
-		)
+		axios.get('rest/comments/commentsByFacility/' +  this.facilityName)
+			.then((response) => {
+				this.comments = response.data;
+				if(this.user.uloga=="Trener")
+					for(let i=0; i<this.comments.length; i++){
+						if(this.comments[i].status=="approved")
+						this.commentsToShow.push(this.comments[i]);
+					}
+				else
+					this.commentsToShow = this.comments;
+			})
 	},
     methods: {
     	LogOut : function(event){
