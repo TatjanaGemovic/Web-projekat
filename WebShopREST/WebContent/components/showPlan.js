@@ -10,6 +10,7 @@ Vue.component("showPlan", {
 		      Kod: "",
 		      cena:0,
 		      error: '',
+		      dodatniPopust: 0.0
 		    }
 	},
 	template: ` 
@@ -59,14 +60,15 @@ Vue.component("showPlan", {
 		</div>
 		<div class="col-lg-1"></div>
 		<div class="col-lg-6" style="margin-top: 2%;">
-			<p class="display-5 my-4 fw-bold" style="color: #F15412; font-size: 32px">Promo code:</p>
+			<p class="display-5 my-4 fw-bold" style="color: #F15412; font-size: 30px">{{user.tipKupca}} kupac   <span style="font-size: 22px; color: black; margin-left: 2%">+ {{getDodatniPopust()}}%  popusta</span></p>
+			<h3 class="fw-bold" style="color: #F15412">Promo code:</h3>
 			<form>
 				<input type="text" placeholder="Enter code..." class="inputFields" v-model="Kod">
 				<button class="loginButton" style="width: 140px; height:40px; margin-left:4%" v-on:click="ApplyCode">
                 	Apply code
             	</button>
 			</form>
-			<p style="padding-top: 10px;" id="error">{{error}}</p><br><br>
+			<p style="padding-top: 10px;" id="error">{{error}}</p>
 			<h4>Note</h4>
 			<p>- Kupovinom nove clanarine automatski ponistavate prethodno kupljenu<br>
 			- Clanarina postaje aktivna na dan kupovine i traje odredjen period<br>
@@ -82,12 +84,6 @@ Vue.component("showPlan", {
     	`,
     mounted() {
 		this.planId = this.$route.params.name;
-		if(this.planId == 1)
-				this.cena = "$" +  21.99;
-			else if(this.planId == 2)
-				this.cena = "$" +  29.99;
-			else
-				this.cena = "$" + 329.99;
 		axios.get('rest/currentUser')
 			.then((response) => {
 				this.user = response.data;
@@ -113,6 +109,29 @@ Vue.component("showPlan", {
 			event.preventDefault();
 			router.push(`/startpage`);
 		},
+		getDodatniPopust: function(){
+			if(this.user.tipKupca == "Regularni"){
+				this.dodatniPopust = 0;
+				this.p = 1
+			}else if(this.user.tipKupca == "Bronzani"){
+				this.dodatniPopust = 3;
+				this.p = 0.97;
+			}else if(this.user.tipKupca == "Srebrni"){
+				this.dodatniPopust = 5;
+				this.p = 0.95;
+			}else if(this.user.tipKupca == "Zlatni"){
+				this.dodatniPopust = 10;
+				this.p = 0.9;
+			}
+			if(this.planId == 1)
+				this.cena = 21.99*this.p*this.popust;
+			else if(this.planId == 2)
+				this.cena = 29.99*this.p*this.popust;
+			else
+				this.cena = 329.99*this.p*this.popust;
+			this.cena = "$" + parseFloat(this.cena).toFixed(2)
+			return this.dodatniPopust
+		},
 		ApplyCode : function(){
 			event.preventDefault();
 			this.error = "";
@@ -128,16 +147,6 @@ Vue.component("showPlan", {
 				this.error = "Code expired or doesn't exists";
 				return;
 			}
-			
-			if(this.planId == 1)
-				this.cena = this.popust*21.99;
-			else if(this.planId == 2)
-				this.cena = this.popust*29.99;
-			else
-				this.cena = this.popust*329.99;
-				
-			this.cena =	"$" + parseFloat(this.cena).toFixed(2)
-			
 		},
 		PlanName: function(){
 			if(this.planId == 1)

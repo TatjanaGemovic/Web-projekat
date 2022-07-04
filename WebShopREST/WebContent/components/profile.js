@@ -42,7 +42,7 @@ template: `
 		    </div>
 	    </div>
 	</nav>
-	<section style="margin-top: 10%">
+	<section style="margin-top: 8%">
 		<div class="container-lg">
       	<div class="row g-5 justify-content-center align-items-center" style="margin-right: 40px">
       		<div class="col-md-4 text-start d-none d-md-block" style="margin-right: 40px" >
@@ -62,12 +62,22 @@ template: `
               <input type="text" id="secondName" class="form-control" v-model="user.lastName"/>
             </div>
         	<label class="form-label">Gender:</label>
-            <div class="mb-3 input-group">
-              <input type="text" id="gender" class="form-control" v-model="user.gender"/>
+            <div class="mb-3 form-check form-check-inline">
+              <input class="form-check-input" type="radio" id="F" value="zensko" v-model="user.gender"/>
+              <label class="form-check-label" for="F">Female</label>
             </div>
+            <div class="mb-3 form-check form-check-inline">
+              <input class="form-check-input" type="radio" id="M" value="musko" v-model="user.gender"/>
+              <label class="form-check-label" for="M">Male</label>
+            </div>
+            </br>
             <label class="form-label">Birth Day:</label>
             <div class="mb-3 input-group">
               <input type="date" id="birthDay" class="form-control" v-model="user.birthDate"/>
+            </div>
+            <label class="form-label">Type:</label>
+            <div class="mb-3 input-group">
+              <input type="text" id="username" class="form-control" v-model="user.tipKupca" disabled/>
             </div>
             <label class="form-label">Username:</label>
             <div class="mb-3 input-group">

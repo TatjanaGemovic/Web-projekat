@@ -1,20 +1,20 @@
-Mitar;Miric;musko;2022-07-01;tarmiricmi;pass;Menadzer;null;null;0;Bronzani;null;Neka terrrra
-Marko;Markovic;musko;2022-07-08;maki;maki;Trener;nema;nema;0;Bronzani;null;nema
-gema;gema;zensko;2022-07-08;gema;gema;Trener;null;null;0;Bronzani;null;nema
-Nina;Jankovic;zensko;2022-07-08;jaki;jaki;Kupac;nema;nema;0;Bronzani;null;nema
-p;p;musko;2022-07-08;peraa;pera;Menadzer;null;null;0;Bronzani;null;Random Tera
-Sako;Polumenta;musko;2022-07-30;sako;pass;Menadzer;null;null;0;Bronzani;null;Spens
-Luka;Poljak;musko;2022-07-29;poljak;pass;Menadzer;null;null;0;Bronzani;null;Body Fit
-Vuk;Petrovic;musko;2022-07-08;vuk;vuk;Trener;nema;nema;0;Bronzani;null;nema
-Stojanka;Novakovic;zensko;2022-07-08;stoja;stoja;Administrator;nema;nema;0;Bronzani;null;nema
-Aleksa;Colovic;musko;2022-07-02;cola;pass;Menadzer;null;null;0;Bronzani;null;Neki Kurac
-Pera;Peric;musko;2020-06-05;pera;pera;Kupac;nema;nema;0;Bronzani;null;nema
-Luka;Popovic;musko;2022-07-29;lule;pass;Menadzer;null;null;0;null;null;Djacko
-Nikola;Nikolic;musko;2022-07-08;nik;nik;Menadzer;nema;nema;0;Bronzani;null;Teretana Sajam
-r;r;musko;null;r;r;Kupac;null;null;0;Bronzani;null;nema
-u;u;musko;null;u;u;Kupac;null;null;0;Bronzani;null;nema
-Jovana;Jovanovic;zensko;2022-07-08;jovana;jovana;Trener;nema;nema;0;Bronzani;null;nema
-Nemanja;Mihic;musko;2022-07-08;nem;nem;Menadzer;null;null;0;Bronzani;null;Teretanica
-Luka;Erceg;musko;2022-07-30;kumara;pass;Menadzer;null;null;0;Bronzani;null;Synergy
-Mladen;ovuka;musko;2022-07-29;djomla;pass;Menadzer;null;null;0;Bronzani;null;Body Fit
-Aleksandra;Aleksica;zensko;2022-07-08;aki;aki;Kupac;nema;nema;0;Bronzani;null;nema
+Mitar;Miric;musko;2022-07-01;tarmiricmi;pass;Menadzer;null;null;0;Regularni;null;Neka terrrra
+Marko;Markovic;musko;2022-07-08;maki;maki;Trener;nema;nema;0;Regularni;null;nema
+gema;gema;zensko;2022-07-08;gema;gema;Trener;null;null;0;Regularni;null;nema
+Nina;Jankovic;zensko;2022-07-08;jaki;jaki;Kupac;nema;nema;0;Regularni;null;nema
+p;p;musko;2022-07-08;peraa;pera;Menadzer;null;null;0;Regularni;null;Random Tera
+Sako;Polumenta;musko;2022-07-30;sako;pass;Menadzer;null;null;0;Regularni;null;Spens
+Luka;Poljak;musko;2022-07-29;poljak;pass;Menadzer;null;null;0;Regularni;null;Body Fit
+Vuk;Petrovic;musko;2022-07-08;vuk;vuk;Trener;nema;nema;0;Regularni;null;nema
+Stojanka;Novakovic;zensko;2022-07-08;stoja;stoja;Administrator;nema;nema;0;Regularni;null;nema
+Aleksa;Colovic;musko;2022-07-02;cola;pass;Menadzer;null;null;0;Regularni;null;Neki Kurac
+Pera;Peric;musko;2020-06-05;pera;pera;Kupac;nema;nema;0;Srebrni;null;nema
+Luka;Popovic;musko;2022-07-29;lule;pass;Menadzer;null;null;0;Regularni;null;Djacko
+Nikola;Nikolic;musko;2022-07-08;nik;nik;Menadzer;nema;nema;0;Regularni;null;Teretana Sajam
+r;r;musko;null;r;r;Kupac;null;null;0;Regularni;null;nema
+u;u;musko;null;u;u;Kupac;null;null;0;Regularni;null;nema
+Jovana;Jovanovic;zensko;2022-07-08;jovana;jovana;Trener;nema;nema;0;Regularni;null;nema
+Nemanja;Mihic;musko;2022-07-08;nem;nem;Menadzer;null;null;0;Regularni;null;Teretanica
+Luka;Erceg;musko;2022-07-30;kumara;pass;Menadzer;null;null;0;Regularni;null;Synergy
+Mladen;ovuka;musko;2022-07-29;djomla;pass;Menadzer;null;null;0;Regularni;null;Body Fit
+Aleksandra;Aleksica;zensko;2022-07-08;aki;aki;Kupac;nema;nema;0;Regularni;null;nema

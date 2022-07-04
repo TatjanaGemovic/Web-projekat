@@ -1,5 +1,5 @@
 package enums;
 
 public enum TipKupca {
-	Zlatni, Srebrni, Bronzani
+	Regularni, Zlatni, Srebrni, Bronzani
 }

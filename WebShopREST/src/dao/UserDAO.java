@@ -177,14 +177,17 @@ public class UserDAO {
 					String poseceniObjekti = st.nextToken().trim();
 					int bodovi = Integer.parseInt(st.nextToken().trim());
 					String tip = st.nextToken().trim();
-					TipKupca t;
-					if(tip == "Zlatni")
-						t = TipKupca.Zlatni;
-					else if(tip == "Srebrni")
-						t = TipKupca.Srebrni;
-					else
-						t = TipKupca.Bronzani;
-					
+					TipKupca t = TipKupca.Regularni;
+					switch(tip) {
+					case "Zlatni" : t = TipKupca.Zlatni;
+						break;
+					case "Srebrni" : t = TipKupca.Srebrni;
+						break;
+					case "Regularni" : t = TipKupca.Regularni;
+						break;
+					case "Bronzani" : t = TipKupca.Bronzani;
+						break;
+					}
 					String subsId = st.nextToken().trim();
 					Subscription clanarina = null;
 					String sportskiObjekatId = st.nextToken().trim();

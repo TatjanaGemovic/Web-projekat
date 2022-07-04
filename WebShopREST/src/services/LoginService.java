@@ -20,6 +20,7 @@ import javax.ws.rs.core.Response;
 import beans.User;
 import dao.SportsFacilityDAO;
 import dao.UserDAO;
+import enums.TipKupca;
 import enums.Uloga;
 
 @Path("")
@@ -101,6 +102,7 @@ public class LoginService {
 	public User newUser(User user) {
 		UserDAO userDao = (UserDAO) ctx.getAttribute("userDAO");
 		user.setUloga(Uloga.Kupac);
+		user.setTipKupca(TipKupca.Regularni);
 		return userDao.save(user);
 	}
 	
@@ -111,6 +113,7 @@ public class LoginService {
 	public User newMenadzer(User user) {
 		UserDAO userDao = (UserDAO) ctx.getAttribute("userDAO");
 		user.setUloga(Uloga.Menadzer);
+		user.setTipKupca(TipKupca.Regularni);
 		return userDao.save(user);
 	}
 	
@@ -121,6 +124,7 @@ public class LoginService {
 	public User newTrener(User user) {
 		UserDAO userDao = (UserDAO) ctx.getAttribute("userDAO");
 		user.setUloga(Uloga.Trener);
+		user.setTipKupca(TipKupca.Regularni);
 		return userDao.save(user);
 	}
 	
