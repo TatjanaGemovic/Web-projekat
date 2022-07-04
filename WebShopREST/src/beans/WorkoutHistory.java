@@ -1,11 +1,10 @@
 package beans;
 
-import java.time.LocalDateTime;
 
 public class WorkoutHistory {
 
 	private String id;
-	private LocalDateTime vremePrijave;
+	private String vremePrijave;
 	private Workout workout;
 	private String workoutId;
 	private User kupac;
@@ -18,7 +17,7 @@ public class WorkoutHistory {
 	}
 
 
-	public WorkoutHistory(String id,LocalDateTime vremePrijave, Workout workout, User kupac, User trener) {
+	public WorkoutHistory(String id,String vremePrijave, Workout workout, User kupac, User trener) {
 		super();
 		this.id = id;
 		this.vremePrijave = vremePrijave;
@@ -38,10 +37,10 @@ public class WorkoutHistory {
 	}
 
 
-	public LocalDateTime getVremePrijave() {
+	public String getVremePrijave() {
 		return vremePrijave;
 	}
-	public void setVremePrijave(LocalDateTime vremePrijave) {
+	public void setVremePrijave(String vremePrijave) {
 		this.vremePrijave = vremePrijave;
 	}
 	public Workout getWorkout() {

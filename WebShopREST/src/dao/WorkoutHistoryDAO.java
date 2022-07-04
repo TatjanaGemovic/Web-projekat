@@ -30,8 +30,8 @@ public class WorkoutHistoryDAO {
 		users1 = map.values();
 		workoutsList = map2.values();
 		loadWorkoutsHistory(contextPath);
-		//path = "/Users/tatjanagemovic/Desktop/Web-projekat/WebShopREST/WebContent/workoutsHistory.txt";
-		path = "C:/Users/User/Desktop/Web Projekat/Web-projekat/WebShopREST/WebContent/workoutsHistory.txt";
+		path = "/Users/tatjanagemovic/Desktop/Web-projekat/WebShopREST/WebContent/workoutsHistory.txt";
+		//path = "C:/Users/User/Desktop/Web Projekat/Web-projekat/WebShopREST/WebContent/workoutsHistory.txt";
 	}
 	
 	public Collection<WorkoutHistory> findAll() {
@@ -96,17 +96,16 @@ public class WorkoutHistoryDAO {
 				st = new StringTokenizer(line, ";");
 				while (st.hasMoreTokens()) {
 					String id = st.nextToken().trim();
-					LocalDateTime period = LocalDateTime.parse(st.nextToken().trim());
+					String period = st.nextToken().trim();
 					String kupac = st.nextToken().trim();
 					User customer = findByUsername(kupac);
 					
-					String trener = st.nextToken().trim();
-					User coach = findByUsername(trener);
-
 					String wrk = st.nextToken().trim();
 					Workout work = findByName(wrk);
 
-					
+					String trener = st.nextToken().trim();
+					User coach = findByUsername(trener);
+
 					workouts.put(id, new WorkoutHistory(id, period, work, customer, coach));
 				}
 				

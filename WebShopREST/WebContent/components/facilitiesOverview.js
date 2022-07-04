@@ -31,7 +31,7 @@ template: `
 		          <a class="nav-link active" aria-current="page" href="#intro">Pocetna</a>
 		        </li>
 		        <li class="nav-item" >
-		          <a class="nav-link" href="#" v-bind:hidden="this.user.uloga!='Kupac'">Treninzi</a>
+		          <a class="nav-link" href="#" v-bind:hidden="this.user.uloga!='Kupac'" v-on:click="Workouts">Treninzi</a>
 		          <a class="nav-link" href="#" v-bind:hidden="this.user.uloga!='Trener'">Treninzi</a>
 		          <a class="nav-link" href="#" v-bind:hidden="this.user.uloga!='Administrator'" v-on:click="ShowAllProfiles">Korisnici</a>
 		          <a class="nav-link" href="#" v-bind:hidden="this.user.uloga!='Menadzer'">Moj objekat</a>
@@ -44,7 +44,7 @@ template: `
 		          <a class="nav-link" v-on:click="ProfilePage" href="#">Profil</a>
 		        </li>
 		        <li class="nav-item">
-			      <button class="nav-link loginButton"  v-on:click="LogOut" style="width: 120px; margin-left: 20px">Log out</button>
+			      <button class="loginButton"  v-on:click="LogOut" style="width: 120px; margin-left: 20px">Log out</button>
 		        </li>
 		      </ul>
 		    </div>
@@ -149,6 +149,10 @@ template: `
 		ProfilePage : function(){
 			event.preventDefault();
 			router.push(`/profile`);
+		},
+		Workouts : function(){
+			event.preventDefault();
+			router.push(`/customerWorkouts`);
 		},
 		Subscriptions : function(){
 			event.preventDefault();
