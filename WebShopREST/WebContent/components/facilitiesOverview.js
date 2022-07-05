@@ -34,7 +34,7 @@ template: `
 		        </li>
 		        <li class="nav-item" >
 		          <a class="nav-link" href="#" v-bind:hidden="this.user.uloga!='Kupac'" v-on:click="Workouts">Treninzi</a>
-		          <a class="nav-link" href="#" v-bind:hidden="this.user.uloga!='Trener'">Treninzi</a>
+		          <a class="nav-link" href="#" v-bind:hidden="this.user.uloga!='Trener'" v-on:click="TrainersWorkouts">Treninzi</a>
 		          <a class="nav-link" href="#" v-bind:hidden="this.user.uloga!='Administrator'" v-on:click="ShowAllProfiles">Korisnici</a>
 		          <a class="nav-link" href="#" v-bind:hidden="this.user.uloga!='Menadzer'">Moj objekat</a>
 		        </li>
@@ -164,6 +164,9 @@ template: `
 		Workouts : function(){
 			event.preventDefault();
 			router.push(`/customerWorkouts`);
+		},
+		TrainersWorkouts : function(){
+			router.push(`/trainersWorkouts`);
 		},
 		Subscriptions : function(){
 			event.preventDefault();
