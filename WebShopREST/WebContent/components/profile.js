@@ -75,9 +75,9 @@ template: `
             <div class="mb-3 input-group">
               <input type="date" id="birthDay" class="form-control" v-model="user.birthDate"/>
             </div>
-            <label class="form-label">Type:</label>
+            <label class="form-label" v-bind:hidden="this.user.uloga!='Kupac'">Type:</label>
             <div class="mb-3 input-group">
-              <input type="text" id="username" class="form-control" v-model="user.tipKupca" disabled/>
+              <input type="text" id="username" class="form-control" v-bind:hidden="this.user.uloga!='Kupac'" v-model="TipKupca()" disabled/>
             </div>
             <label class="form-label">Username:</label>
             <div class="mb-3 input-group">
@@ -100,6 +100,9 @@ template: `
 </div>		  
     	`,
     methods: {
+		TipKupca : function(){
+			return this.user.tipKupca + "   (bodovi: " + this.user.sakupljeniBodovi + ")";
+		},
 		LogOut : function(){
 				event.preventDefault();
 				router.push(`/`);

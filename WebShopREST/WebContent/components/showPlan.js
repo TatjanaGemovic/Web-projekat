@@ -10,7 +10,8 @@ Vue.component("showPlan", {
 		      Kod: "",
 		      cena:0,
 		      error: '',
-		      dodatniPopust: 0.0
+		      dodatniPopust: 0.0,
+		      subs: null
 		    }
 	},
 	template: ` 
@@ -87,12 +88,39 @@ Vue.component("showPlan", {
 		axios.get('rest/currentUser')
 			.then((response) => {
 				this.user = response.data;
+				this.ShowActiveSub()
 			}),
 		axios.get('rest/promo/allPromoCodes')
-				.then(response => (this.codes = response.data))
+			.then((response) => {
+				this.codes = response.data;
+			})
 		
 	},
     methods: {
+		ShowActiveSub : function(){
+			axios.get('rest/subscription/activeSubscriptionsForCustomer/' + this.user.username)
+				.then((response) => {
+				this.subs = response.data;
+			})
+			if(this.subs != null){
+				if(this.subs.status == 'neaktivna'){
+					if(this.subs.paket/3*2 < this.subs.brojTermina){
+						bodovi = this.subs.cena/1000 *133*4
+						this.user.sakupljeniBodovi -= bodovi
+					}else{
+						bodovi = this.subs.cena/1000 * (this.subs.paket-this.subs.brojTermina)
+						this.user.sakupljeniBodovi += bodovi
+					}
+				}
+				axios.put('rest/changeUser/' + this.user.username, this.user)
+				.then((response) => {
+					//alert('Uspesno izmenjeni bodovi kod korisnika1')
+				}),
+				axios.post('rest/login/', this.user);
+				event.preventDefault();
+			}
+			
+		},
     	LogOut : function(event){
 			event.preventDefault();
 			router.push(`/`);
@@ -181,6 +209,25 @@ Vue.component("showPlan", {
 				return "1 Year";
 		},
 		BuyPlan : function(event) {
+			event.preventDefault();
+			bodovi = 0;
+			if(this.subs != null){
+				if(this.subs.status == 'aktivna'){
+					if(this.subs.paket/3*2 < this.subs.brojTermina){
+						bodovi = this.subs.cena/1000 *133*4
+						this.user.sakupljeniBodovi -= bodovi
+					}else{
+						bodovi = this.subs.cena/1000 * (this.subs.paket-this.subs.brojTermina)
+						this.user.sakupljeniBodovi += bodovi
+					}	
+				}
+				axios.put('rest/changeUser/' + this.user.username, this.user)
+				.then((response) => {
+					//alert('Uspesno izmenjeni bodovi korisnika2')
+				}),
+				axios.post('rest/login/', this.user);
+				event.preventDefault();
+			}
 			event.preventDefault();
 			if(this.planId == 1){
 				axios.post('rest/subscription/addSubscription/' + 1, this.user)

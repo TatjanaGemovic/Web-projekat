@@ -48,6 +48,7 @@ public class SubscriptionDAO {
 	}
 	
 	public Subscription save(Subscription subs) {
+		//dodati deo za bodove
 		subscriptions.put(subs.getId(), subs);
 		saveSubscriptions();
 		return subs;
@@ -161,7 +162,7 @@ public class SubscriptionDAO {
 		return sub;
 	}
 
-	public Subscription activeSubscriptionForCustomer(String name) {
+	public Subscription getActiveSubscriptionForCustomer(String name) {
 		Subscription sub = null;
 		for(Subscription s : subscriptions.values()) {
 			if(s.getKupac().getUsername().equals(name)) {
@@ -178,6 +179,34 @@ public class SubscriptionDAO {
 						s.setStatus(StatusClanarine.neaktivna);
 						saveSubscriptions();
 						
+					}
+				}
+			}
+		}
+		return sub;
+	}
+	
+	public Subscription activeSubscriptionForCustomer(String name) {
+		Subscription sub = null;
+		for(Subscription s : subscriptions.values()) {
+			if(s.getKupac().getUsername().equals(name)) {
+				if(s.getStatus().equals(StatusClanarine.aktivna)) {
+					if(s.getDatumVazenja().isAfter(LocalDate.now())) {
+						if(s.getBrojTermina() != 0) {
+							sub = s;
+							break;
+						}else {
+							s.setStatus(StatusClanarine.neaktivna);
+							saveSubscriptions();
+							sub = s;
+							break;
+						}
+					}
+					else {
+						s.setStatus(StatusClanarine.neaktivna);
+						saveSubscriptions();
+						sub = s;
+						break;
 					}
 				}
 			}

@@ -46,8 +46,8 @@ public class UserDAO {
 	public UserDAO(String contextPath, Map<String, SportsFacility> map) {
 		facilities1 = map.values();
 		loadUsers(contextPath);
-		//path = "/Users/tatjanagemovic/Desktop/Web-projekat/WebShopREST/WebContent/users.txt"; 
-		path = "C:/Users/User/Desktop/Web Projekat/Web-projekat/WebShopREST/WebContent/users.txt";
+		path = "/Users/tatjanagemovic/Desktop/Web-projekat/WebShopREST/WebContent/users.txt"; 
+		//path = "C:/Users/User/Desktop/Web Projekat/Web-projekat/WebShopREST/WebContent/users.txt";
 	}
 	
 	/**
@@ -210,6 +210,15 @@ public class UserDAO {
 	}
 
 	public User change(User user) {
+		if(user.getSakupljeniBodovi() < 500) {
+			user.setTipKupca(TipKupca.Regularni);
+		}else if(user.getSakupljeniBodovi() < 1000 && user.getSakupljeniBodovi() >= 500) {
+			user.setTipKupca(TipKupca.Bronzani);
+		}else if(user.getSakupljeniBodovi() < 2000 && user.getSakupljeniBodovi() >= 1000) {
+			user.setTipKupca(TipKupca.Srebrni);
+		}else {
+			user.setTipKupca(TipKupca.Zlatni);
+		}
 		users.put(user.getUsername(), user);
 		saveUsers();
 		return user;

@@ -1,5 +1,7 @@
 package beans;
 
+import java.time.LocalDate;
+
 import enums.WorkoutType;
 
 public class Workout {
@@ -13,13 +15,15 @@ public class Workout {
 	private String userId;
 	private String opis;
 	private String imageURI;
+	private int cena;
+	private LocalDate pocetak;
 	
 	public Workout() {
 		super();
 	}
 
 	public Workout(String naziv, WorkoutType workoutType, SportsFacility facility, String trajanje, User trener,
-			String opis, String imageURI) {
+			String opis, String imageURI, int cena, LocalDate pocetak) {
 		super();
 		this.naziv = naziv;
 		this.workoutType = workoutType;
@@ -28,8 +32,27 @@ public class Workout {
 		this.trener = trener;
 		this.opis = opis;
 		this.imageURI = imageURI;
+		this.cena = cena;
+		this.pocetak = pocetak;
 	}
 	
+	
+	public LocalDate getPocetak() {
+		return pocetak;
+	}
+
+	public void setPocetak(LocalDate pocetak) {
+		this.pocetak = pocetak;
+	}
+
+	public int getCena() {
+		return cena;
+	}
+
+	public void setCena(int cena) {
+		this.cena = cena;
+	}
+
 	public String getFacilityId() {
 		return facilityId;
 	}

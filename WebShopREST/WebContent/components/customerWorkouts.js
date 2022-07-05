@@ -47,11 +47,11 @@ template: `
 	<section id="intro" style="margin-top:10%;">
 	<div class="row justify-content-center">
 		<div v-for="w in workoutsHistory" class="col-md-2 card m-2"> 
-			<img src="pictures/weightlifting.png" v-bind:hidden="w.workout.workoutType!='Strength'" class="card-img-top pt-2" /> 
-			<img src="pictures/physical-activity.png" v-bind:hidden="w.workout.workoutType!='Yoga'" class="card-img-top pt-2" /> 
-			<img src="pictures/fitness-4.png" v-bind:hidden="w.workout.workoutType!='Personal'" class="card-img-top pt-2" /> 
-			<img src="pictures/stationary-bike.png" v-bind:hidden="w.workout.workoutType!='Cardio'" class="card-img-top pt-2" /> 
-			<img src="pictures/plank.png" v-bind:hidden="w.workout.workoutType!='Endurance'" class="card-img-top pt-2" /> 
+			<img src="pictures/weightlifting.png" v-bind:hidden="w.workout.workoutType!='T_Strength'" class="card-img-top pt-2" /> 
+			<img src="pictures/physical-activity.png" v-bind:hidden="w.workout.workoutType!='T_Yoga'" class="card-img-top pt-2" /> 
+			<img src="pictures/fitness-4.png" v-bind:hidden="w.workout.workoutType!='T_Personal'" class="card-img-top pt-2" /> 
+			<img src="pictures/stationary-bike.png" v-bind:hidden="w.workout.workoutType!='T_Cardio'" class="card-img-top pt-2" /> 
+			<img src="pictures/plank.png" v-bind:hidden="w.workout.workoutType!='T_Endurance'" class="card-img-top pt-2" /> 
 			<div class="card-body">
 				<p class="card-title" style="font-weight: bold; font-size: 20px">{{w.workout.naziv}} - {{w.workout.workoutType}}</p>
 				<p class="card-text">{{w.workout.facility.name}}</p>

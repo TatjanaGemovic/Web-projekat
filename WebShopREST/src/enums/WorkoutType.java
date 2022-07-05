@@ -1,5 +1,5 @@
 package enums;
 
 public enum WorkoutType {
-	Strength, Cardio, Yoga, Endurance, Personal
+	T_Strength, T_Cardio, Yoga, T_Endurance, T_Personal, T_Group, Spa, Massage, Pool
 }

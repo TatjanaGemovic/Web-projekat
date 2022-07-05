@@ -77,6 +77,14 @@ public class SubscriptionService {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Subscription getActiveSubscriptionForCustomer(@PathParam("name") String name) {
 		SubscriptionDAO subsDAO = (SubscriptionDAO) ctx.getAttribute("subsDAO");
+		return subsDAO.getActiveSubscriptionForCustomer(name);
+	}
+	
+	@GET
+	@Path("/activeSubscriptionsForCustomer/{name}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Subscription activeSubscriptionForCustomer(@PathParam("name") String name) {
+		SubscriptionDAO subsDAO = (SubscriptionDAO) ctx.getAttribute("subsDAO");
 		return subsDAO.activeSubscriptionForCustomer(name);
 	}
 }

@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.PrintWriter;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -58,7 +59,8 @@ public class WorkoutDAO {
 			FileWriter w = new FileWriter(path);
 			for(Workout u : workouts.values()) {
 				String st = u.getNaziv()+";"+u.getWorkoutType()+";"+u.getTrajanje()
-				+";"+u.getOpis()+";"+u.getImageURI()+";"+u.getFacility().getName();
+				+";"+u.getOpis()+";"+u.getImageURI()+";"+u.getFacility().getName()
+				+";"+u.getCena()+";"+u.getPocetak();
 				if(u.getTrener() != null) {
 					st += ";"+u.getTrener().getUsername();
 				}else {
@@ -102,17 +104,25 @@ public class WorkoutDAO {
 					String naziv = st.nextToken().trim();
 					String tip = st.nextToken().trim();
 					WorkoutType t;
-					t = WorkoutType.Cardio;
+					t = WorkoutType.T_Cardio;
 					switch(tip) {
-					case "Cardio": t = WorkoutType.Cardio;
+					case "T_Cardio": t = WorkoutType.T_Cardio;
 						break;
-					case "Strength": t = WorkoutType.Strength;
+					case "T_Strength": t = WorkoutType.T_Strength;
 						break;
 					case "Yoga": t = WorkoutType.Yoga;
 						break;
-					case "Endurance": t = WorkoutType.Endurance;
+					case "T_Endurance": t = WorkoutType.T_Endurance;
 						break;
-					case "Personal": t = WorkoutType.Personal;
+					case "T_Group": t = WorkoutType.T_Group;
+						break;
+					case "Spa": t = WorkoutType.Spa;
+						break;
+					case "Massage": t = WorkoutType.Massage;
+						break;
+					case "Pool": t = WorkoutType.Pool;
+						break;
+					case "T_Personal": t = WorkoutType.T_Personal;
 						break;
 					}
 
@@ -121,10 +131,13 @@ public class WorkoutDAO {
 					String slika = st.nextToken().trim();
 					String sportFacility = st.nextToken().trim();
 					SportsFacility facility = findByName(sportFacility);
+					int cena = Integer.parseInt(st.nextToken().trim());
+					LocalDate pocetak = LocalDate.parse(st.nextToken().trim());
+					
 					String trener = st.nextToken().trim();
 					User coach = findByUsername(trener);
 					
-					workouts.put(naziv, new Workout(naziv, t, facility, trajanje, coach, opis, slika));
+					workouts.put(naziv, new Workout(naziv, t, facility, trajanje, coach, opis, slika, cena, pocetak));
 				}
 				
 			}
