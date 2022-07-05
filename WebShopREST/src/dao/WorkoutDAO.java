@@ -106,23 +106,23 @@ public class WorkoutDAO {
 					WorkoutType t;
 					t = WorkoutType.T_Cardio;
 					switch(tip) {
-					case "T_Cardio": t = WorkoutType.T_Cardio;
+					case "T_Cardio" : t = WorkoutType.T_Cardio;
 						break;
-					case "T_Strength": t = WorkoutType.T_Strength;
+					case "T_Strength" : t = WorkoutType.T_Strength;
 						break;
-					case "Yoga": t = WorkoutType.Yoga;
+					case "Yoga" : t = WorkoutType.Yoga;
 						break;
-					case "T_Endurance": t = WorkoutType.T_Endurance;
+					case "T_Endurance" : t = WorkoutType.T_Endurance;
 						break;
-					case "T_Group": t = WorkoutType.T_Group;
+					case "T_Group" : t = WorkoutType.T_Group;
 						break;
-					case "Spa": t = WorkoutType.Spa;
+					case "Spa" : t = WorkoutType.Spa;
 						break;
-					case "Massage": t = WorkoutType.Massage;
+					case "Massage" : t = WorkoutType.Massage;
 						break;
-					case "Pool": t = WorkoutType.Pool;
+					case "Pool" : t = WorkoutType.Pool;
 						break;
-					case "T_Personal": t = WorkoutType.T_Personal;
+					case "T_Personal" : t = WorkoutType.T_Personal;
 						break;
 					}
 

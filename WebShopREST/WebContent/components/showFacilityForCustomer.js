@@ -5,6 +5,8 @@ Vue.component("showFacilityForCustomer", {
 		      facility : null,
 		      user: null,
 		      workouts: null,
+		      workouts1: [],
+		      workouts2: [],
 		      comments: null,
 		      commentsToShow: [],
 		      commentText: "",
@@ -88,17 +90,35 @@ Vue.component("showFacilityForCustomer", {
 	</div>
 	<div>
 		<div class="row justify-content-center" style="margin-top: 5%">
-		<div v-for="w in workouts" class="col-md-2 card m-2"> 
+		<div v-for="w in workouts1" class="col-md-2 card m-2"> 
+		<img src="pictures/weightlifting.png" v-bind:hidden="w.workoutType!='T_Strength'" class="card-img-top pt-2" /> 
+		<img src="pictures/physical-activity.png" v-bind:hidden="w.workoutType!='T_Yoga'" class="card-img-top pt-2" /> 
+		<img src="pictures/fitness-4.png" v-bind:hidden="w.workoutType!='T_Personal'" class="card-img-top pt-2" /> 
+		<img src="pictures/stationary-bike.png" v-bind:hidden="w.workoutType!='T_Cardio'" class="card-img-top pt-2" /> 
+		<img src="pictures/plank.png" v-bind:hidden="w.workoutType!='T_Endurance'" class="card-img-top pt-2" /> 	
 			<div class="card-body">
 				<p class="card-title" style="font-weight: bold; font-size: 20px">{{w.naziv}}</p>
 				<p class="card-text">{{w.workoutType}}</p>
-				<p class="card-text">{{w.trajanje}}</p>
+				<p class="card-text">{{w.trener.firstName}} {{w.trener.lastName}}</p>
+				<p class="card-text">Trajanje: {{w.trajanje}}</p>
+				<p class="card-text">Cena: {{w.cena}}</p>
 				<button class="loginButton" v-on:click="JoinWorkout(w)">Join</button>
 				<p style="padding-top: 5px;" id="error">{{error}}</p>
 			</div>
 		</div>
 	</div>
+	<h2>Additional content</h2>
+	<div>
+		<div class="row justify-content-center" style="margin-top: 5%">
+		<div v-for="w2 in workouts2" class="col-md-2 card m-2"> 
+			<div class="card-body">
+				<p class="card-title" style="font-weight: bold; font-size: 20px">{{w2.naziv}}</p>
+				<p class="card-text">{{w2.workoutType}}</p>
+				<p class="card-text">Doplata: {{w2.cena}}</p>
+			</div>
+		</div>
 	</div>
+	</div><br>
 	<h2>Comments</h2>
 	<div v-if="firstTimeHere" class="row border-bottom-2">
 		<div class="col-md-7">
@@ -143,6 +163,7 @@ Vue.component("showFacilityForCustomer", {
 		axios.get('rest/workout/allWorkoutsForFacility/' + this.facilityName)
 			.then((response) => {
 				this.workouts = response.data;
+				this.SortContent()
 			})
 		axios.get('rest/comments/commentsByFacility/' +  this.facilityName)
 			.then((response) => {
@@ -167,6 +188,17 @@ Vue.component("showFacilityForCustomer", {
 		Subscriptions : function(){
 			event.preventDefault();
 			router.push(`/subscriptionsOverview`);
+		},
+		SortContent : function(){
+			event.preventDefault();
+			for(let i=0; i<this.workouts.length; i++){
+				if((this.workouts[i]).workoutType =='Yoga' || (this.workouts[i]).workoutType =='Massage' 
+				|| (this.workouts[i]).workoutType =='Spa' || (this.workouts[i]).workoutType =='Pool'){
+					this.workouts2.push(this.workouts[i])
+				}else{
+					this.workouts1.push(this.workouts[i])
+				}
+			}
 		},
 		StartPage : function(){
 			event.preventDefault();
