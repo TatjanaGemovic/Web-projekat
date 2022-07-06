@@ -49,6 +49,18 @@
 	transition: border 0.5s ease;
 }
 
+.loginButton2 {
+	color:#F9F9F9;
+	width:130px;
+	height:40px;
+	background-color: #3e3e3e;
+	font-size:20px;
+	border:none;
+	border-radius: 8px;	
+	transition: background-color 0.5s ease;
+	transition: border 0.5s ease;
+}
+
 .navBarButton {	
 	color:#3e3e3e;
 	width:100%;
@@ -70,6 +82,12 @@
 	border: 6px solid #F15412;
 	color: #3e3e3e;
   	box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+.loginButton2:hover {
+	background-color: #e7e7e5;
+	border: 6px solid #F15412;
+	color: #3e3e3e;
 }
 
 .nav_link {

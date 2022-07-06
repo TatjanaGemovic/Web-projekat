@@ -88,45 +88,48 @@ Vue.component("showFacilityForCustomer", {
     </div>
   	</div>
 	</div>
+	<h2 class="row justify-content-center" style="margin-top: 7%;">Workouts</h2>
 	<div>
-		<div class="row justify-content-center" style="margin-top: 5%">
-		<div v-for="w in workouts1" class="col-md-2 card m-2"> 
+		<div class="row justify-content-center" style="margin-top: 5%;margin-bottom: 5%">
+		<div v-for="w in workouts1" class="col-md-2 card m-2" style="border: 2px solid #3e3e3e"> 
 		<img src="pictures/weightlifting.png" v-bind:hidden="w.workoutType!='T_Strength'" class="card-img-top pt-2" /> 
-		<img src="pictures/physical-activity.png" v-bind:hidden="w.workoutType!='T_Yoga'" class="card-img-top pt-2" /> 
 		<img src="pictures/fitness-4.png" v-bind:hidden="w.workoutType!='T_Personal'" class="card-img-top pt-2" /> 
 		<img src="pictures/stationary-bike.png" v-bind:hidden="w.workoutType!='T_Cardio'" class="card-img-top pt-2" /> 
 		<img src="pictures/plank.png" v-bind:hidden="w.workoutType!='T_Endurance'" class="card-img-top pt-2" /> 	
 			<div class="card-body">
-				<p class="card-title" style="font-weight: bold; font-size: 20px">{{w.naziv}}</p>
-				<p class="card-text">{{w.workoutType}}</p>
-				<p class="card-text">{{w.trener.firstName}} {{w.trener.lastName}}</p>
-				<p class="card-text">Trajanje: {{w.trajanje}}</p>
-				<p class="card-text">Cena: {{w.cena}}</p>
+				<p class="card-title" style="font-weight: bold; font-size: 20px">{{w.naziv}} - <span style="font-size: 15px; color: #F15412; margin-left: 2%">{{GetType(w)}}</span></p>
+				<p class="card-text" style="font-size: 17px">{{w.trener.firstName}} {{w.trener.lastName}}</p>
+				<p class="card-text">Trajanje: {{w.trajanje}}, cena: {{w.cena}}</p>
 				<button class="loginButton" v-on:click="JoinWorkout(w)">Join</button>
 				<p style="padding-top: 5px;" id="error">{{error}}</p>
 			</div>
 		</div>
 	</div>
-	<h2>Additional content</h2>
+	<h2 class="row justify-content-center">Additional content</h2>
 	<div>
-		<div class="row justify-content-center" style="margin-top: 5%">
-		<div v-for="w2 in workouts2" class="col-md-2 card m-2"> 
+		<div class="row justify-content-center" style="margin-top: 5%;margin-bottom: 5%">
+		<div v-for="w2 in workouts2" class="col-md-2 card m-2" style="border: 2px solid #3e3e3e; background: #e7e7e5"> 
+		<img src="pictures/spa.png" v-bind:hidden="w2.workoutType!='Spa'" class="card-img-top pt-2" /> 
+		<img src="pictures/swimming-pool.png" v-bind:hidden="w2.workoutType!='Pool'" class="card-img-top pt-2" /> 
+		<img src="pictures/meditation.png" v-bind:hidden="w2.workoutType!='Yoga'" class="card-img-top pt-2" /> 
+		<img src="pictures/massage.png" v-bind:hidden="w2.workoutType!='Massage'" class="card-img-top pt-2" /> 
 			<div class="card-body">
-				<p class="card-title" style="font-weight: bold; font-size: 20px">{{w2.naziv}}</p>
-				<p class="card-text">{{w2.workoutType}}</p>
+				<p class="card-title" style="font-weight: bold; font-size: 28px">{{w2.naziv}}</p>
+				<p class="card-text" style="font-weight: bold; font-size: 20px;color: #F15412">{{w2.workoutType}}</p>
 				<p class="card-text">Doplata: {{w2.cena}}</p>
 			</div>
 		</div>
 	</div>
 	</div><br>
-	<h2>Comments</h2>
-	<div v-if="firstTimeHere" class="row border-bottom-2">
-		<div class="col-md-7">
+	<h2 class="row justify-content-center" style="margin-bottom: 5%">Comments</h2>
+	<div class="row border-bottom-2" style="margin-top: 5%;margin-bottom: 5%" v-if="firstTimeHere">
+		<div class="col-md-6" style="margin-left:9%">
 			<form>
 				<textarea class="form-control" v-model="commentText" rows="3"></textarea>
 			</form>
 		</div>
-		<div class="col-md-3">
+		<div class="col-md-1"><p style="font-weight: bold; font-size: 20px;padding-top:6%;padding-left:10%">Rating: </p></div>
+		<div class="col-md-2">
 			<div class="rating">
   				<input v-on:change="ratingChanged($event)" type="radio" name="rating" value="5" id="5"><label for="5">&#10025;</label>
   				<input v-on:change="ratingChanged($event)" type="radio" name="rating" value="4" id="4"><label for="4">&#10025;</label>
@@ -135,16 +138,21 @@ Vue.component("showFacilityForCustomer", {
   				<input v-on:change="ratingChanged($event)" type="radio" name="rating" value="1" id="1"><label for="1">&#10025;</label>
 			</div>
 		</div>
-		<div class="col-md-2">
-			<button class="btn btn-success" v-on:click="PostComment">Post</button>
-			<button class="btn btn-danger" v-on:click="ClearForm">Cancel</button>
+		<div class="col-md-3"></div>
+	</div>
+	<div class="row" style="margin-top: 5%;margin-bottom: 5%;margin-left: 8%">
+		<div class="col-md-4">
+			<button class="loginButton2" v-on:click="PostComment" style="margin-left: 2%">Post</button>
+			<button class="loginButton2" v-on:click="ClearForm" style="margin-left: 3%">Cancel</button>
 		</div>
 	</div>
-    <div class="row">
-    	<div v-for="comment in commentsToShow" class="col-md-8 border-bottom-2">
-    		<p class="fw-bold">{{comment.user}}</p>
-    		<p class="ps-3">{{comment.comment}}</p>
-    		<p class="fw-bold">Rated: {{comment.mark}}/5</p>
+    <div class="row" style="margin-top: 5%;margin-bottom: 5%;margin-left: 8%">
+    	<div v-for="comment in commentsToShow" class="col-md-7 border-bottom-2" style="margin-bottom:2%;margin-right:20%">
+    		<p class="fw-bold" style="font-weight: bold; font-size: 20px;">from: <span style="font-size: 26px; color: #F15412; margin-left: 2%">{{comment.user}}</span></p>
+    		<div style="border: 2px solid #3e3e3e;padding:2%;padding-bottom:0%">
+    			<p class="ps-3" style="font-size: 18px;">{{comment.comment}}</p>
+    			<p class="fw-bold" style="font-weight: bold;text-align: right; font-size: 17px;color: #F15412">Rated: {{comment.mark}}/5</p>
+    		</div>
     	</div>
     </div>
 	</body>
@@ -177,6 +185,19 @@ Vue.component("showFacilityForCustomer", {
 
 	},
     methods: {
+		GetType : function(w){
+			if(w.workoutType == 'T_Strength'){
+				return 'Strength';
+			}else if(w.workoutType == 'T_Cardio'){
+				return 'Cardio';
+			}else if(w.workoutType == 'T_Endurance'){
+				return 'Endurance';
+			}else if(w.workoutType == 'T_Personal'){
+				return 'Personal';
+			}else {
+				return 'Group';
+			}
+		},
     	LogOut : function(event){
 			event.preventDefault();
 			router.push(`/`);

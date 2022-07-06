@@ -1,6 +1,6 @@
 Mitar;Miric;musko;2022-07-01;tarmiricmi;pass;Menadzer;null;null;0;Regularni;null;Neka terrrra
 Marko;Markovic;musko;2022-07-08;maki;maki;Trener;nema;nema;0;Regularni;null;nema
-gema;gema;zensko;2022-07-08;gema;gema;Trener;null;null;0;Regularni;null;nema
+Tatjana;Gemovic;zensko;2022-07-08;gema;gema;Trener;null;null;0;Regularni;null;nema
 Nina;Jankovic;zensko;2022-07-08;jaki;jaki;Kupac;nema;nema;0;Regularni;null;nema
 p;p;musko;2022-07-08;peraa;pera;Menadzer;null;null;0;Regularni;null;Random Tera
 Sako;Polumenta;musko;2022-07-30;sako;pass;Menadzer;null;null;0;Regularni;null;Spens
