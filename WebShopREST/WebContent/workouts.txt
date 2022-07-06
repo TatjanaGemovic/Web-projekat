@@ -1,4 +1,4 @@
-Pump it up;T_Cardio;30min;nema;nema;Teretana Sajam;0;2022-08-02;gema
-Restart;T_Strength;30min;nema;nema;Teretana Sajam;0;2022-08-02;gema
-Legs day;T_Personal;30min;nema;nema;Teretana Sajam;0;2022-08-02;gema
 Relax;Yoga;30min;nema;nema;Teretana Sajam;0;2022-08-02;null
+Pump it up;T_Cardio;30min;nema;nema;Teretana Sajam;0;2022-08-02;gema
+Legs day;T_Personal;30min;nema;nema;Teretana Sajam;0;2022-08-02;gema
+Restart;T_Strength;30min;nema;nema;Teretana Sajam;0;2022-08-02;gema

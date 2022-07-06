@@ -5,12 +5,15 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.PrintWriter;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.StringTokenizer;
+import java.time.Period;
 
 import beans.SportsFacility;
 import beans.Subscription;
@@ -34,11 +37,23 @@ public class WorkoutDAO {
 		users1 = map.values();
 		facilities1 = map2.values();
 		loadWorkouts(contextPath);
+		calculateIfCanBeCancelled();
 		//path = "/Users/tatjanagemovic/Desktop/Web-projekat/WebShopREST/WebContent/workouts.txt";
 		path = "C:/Users/User/Desktop/Web Projekat/Web-projekat/WebShopREST/WebContent/workouts.txt";
-
 	}
 	
+	
+	 private void calculateIfCanBeCancelled() {
+		 LocalDate currentDate = LocalDate.now();
+		 Period period; 
+		 for(Workout w : workouts.values()) {
+			 period = Period.between(currentDate, w.getPocetak());
+			 if(period.getDays()>=2 && w.getWorkoutType()==WorkoutType.T_Personal) 
+				 w.setCanBeCancelled(true);			 
+			 else
+				 w.setCanBeCancelled(false);
+		 }	
+	 }
 	public Collection<Workout> findAll() {
 		return workouts.values();
 	}
@@ -132,7 +147,7 @@ public class WorkoutDAO {
 					String sportFacility = st.nextToken().trim();
 					SportsFacility facility = findByName(sportFacility);
 					int cena = Integer.parseInt(st.nextToken().trim());
-					LocalDate pocetak = LocalDate.parse(st.nextToken().trim());
+					LocalDate pocetak = LocalDate.parse(st.nextToken().trim());					
 					
 					String trener = st.nextToken().trim();
 					User coach = findByUsername(trener);
@@ -184,5 +199,18 @@ public class WorkoutDAO {
 			}
 		}
 		return wrks;
+	}
+
+
+	public Workout cancel(String naziv) {
+		Workout ww = new Workout();
+		for(Workout w : workouts.values()) {
+			 if(naziv.equals(w.getNaziv())) {
+				 w.setTrener(null);
+				 ww = w;
+			 }
+		}	
+		saveWorkouts();
+		return ww;
 	}
 }

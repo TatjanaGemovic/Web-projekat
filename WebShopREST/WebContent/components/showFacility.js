@@ -81,9 +81,10 @@ Vue.component("showFacility", {
     	</div>
   		</div>
 	</div>
+	<button v-on:click="addContent" v-if="facility.name==user.facilityId" class="btn btn-primary">Add New Content</button>
 	<div>
 		<div class="row justify-content-center" style="margin-top: 5%">
-		<div v-for="w in workouts1" class="col-md-2 card m-2"> 
+		<div v-for="(w, index) in workouts1" class="col-md-2 card m-2"> 
 		<img src="pictures/weightlifting.png" v-bind:hidden="w.workoutType!='T_Strength'" class="card-img-top pt-2" /> 
 		<img src="pictures/physical-activity.png" v-bind:hidden="w.workoutType!='T_Yoga'" class="card-img-top pt-2" /> 
 		<img src="pictures/fitness-4.png" v-bind:hidden="w.workoutType!='T_Personal'" class="card-img-top pt-2" /> 
@@ -95,18 +96,22 @@ Vue.component("showFacility", {
 				<p class="card-text">{{w.trener.firstName}} {{w.trener.lastName}}</p>
 				<p class="card-text">Trajanje: {{w.trajanje}}</p>
 				<p class="card-text">Cena: {{w.cena}}</p>
+				<button v-if="facility.name==user.facilityId" class="btn btn-primary" v-on:click="edit(w.naziv)">Edit</button>
+
 			</div>
 		</div>
 	</div>
 	<h2>Additional content</h2>
 	<div>
 		<div class="row justify-content-center" style="margin-top: 5%">
-		<div v-for="w2 in workouts2" class="col-md-2 card m-2"> 
+		<div v-for="(w2,index) in workouts2" class="col-md-2 card m-2"> 
 			<div class="card-body">
 				<p class="card-title" style="font-weight: bold; font-size: 20px">{{w2.naziv}}</p>
 				<p class="card-text">{{w2.workoutType}}</p>
 				<p class="card-text">Doplata: {{w2.cena}}</p>
+				<button v-if="facility.name==user.facilityId" class="btn btn-primary" v-on:click="edit(w2.naziv)">Edit</button>
 			</div>
+			
 		</div>
 	</div>
 	</div><br>
@@ -175,6 +180,12 @@ Vue.component("showFacility", {
 					this.workouts1.push(this.workouts[i])
 				}
 			}
+		},
+		edit: function(naziv){
+			
+		}, 
+		addContent: function(){
+			router.push(`/addContent`);
 		}
     }
 });
