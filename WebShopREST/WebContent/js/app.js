@@ -12,6 +12,7 @@ const AddFacility = {template: '<addFacility></addFacility>'}
 const Plan = { template: '<showPlan></showPlan>' }
 const CustomerWorkouts = { template: '<customerWorkouts></customerWorkouts>' }
 const PendingComments = { template: '<pendingComments></pendingComments>' }
+const MySubscription = { template: '<mySubscription></mySubscription>' }
 
 
 const router = new VueRouter({
@@ -30,7 +31,8 @@ const router = new VueRouter({
 		{ path: '/addFacility',  component:  AddFacility},
 		{ path: '/showPlan/:name',  component: Plan},
 		{ path: '/customerWorkouts',  component:  CustomerWorkouts},
-		{ path: '/pendingComments',  component: PendingComments}
+		{ path: '/pendingComments',  component: PendingComments},
+		{ path: '/mySubscription',  component:  MySubscription},
 	  ]
 });
 

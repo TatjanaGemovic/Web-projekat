@@ -8,7 +8,7 @@ Luka;Poljak;musko;2022-07-29;poljak;pass;Menadzer;null;null;0;Regularni;null;Bod
 Vuk;Petrovic;musko;2022-07-08;vuk;vuk;Trener;nema;nema;0;Regularni;null;nema
 Stojanka;Novakovic;zensko;2022-07-08;stoja;stoja;Administrator;nema;nema;0;Regularni;null;nema
 Aleksa;Colovic;musko;2022-07-02;cola;pass;Menadzer;null;null;0;Regularni;null;Neki Kurac
-Pera;Peric;musko;2020-06-05;pera;pera;Kupac;nema;nema;985;Bronzani;pera;nema
+Pera;Peric;musko;2020-06-05;pera;pera;Kupac;nema;nema;971;Bronzani;null;nema
 Luka;Popovic;musko;2022-07-29;lule;pass;Menadzer;null;null;0;Regularni;null;Djacko
 Nikola;Nikolic;musko;2022-07-08;nik;nik;Menadzer;nema;nema;0;Regularni;null;Teretana Sajam
 r;r;musko;null;r;r;Kupac;null;null;0;Regularni;null;nema

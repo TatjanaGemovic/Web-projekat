@@ -112,12 +112,14 @@ Vue.component("showFacility", {
 		</div>
 	</div>
 	</div><br>
-	<h2>Comments</h2>	
-    <div class="row">
-    	<div v-for="comment in commentsToShow" class="col-md-8 border-bottom-2">
-    		<p class="fw-bold">{{comment.user}}</p>
-    		<p class="ps-3">{{comment.comment}}</p>
-    		<p class="fw-bold">Rated: {{comment.mark}}/5</p>
+	<h2 class="row justify-content-center" style="margin-bottom: 5%">Comments</h2>	
+    <div class="row" style="margin-top: 5%;margin-bottom: 5%;margin-left: 8%">
+    	<div v-for="comment in commentsToShow" class="col-md-7 border-bottom-2" style="margin-bottom:2%;margin-right:20%">
+    		<p class="fw-bold" style="font-weight: bold; font-size: 20px;">from: <span style="font-size: 26px; color: #F15412; margin-left: 2%">{{comment.user}}</span></p>
+    		<div style="border: 2px solid #3e3e3e;padding:2%;padding-bottom:0%">
+    			<p class="ps-3" style="font-size: 18px;">{{comment.comment}}</p>
+    			<p class="fw-bold" style="font-weight: bold;text-align: right; font-size: 17px;color: #F15412">Rated: {{comment.mark}}/5</p>
+    		</div>
     	</div>
     </div>
 	</body>
