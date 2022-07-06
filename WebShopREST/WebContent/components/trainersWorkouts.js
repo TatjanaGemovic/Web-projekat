@@ -5,7 +5,8 @@ Vue.component("trainersWorkouts", {
 		      uloga: "Trener",
 		      trainersWorkouts: [],
 		      allWorkouts: null,
-		      CanBeCancelled: []
+		      CanBeCancelled: [],
+		      facilities: null
 		    }
 	},
 	template: ` 
@@ -56,7 +57,7 @@ Vue.component("trainersWorkouts", {
 				<p>{{workout.naziv}}</p>
 			</div>
 			<div class="col-4">
-				<button v-if="CanBeCancelled[index]" class="btn btn-danger" v-on:click="cancel(index)">Cancel</button>
+				<button v-if="workout.canBeCancelled" class="btn btn-danger" v-on:click="cancel(index)">Cancel</button>
 			</div>
 		</div>
 	</div>
@@ -64,6 +65,10 @@ Vue.component("trainersWorkouts", {
 </div>		  
     	`,
     mounted() {
+		axios
+			.get('rest/facilities/allFacilities')
+			.then(response => (this.facilities = response.data)
+			),
 		axios.get('rest/currentUser')
 			.then((response) => {
 				this.user = response.data;
@@ -75,9 +80,7 @@ Vue.component("trainersWorkouts", {
 				for(let i=0; i<this.allWorkouts.length; i++){
 					if(this.allWorkouts[i].trener.username==this.user.username){
 						this.trainersWorkouts.push(this.allWorkouts[i]);
-						this.CanBeCancelled[i] = this.checkIfCanBeCancelled(this.allWorkouts[i].pocetak);
-					}
-						
+					}				
 				}
 			})
 	},
@@ -98,12 +101,12 @@ Vue.component("trainersWorkouts", {
 			event.preventDefault();
 			router.push(`/startpage`);
 		},
-		checkIfCanBeCancelled: function(startDate){
-			let currentDate = new LocalDate()
+		/*checkIfCanBeCancelled: function(startDate){
+			let currentDate = new Date()
 			let difference = (startDate - currentDate);
 			return difference>(2*24*60*60*1000);
 		}
-		/*CanBeCancelled: function(index){
+		CanBeCancelled: function(index){
 			const _MS_PER_DAY = 1000 * 60 * 60 * 24;
 			currentDate = new Date();
     		const utc1 = Date.UTC(currentDate.getYear(), currentDate.getMonth(), currentDate.getDate());

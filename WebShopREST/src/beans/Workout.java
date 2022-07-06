@@ -1,6 +1,9 @@
 package beans;
 
+
+
 import java.time.LocalDate;
+import java.util.Date;
 
 import enums.WorkoutType;
 
@@ -17,6 +20,7 @@ public class Workout {
 	private String imageURI;
 	private int cena;
 	private LocalDate pocetak;
+	private boolean canBeCancelled;
 	
 	public Workout() {
 		super();
@@ -34,9 +38,19 @@ public class Workout {
 		this.imageURI = imageURI;
 		this.cena = cena;
 		this.pocetak = pocetak;
+		this.canBeCancelled = false;
 	}
 	
 	
+	
+	public boolean isCanBeCancelled() {
+		return canBeCancelled;
+	}
+
+	public void setCanBeCancelled(boolean canBeCancelled) {
+		this.canBeCancelled = canBeCancelled;
+	}
+
 	public LocalDate getPocetak() {
 		return pocetak;
 	}
