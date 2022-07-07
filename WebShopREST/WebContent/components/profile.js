@@ -3,6 +3,8 @@ Vue.component("profile", {
 		    return {
 			user: null,
 			gender: null,
+			subs: null,
+			k:0
 		    }
 	},
 template: ` 
@@ -46,8 +48,8 @@ template: `
 		<div class="container-lg">
       	<div class="row g-5 justify-content-center align-items-center" style="margin-right: 40px">
       		<div class="col-md-4 text-start d-none d-md-block" style="margin-right: 40px" >
-	          <img src="pictures/fitness.png" class="img-fluid" alt="ebook" v-bind:hidden="this.gender=='musko'">
-	       	  <img src="pictures/fitness-2.png" class="img-fluid" alt="ebook" v-bind:hidden="this.gender=='zensko'">
+	          <img src="pictures/fitness.png" class="img-fluid" alt="ebook" v-bind:hidden="user.gender=='musko'">
+	       	  <img src="pictures/fitness-2.png" class="img-fluid" alt="ebook" v-bind:hidden="user.gender=='zensko'">
 	        </div>
 
         <div class="col-md-4">
@@ -99,8 +101,41 @@ template: `
 	</body>
 </div>		  
     	`,
+    mounted() {
+		axios.get('rest/currentUser')
+			.then((response) => {
+				this.user = response.data;
+				this.ShowActiveSub()
+				this.gender = this.user.gender
+			})
+	},
     methods: {
+		ShowActiveSub : function(){
+			axios.get('rest/subscription/activeSubscriptionsForCustomer/' + this.user.username)
+				.then((response) => {
+				this.subs = response.data;
+			})
+		},
 		TipKupca : function(){
+			if(this.subs != null){
+				if(this.k==0){
+					this.k=1;
+					if(this.subs.status == 'neaktivna'){
+						if(this.subs.paket/3*2 < this.subs.brojTermina){
+							bodovi = this.subs.cena/1000 *133*4
+							this.user.sakupljeniBodovi -= bodovi
+						}else{
+							bodovi = this.subs.cena/1000 * (this.subs.paket-this.subs.brojTermina)
+							this.user.sakupljeniBodovi += bodovi
+						}
+					}
+					axios.put('rest/changeUser/' + this.user.username, this.user)
+					.then((response) => {
+						//alert('Uspesno izmenjeni bodovi kod korisnika1')
+					}),
+					axios.post('rest/login/', this.user);
+				}
+			}
 			return this.user.tipKupca + "   (bodovi: " + this.user.sakupljeniBodovi + ")";
 		},
 		LogOut : function(){
@@ -128,11 +163,4 @@ template: `
 			event.preventDefault();
 		},
 	},   
-    mounted() {
-		axios.get('rest/currentUser')
-			.then((response) => {
-				this.user = response.data;
-				this.gender = this.user.gender;
-			})	
-	}
 });

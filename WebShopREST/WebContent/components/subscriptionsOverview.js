@@ -45,7 +45,7 @@ template: `
 	<div class="row" style="margin-bottom: 35px">
 		<div class="col-xs-5 col-md-9 col-sm-6"></div>
 		<div class="col-xs-7 col-md-3 col-sm-6">
-			<button class="loginButton" style="width: 200px;heigth: 50px; margin-right: 23%;float: right">My subscription</button>
+			<button class="loginButton" style="width: 200px;heigth: 50px; margin-right: 23%;float: right" v-on:click="MySubscription">My subscription</button>
 		</div>
 	</div>
 	<div class="container-lg">
@@ -116,7 +116,10 @@ template: `
 		},
 		SeePlan : function (name){
 			router.push(`/showPlan/${name}`);
-		}
+		},
+		MySubscription : function (name){
+			router.push(`/mySubscription`);
+		},
     },
     mounted() {
 		axios.get('rest/currentUser')

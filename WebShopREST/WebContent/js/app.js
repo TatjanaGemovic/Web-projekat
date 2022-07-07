@@ -14,8 +14,7 @@ const CustomerWorkouts = { template: '<customerWorkouts></customerWorkouts>' }
 const PendingComments = { template: '<pendingComments></pendingComments>' }
 const TrainersWorkouts = { template: '<trainersWorkouts></trainersWorkouts>' }
 const AddContent = { template: '<addContent></addContent>' }
-
-
+const MySubscription = { template: '<mySubscription></mySubscription>' }
 
 
 const router = new VueRouter({
@@ -36,7 +35,8 @@ const router = new VueRouter({
 		{ path: '/customerWorkouts',  component:  CustomerWorkouts},
 		{ path: '/pendingComments',  component: PendingComments},
 		{ path: '/trainersWorkouts',  component: TrainersWorkouts},
-		{ path: '/addContent',  component: AddContent}
+		{ path: '/addContent',  component: AddContent},
+		{ path: '/mySubscription',  component:  MySubscription},
 	  ]
 });
 
