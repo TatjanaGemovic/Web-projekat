@@ -1,5 +1,6 @@
 package services;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 
 import javax.annotation.PostConstruct;
@@ -15,7 +16,6 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
 import beans.ScheduledWorkout;
-import beans.Workout;
 import dao.ScheduledWorkoutDAO;
 import dao.UserDAO;
 import dao.WorkoutDAO;
@@ -65,6 +65,8 @@ public class ScheduledWorkoutService {
 	@Produces(MediaType.APPLICATION_JSON)
 	public ScheduledWorkout newWorkout(ScheduledWorkout workout) {
 		ScheduledWorkoutDAO scheduledWorkoutDAO = (ScheduledWorkoutDAO) ctx.getAttribute("scWorkoutDAO");
+		workout.setDanPrijave(LocalDateTime.now().toString());
+		workout.setId(1);
 		return scheduledWorkoutDAO.save(workout);
 	}
 	
