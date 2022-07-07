@@ -69,13 +69,13 @@ public class WorkoutService {
 		return workoutDAO.save(workout);
 	}
 	
-	@PUT
+	/*@PUT
 	@Path("/cancelWorkout/{naziv}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Workout cancelWorkout(@PathParam("naziv") String naziv) {
 		WorkoutDAO workoutDao = (WorkoutDAO) ctx.getAttribute("workoutDAO");
 		return workoutDao.cancel(naziv);
-	}
+	}*/
 	
 }

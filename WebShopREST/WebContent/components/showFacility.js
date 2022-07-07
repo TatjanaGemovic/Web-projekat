@@ -73,7 +73,7 @@ Vue.component("showFacility", {
       </div>
       <div class="modal-body">
        <h6>{{this.facility.location.address}}</h6>
-        <p>Map goes here</p>
+        <div id="map" class="map"></div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -125,6 +125,7 @@ Vue.component("showFacility", {
     		</div>
     	</div>
     </div>
+    
 	</body>
 </div>		  
     	`,
@@ -197,10 +198,14 @@ Vue.component("showFacility", {
 			}
 		},
 		edit: function(naziv){
-			
+			for(let index=0; index<this.workouts.length; index++){
+				if(naziv==this.workouts[index].naziv){
+					router.push(`/addContent/${index}`);
+				}
+			}
 		}, 
 		addContent: function(){
-			router.push(`/addContent`);
+			router.push(`/addContent/-1`);
 		}
     }
 });

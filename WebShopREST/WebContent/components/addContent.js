@@ -1,15 +1,19 @@
 Vue.component("addContent", {
 	data: function () {
 		    return {
-		      workout: { naziv: "", workoutType: null, facilityId: "", facility: null, trajanje: "",
-		      trener: null, userId: "", opis: "", imageURI: "", cena: 0, pocetak: null, canBeCancelled: false}, 
+		      workout: { naziv: "", workoutType: "T_Strength", facilityId: "", facility: null, trajanje: "",
+		      trener: null, userId: "", opis: "", imageURI: "", cena: 0}, 
 		      workouts: null,
 		      user : null,
 		      uloga : null,
 			  gender: null,
-			  trainers: null,
-			  sameNameExists: "",
-			  trainingToBeAdded: false
+			  trainers: [],
+			  trainingToBeAdded: true,
+			  workoutIndex: -1,
+			  buttonContent: "Add",
+			  headerText: "Add a new facility",
+			  selectedTrainer: null,
+			  sameNameExists: ""
 		    }
 	},
 	template: ` 
@@ -50,7 +54,7 @@ Vue.component("addContent", {
 	    </div>
 	</nav>
 	<div class="row">
-	<h3>Add a new content to the gym</h3>
+	<h3>{{headerText}}</h3>
 	<form class="col-lg-6" style="margin-top:10%; margin-left:15%">
 			<input type="text" placeholder="Workout name" v-model="workout.naziv" >
 			<p class="text-danger">{{sameNameExists}}</p>
@@ -64,50 +68,74 @@ Vue.component("addContent", {
   			<option value="Spa">Spa</option>
   			<option value="Massage">Massage</option>
   			<option value="Pool">Pool</option>
-			</select>
-			<input type="text" placeholder="Facility street and number" v-model="streetAndNumber"> <br>
-			<input type="text" placeholder="City" v-model="city"> <br>
-			<input type="text" placeholder="City postal code" v-model="postal"> <br>
-			
+			</select>			
 			<div  v-if="trainingToBeAdded">
-			<label>Choose trainer:</label>
-			
+			<label>Choose trainer:</label>		
 			<select class="form-select form-select-sm" v-on:change="trainerSelectionChanged($event)" :style="{ 'width': '50%'}">
-			    <option v-for="trainer in trainers" :value="trainer.username" >{trainer.firstName}} {{trainer.lastName}}</option>
+			    <option v-for="trainer in trainers" :value="trainer.username" >{{trainer.firstName}} {{trainer.lastName}}</option>
 			</select>
 			</div>
-			<input type="submit" value="Add" v-on:click = "addContent" >
+			<input type="text" placeholder="Description" v-model="workout.opis">
+			<input type="text" placeholder="Duration" v-model="workout.trajanje">
+			<button class="btn btn-primary" v-on:click = "addContent">{{buttonContent}}</button>
 	</form>
 	</div>
 	</body>
 </div>		  
     	`,
     mounted() {
-		axios.get('rest/facilities/' +  this.user.facilityId)
-			.then(response => (this.workout.facility = response.data)
-			),
+		this.workoutIndex = this.$route.params.index;
+		if(this.workoutIndex==-1){
+			this.buttonContent = "Add";
+			this.headerText = "Add new content";
+		}
+		else {
+			this.buttonContent = "Apply Changes";
+			this.headerText = "Edit " + this.workout.naziv;
+		}
 		axios.get('rest/currentUser')
 			.then((response) => {
 				this.user = response.data;
-			}),
-		axios.get('rest/workout/allWorkoutsForFacility/' + this.user.facilityId)
-			.then((response) => {
-				this.workouts = response.data;
+				this.SetProperties();
 			})
 	},
     methods: {	
+		SetProperties: function(){	
+			axios.get('rest/facilities/' +  this.user.facilityId)
+			.then(response => (this.workout.facility = response.data)
+			),
+		axios.get('rest/workout/allWorkoutsForFacility/' + this.user.facilityId)
+			.then((response) => {
+				this.workouts = response.data;
+				this.GetTrainers();
+			})
+		},
+		GetTrainers: function(){		
+			axios.get('rest/trainers')
+			.then((response) => {
+				this.trainers = response.data;
+				this.SetWorkout();
+			})	
+		},
+		SetWorkout: function(){
+			this.workout = this.workouts[this.workoutIndex];
+			if(this.workoutIndex==-1)
+					this.selectedTrainer = this.trainers[0];
+				else
+					this.selectedTrainer = this.workout.trener;
+		},
     	addContent : function(event) {
 			event.preventDefault();
 			contentExists = false;
 			for(let i=0; i<this.workouts.length; i++){
-				if((this.workouts[i]).naziv==this.workout.naziv){
+				if((this.workouts[i]).naziv==this.workout.naziv && i!=this.workoutIndex){
 					this.sameNameExists = "Content with the same name is already available in this object";
 					contentExists = true;
 					return;
 				}
 			}
 			
-			if(!contentExists){ 
+			if(!contentExists){ 		
 				this.workout.facilityId = this.user.facilityId;
 				axios.post('rest/workout/addWorkout/', this.workout)
 				.then((response) => {
@@ -120,12 +148,15 @@ Vue.component("addContent", {
     	workoutTypeSelectionChanged : function(event){
 			this.workout.workoutType = event.target.value;
 			if(this.workout.workoutType.includes("T_"))
-				trainingToBeAdded = true;
+				this.trainingToBeAdded = true;
+			else 
+				this.trainingToBeAdded = false;
 		},
 		trainerSelectionChanged : function(event){
 			for(let i=0; i<this.trainers.length; i++)
 				if(this.trainers[i].username==event.target.value){
 					this.workout.trener = this.trainers[i];
+				//	this.selectedTrainer = this.trainers[i];
 				}
 		},
     	LogOut : function(){

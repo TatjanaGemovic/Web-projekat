@@ -15,8 +15,21 @@ Vue.component("showFacilityForCustomer", {
 		      firstTimeHere: true,
 		      subscription: null,  
 		      error: '',
-		      workoutHistory: {id: null, vremePrijave: null, workout: null, kupac: null, trener: null}
+		      workoutHistory: {id: null, vremePrijave: null, workout: null, kupac: null, trener: null},
+		   	map : new ol.Map({
+        		target: 'map',
+        		layers: [
+          			new ol.layer.Tile({
+            		source: new ol.source.OSM()
+		          })
+		        ],
+		        view: new ol.View({
+		          center: ol.proj.fromLonLat([37.41, 8.82]),
+		          zoom: 4
+		        })
+     	 })
 		    }
+		    
 	},
 	template: ` 
 <div>
@@ -80,7 +93,7 @@ Vue.component("showFacilityForCustomer", {
       </div>
       <div class="modal-body">
        <h6>{{this.facility.location.address}}</h6>
-        <p>Map goes here</p>
+        <div id="map" style="width:300px; height:300px" class="map"></div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -155,6 +168,7 @@ Vue.component("showFacilityForCustomer", {
     		</div>
     	</div>
     </div>
+    
 	</body>
 </div>		  
     	`,

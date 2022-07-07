@@ -37,13 +37,13 @@ public class WorkoutDAO {
 		users1 = map.values();
 		facilities1 = map2.values();
 		loadWorkouts(contextPath);
-		calculateIfCanBeCancelled();
+		//calculateIfCanBeCancelled();
 		//path = "/Users/tatjanagemovic/Desktop/Web-projekat/WebShopREST/WebContent/workouts.txt";
 		path = "C:/Users/User/Desktop/Web Projekat/Web-projekat/WebShopREST/WebContent/workouts.txt";
 	}
 	
 	
-	 private void calculateIfCanBeCancelled() {
+	/* private void calculateIfCanBeCancelled() {
 		 LocalDate currentDate = LocalDate.now();
 		 Period period; 
 		 for(Workout w : workouts.values()) {
@@ -53,7 +53,7 @@ public class WorkoutDAO {
 			 else
 				 w.setCanBeCancelled(false);
 		 }	
-	 }
+	 }*/
 	public Collection<Workout> findAll() {
 		return workouts.values();
 	}
@@ -63,7 +63,7 @@ public class WorkoutDAO {
 	}
 	
 	public Workout save(Workout workout) {
-		workouts.put(workout.getNaziv(), workout);
+		workouts.put(workout.getNaziv()+workout.getFacility().getName(), workout);
 		saveWorkouts();
 		return workout;
 	}
@@ -75,7 +75,7 @@ public class WorkoutDAO {
 			for(Workout u : workouts.values()) {
 				String st = u.getNaziv()+";"+u.getWorkoutType()+";"+u.getTrajanje()
 				+";"+u.getOpis()+";"+u.getImageURI()+";"+u.getFacility().getName()
-				+";"+u.getCena()+";"+u.getPocetak();
+				+";"+u.getCena();
 				if(u.getTrener() != null) {
 					st += ";"+u.getTrener().getUsername();
 				}else {
@@ -140,19 +140,18 @@ public class WorkoutDAO {
 					case "T_Personal" : t = WorkoutType.T_Personal;
 						break;
 					}
-
+				
 					String trajanje = st.nextToken().trim();
 					String opis = st.nextToken().trim();
 					String slika = st.nextToken().trim();
 					String sportFacility = st.nextToken().trim();
 					SportsFacility facility = findByName(sportFacility);
 					int cena = Integer.parseInt(st.nextToken().trim());
-					LocalDate pocetak = LocalDate.parse(st.nextToken().trim());					
 					
 					String trener = st.nextToken().trim();
 					User coach = findByUsername(trener);
 					
-					workouts.put(naziv, new Workout(naziv, t, facility, trajanje, coach, opis, slika, cena, pocetak));
+					workouts.put(naziv+facility.getName(), new Workout(naziv, t, facility, trajanje, coach, opis, slika, cena));
 				}
 				
 			}
@@ -202,7 +201,7 @@ public class WorkoutDAO {
 	}
 
 
-	public Workout cancel(String naziv) {
+	/*public Workout cancel(String naziv) {
 		Workout ww = new Workout();
 		for(Workout w : workouts.values()) {
 			 if(naziv.equals(w.getNaziv())) {
@@ -212,5 +211,5 @@ public class WorkoutDAO {
 		}	
 		saveWorkouts();
 		return ww;
-	}
+	}*/
 }

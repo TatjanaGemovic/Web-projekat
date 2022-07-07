@@ -19,8 +19,7 @@ public class Workout {
 	private String opis;
 	private String imageURI;
 	private int cena;
-	private LocalDate pocetak;
-	private boolean canBeCancelled;
+	
 	
 	public Workout() {
 		super();
@@ -28,7 +27,7 @@ public class Workout {
 	
 
 	public Workout(String naziv, WorkoutType workoutType, SportsFacility facility, String trajanje, User trener,
-			String opis, String imageURI, int cena, LocalDate pocetak) {
+			String opis, String imageURI, int cena) {
 		super();
 		this.naziv = naziv;
 		this.workoutType = workoutType;
@@ -38,24 +37,6 @@ public class Workout {
 		this.opis = opis;
 		this.imageURI = imageURI;
 		this.cena = cena;
-		this.pocetak = pocetak;
-		this.canBeCancelled = false;
-	}
-	
-	public boolean getCanBeCancelled() {
-		return canBeCancelled;
-	}
-
-	public void setCanBeCancelled(boolean canBeCancelled) {
-		this.canBeCancelled = canBeCancelled;
-	}
-
-	public LocalDate getPocetak() {
-		return pocetak;
-	}
-
-	public void setPocetak(LocalDate pocetak) {
-		this.pocetak = pocetak;
 	}
 
 	public int getCena() {

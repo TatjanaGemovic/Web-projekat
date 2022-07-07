@@ -37,6 +37,7 @@ const router = new VueRouter({
 		{ path: '/trainersWorkouts',  component: TrainersWorkouts},
 		{ path: '/addContent',  component: AddContent},
 		{ path: '/mySubscription',  component:  MySubscription},
+		{ path: '/addContent/:index',  component: AddContent}
 	  ]
 });
 
