@@ -15,17 +15,17 @@ Vue.component("showFacilityForCustomer", {
 		      firstTimeHere: true,
 		      subscription: null,  
 		      error: '',
-		   	map : new ol.Map({
-        		target: 'map',
-        		layers: [
-          			new ol.layer.Tile({
-            		source: new ol.source.OSM()
-		          })
-		        ],
-		        view: new ol.View({
-		          center: ol.proj.fromLonLat([37.41, 8.82]),
-		          zoom: 4
-		        })
+			   map : new ol.Map({
+	        		target: 'map',
+	        		layers: [
+	          			new ol.layer.Tile({
+	            		source: new ol.source.OSM()
+			          })
+			        ],
+			        view: new ol.View({
+			          center: ol.proj.fromLonLat([37.41, 8.82]),
+			          zoom: 4
+			        })
      	 }),
 		      workoutToShow: null,
 		      pocetak: null,
@@ -174,16 +174,21 @@ Vue.component("showFacilityForCustomer", {
  	 <div class="modal-dialog modal-dialog-centered"">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Promo Code</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Schedule Workout</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Add Code"></button>
       </div>
       <div class="modal-body">
    		<div class="row g-3 align-items-center">
+   			<div class="col-auto">
+		    <label for="birthDay" class="col-form-label">Datum treninga: </label>
+		  </div>
+		  <div class="col-auto">
 			<input type="date" id="birthDay" class="form-control" v-model="pocetak"/>		
+		  </div>
 		</div>
       </div>
       <div class="modal-footer text-center">
-        <button v-on:click="JoinWorkout(workoutToShow)" class="loginButton" data-bs-dismiss="modal" style="width: 160px;margin-right:10%">Add Code</button>
+        <button v-on:click="JoinWorkout(workoutToShow)" class="loginButton" data-bs-dismiss="modal" style="width: 150px;margin-right:2%">Schedule</button>
       </div>
     </div>
   </div>
@@ -199,6 +204,7 @@ Vue.component("showFacilityForCustomer", {
 		axios.get('rest/currentUser')
 			.then((response) => {
 				this.user = response.data;
+				this.GetSubscription()
 				//ovde proveriti na osnovu istorije trenigna da li je bio nekad pre, ako nije onda firstTimeHere ostaje true
 			}),
 		axios.get('rest/workout/allWorkoutsForFacility/' + this.facilityName)
@@ -230,6 +236,12 @@ Vue.component("showFacilityForCustomer", {
 			}else {
 				return 'Group';
 			}
+		},
+		GetSubscription : function(){
+			axios.get('rest/subscription/allActiveSubscriptionsForCustomer/' + this.user.username)
+				.then((response) => {
+					this.subscription = response.data;
+				})
 		},
 		OpenModalFor : function(index){
 			this.workoutToShow = this.workouts1[index];
@@ -263,13 +275,10 @@ Vue.component("showFacilityForCustomer", {
 		},
 		JoinWorkout: function(workout) {
 			this.error = "";
-			axios.get('rest/subscription/allActiveSubscriptionsForCustomer/' + this.user.username)
-				.then((response) => {
-					this.subscription = response.data;
-				})
 			if(this.subscription != null){
 				this.workoutHistory.workout = this.workoutToShow;
 				this.workoutHistory.user = this.user;
+				this.workoutHistory.danOdrzavanja = this.pocetak;
 				axios.post('rest/scheduledWorkout/addScheduledWorkout/', this.workoutHistory)
 							.then((response) => {
 								alert('Uspesno dodat novi trening')

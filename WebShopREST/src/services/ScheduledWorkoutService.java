@@ -1,5 +1,6 @@
 package services;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collection;
 
@@ -65,8 +66,7 @@ public class ScheduledWorkoutService {
 	@Produces(MediaType.APPLICATION_JSON)
 	public ScheduledWorkout newWorkout(ScheduledWorkout workout) {
 		ScheduledWorkoutDAO scheduledWorkoutDAO = (ScheduledWorkoutDAO) ctx.getAttribute("scWorkoutDAO");
-		workout.setDanPrijave(LocalDateTime.now().toString());
-		workout.setId(1);
+		workout.setDanPrijave(LocalDate.now().toString());
 		return scheduledWorkoutDAO.save(workout);
 	}
 	

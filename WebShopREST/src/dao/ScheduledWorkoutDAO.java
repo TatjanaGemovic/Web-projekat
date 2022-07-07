@@ -39,6 +39,15 @@ public class ScheduledWorkoutDAO {
 	}
 	
 	public ScheduledWorkout save(ScheduledWorkout workout) {
+		int Id = 0;
+		for(ScheduledWorkout w : scWorkouts.values()) {
+			if(w.getId() == Id) {
+				Id++;
+			}else {
+				break;
+			}
+		}
+		workout.setId(Id);
 		scWorkouts.put(workout.getId(), workout);
 		saveScWorkouts();
 		return workout;
