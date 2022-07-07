@@ -12,7 +12,8 @@ Vue.component("addContent", {
 			  trainingToBeAdded: true,
 			  workoutIndex: -1,
 			  buttonContent: "Add",
-			  currentTrainer: null
+			  currentTrainer: null,
+			  naziv: ""
 		    }
 	},
 	template: ` 
@@ -55,7 +56,7 @@ Vue.component("addContent", {
 	<div class="row">
 	<h3>Add a new content to the gym</h3>
 	<form class="col-lg-6" style="margin-top:10%; margin-left:15%">
-			<input type="text" placeholder="Workout name" v-model="workout.naziv" >
+			<input type="text" placeholder="Workout name" v-model="naziv" >
 			<p class="text-danger">{{sameNameExists}}</p>
 			<select class="form-select form-select-sm" v-on:change="workoutTypeSelectionChanged($event)" :style="{ 'width': '50%'}">
   			<option selected value="T_Strength">Strength Training</option>
@@ -106,11 +107,11 @@ Vue.component("addContent", {
 		axios.get('rest/workout/allWorkoutsForFacility/' + this.user.facilityId)
 			.then((response) => {
 				this.workouts = response.data;
+				this.ContinueSettingProperties();
 			})
-		this.ContinueSettingProperties();
 		},
 		ContinueSettingProperties: function(){
-			this.workout = this.workouts[this.workoutIndex];
+			
 			axios.get('rest/trainers')
 			.then((response) => {
 				this.trainers = response.data;
@@ -118,15 +119,19 @@ Vue.component("addContent", {
 					this.currentTrainer = this.trainers[0];
 				else
 					this.currentTrainer = this.workout.trener;
-				
-			})
+				this.SetWorkout();
+			})	
+		},
+		SetWorkout: function(){
+			this.workout = this.workouts[this.workoutIndex];
+			this.naziv = this.workout.naziv;
 		},
     	addContent : function(event) {
 			event.preventDefault();
 			contentExists = false;
-			
+			this.workout.naziv = this.naziv;
 			for(let i=0; i<this.workouts.length; i++){
-				if((this.workouts[i]).naziv==this.workout.naziv){
+				if((this.workouts[i]).naziv==this.workout.naziv && i!=this.workoutIndex){
 					this.sameNameExists = "Content with the same name is already available in this object";
 					contentExists = true;
 					return;

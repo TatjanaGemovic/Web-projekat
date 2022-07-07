@@ -73,7 +73,7 @@ Vue.component("showFacility", {
       </div>
       <div class="modal-body">
        <h6>{{this.facility.location.address}}</h6>
-        <p>Map goes here</p>
+        <div id="map" class="map"></div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -123,6 +123,7 @@ Vue.component("showFacility", {
     		<p class="fw-bold">Rated: {{comment.mark}}/5</p>
     	</div>
     </div>
+    
 	</body>
 </div>		  
     	`,
