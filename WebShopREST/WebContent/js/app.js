@@ -36,7 +36,7 @@ const router = new VueRouter({
 		{ path: '/customerWorkouts',  component:  CustomerWorkouts},
 		{ path: '/pendingComments',  component: PendingComments},
 		{ path: '/trainersWorkouts',  component: TrainersWorkouts},
-		{ path: '/addContent',  component: AddContent}
+		{ path: '/addContent/:index',  component: AddContent}
 	  ]
 });
 

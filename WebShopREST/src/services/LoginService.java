@@ -95,6 +95,14 @@ public class LoginService {
 		return userDao.getAvailableManagers();
 	}
 	
+	@GET
+	@Path("/trainers")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Collection<User> getTrainers() {
+		UserDAO userDao = (UserDAO) ctx.getAttribute("userDAO");
+		return userDao.getTrainers();
+	}
+	
 	@POST
 	@Path("/registerKupac/")
 	@Consumes(MediaType.APPLICATION_JSON)

@@ -7,9 +7,12 @@ Vue.component("addContent", {
 		      user : null,
 		      uloga : null,
 			  gender: null,
-			  trainers: null,
+			  trainers: [],
 			  sameNameExists: "",
-			  trainingToBeAdded: false
+			  trainingToBeAdded: true,
+			  workoutIndex: -1,
+			  buttonContent: "Add",
+			  currentTrainer: null
 		    }
 	},
 	template: ` 
@@ -65,40 +68,63 @@ Vue.component("addContent", {
   			<option value="Massage">Massage</option>
   			<option value="Pool">Pool</option>
 			</select>
-			<input type="text" placeholder="Facility street and number" v-model="streetAndNumber"> <br>
-			<input type="text" placeholder="City" v-model="city"> <br>
-			<input type="text" placeholder="City postal code" v-model="postal"> <br>
+			
 			
 			<div  v-if="trainingToBeAdded">
 			<label>Choose trainer:</label>
 			
 			<select class="form-select form-select-sm" v-on:change="trainerSelectionChanged($event)" :style="{ 'width': '50%'}">
-			    <option v-for="trainer in trainers" :value="trainer.username" >{trainer.firstName}} {{trainer.lastName}}</option>
+			    <option v-for="trainer in trainers" :value="trainer.username" >{{trainer.firstName}} {{trainer.lastName}}</option>
 			</select>
+			<input type="text" placeholder="Description" v-model="workout.opis">
+			<input type="text" placeholder="Duration" v-model="workout.trajanje">
 			</div>
-			<input type="submit" value="Add" v-on:click = "addContent" >
+			<button class="btn btn-primary" v-on:click = "addContent">{{buttonContent}}</button>
 	</form>
 	</div>
 	</body>
 </div>		  
     	`,
     mounted() {
-		axios.get('rest/facilities/' +  this.user.facilityId)
-			.then(response => (this.workout.facility = response.data)
-			),
+		this.workoutIndex = this.$route.params.index;
+		if(this.workoutIndex==-1)
+			this.buttonContent = "Add";
+		else
+			this.buttonContent = "Apply Changes"
 		axios.get('rest/currentUser')
 			.then((response) => {
 				this.user = response.data;
-			}),
+				this.SetProperties();
+			})
+	},
+    methods: {	
+		SetProperties: function(){
+			
+			axios.get('rest/facilities/' +  this.user.facilityId)
+			.then(response => (this.workout.facility = response.data)
+			),
 		axios.get('rest/workout/allWorkoutsForFacility/' + this.user.facilityId)
 			.then((response) => {
 				this.workouts = response.data;
 			})
-	},
-    methods: {	
+		this.ContinueSettingProperties();
+		},
+		ContinueSettingProperties: function(){
+			this.workout = this.workouts[this.workoutIndex];
+			axios.get('rest/trainers')
+			.then((response) => {
+				this.trainers = response.data;
+				if(this.workoutIndex==-1)
+					this.currentTrainer = this.trainers[0];
+				else
+					this.currentTrainer = this.workout.trener;
+				
+			})
+		},
     	addContent : function(event) {
 			event.preventDefault();
 			contentExists = false;
+			
 			for(let i=0; i<this.workouts.length; i++){
 				if((this.workouts[i]).naziv==this.workout.naziv){
 					this.sameNameExists = "Content with the same name is already available in this object";
@@ -109,6 +135,7 @@ Vue.component("addContent", {
 			
 			if(!contentExists){ 
 				this.workout.facilityId = this.user.facilityId;
+				this.workout.trener = this.currentTrainer;
 				axios.post('rest/workout/addWorkout/', this.workout)
 				.then((response) => {
 					alert('Workout added to facility')
@@ -120,7 +147,9 @@ Vue.component("addContent", {
     	workoutTypeSelectionChanged : function(event){
 			this.workout.workoutType = event.target.value;
 			if(this.workout.workoutType.includes("T_"))
-				trainingToBeAdded = true;
+				this.trainingToBeAdded = true;
+			else 
+				this.trainingToBeAdded = false;
 		},
 		trainerSelectionChanged : function(event){
 			for(let i=0; i<this.trainers.length; i++)

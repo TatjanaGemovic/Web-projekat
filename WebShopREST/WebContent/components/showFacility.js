@@ -182,10 +182,14 @@ Vue.component("showFacility", {
 			}
 		},
 		edit: function(naziv){
-			
+			for(let index=0; index<this.workouts.length; index++){
+				if(naziv==this.workouts[index].naziv){
+					router.push(`/addContent/${index}`);
+				}
+			}
 		}, 
 		addContent: function(){
-			router.push(`/addContent`);
+			router.push(`/addContent/-1`);
 		}
     }
 });

@@ -234,5 +234,14 @@ public class UserDAO {
 		}
 		return null;
 	}
+
+	public Collection<User> getTrainers() {
+		Collection<User> trainers = new ArrayList<User>();
+		for(User current : users.values()) {
+			if(current.getUloga()==Uloga.Trener)
+				trainers.add(current);
+		}
+		return trainers;
+	}
 	
 }
