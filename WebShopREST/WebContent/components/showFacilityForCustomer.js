@@ -15,7 +15,6 @@ Vue.component("showFacilityForCustomer", {
 		      firstTimeHere: true,
 		      subscription: null,  
 		      error: '',
-		      workoutHistory: {id: null, vremePrijave: null, workout: null, kupac: null, trener: null},
 		   	map : new ol.Map({
         		target: 'map',
         		layers: [
@@ -27,7 +26,10 @@ Vue.component("showFacilityForCustomer", {
 		          center: ol.proj.fromLonLat([37.41, 8.82]),
 		          zoom: 4
 		        })
-     	 })
+     	 }),
+		      workoutToShow: null,
+		      pocetak: null,
+		      workoutHistory: {id: 0, user: null, workout: null, danPrijave: null, danOdrzavanja: null, status: null}
 		    }
 		    
 	},
@@ -104,7 +106,7 @@ Vue.component("showFacilityForCustomer", {
 	<h2 class="row justify-content-center" style="margin-top: 7%;">Workouts</h2>
 	<div>
 		<div class="row justify-content-center" style="margin-top: 5%;margin-bottom: 5%">
-		<div v-for="w in workouts1" class="col-md-2 card m-2" style="border: 2px solid #3e3e3e"> 
+		<div v-for="(w,index) in workouts1" class="col-md-2 card m-2" style="border: 2px solid #3e3e3e"> 
 		<img src="pictures/weightlifting.png" v-bind:hidden="w.workoutType!='T_Strength'" class="card-img-top pt-2" /> 
 		<img src="pictures/fitness-4.png" v-bind:hidden="w.workoutType!='T_Personal'" class="card-img-top pt-2" /> 
 		<img src="pictures/stationary-bike.png" v-bind:hidden="w.workoutType!='T_Cardio'" class="card-img-top pt-2" /> 
@@ -113,7 +115,7 @@ Vue.component("showFacilityForCustomer", {
 				<p class="card-title" style="font-weight: bold; font-size: 20px">{{w.naziv}} - <span style="font-size: 15px; color: #F15412; margin-left: 2%">{{GetType(w)}}</span></p>
 				<p class="card-text" style="font-size: 17px">{{w.trener.firstName}} {{w.trener.lastName}}</p>
 				<p class="card-text">Trajanje: {{w.trajanje}}, cena: {{w.cena}}</p>
-				<button class="loginButton" v-on:click="JoinWorkout(w)">Join</button>
+				<button v-on:click="OpenModalFor(index)" data-bs-toggle="modal" data-bs-target="#exampleModal2" class="loginButton">Join</button>
 				<p style="padding-top: 5px;" id="error">{{error}}</p>
 			</div>
 		</div>
@@ -168,7 +170,24 @@ Vue.component("showFacilityForCustomer", {
     		</div>
     	</div>
     </div>
-    
+    <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+ 	 <div class="modal-dialog modal-dialog-centered"">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Promo Code</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Add Code"></button>
+      </div>
+      <div class="modal-body">
+   		<div class="row g-3 align-items-center">
+			<input type="date" id="birthDay" class="form-control" v-model="pocetak"/>		
+		</div>
+      </div>
+      <div class="modal-footer text-center">
+        <button v-on:click="JoinWorkout(workoutToShow)" class="loginButton" data-bs-dismiss="modal" style="width: 160px;margin-right:10%">Add Code</button>
+      </div>
+    </div>
+  </div>
+</div>
 	</body>
 </div>		  
     	`,
@@ -212,6 +231,9 @@ Vue.component("showFacilityForCustomer", {
 				return 'Group';
 			}
 		},
+		OpenModalFor : function(index){
+			this.workoutToShow = this.workouts1[index];
+		},
     	LogOut : function(event){
 			event.preventDefault();
 			router.push(`/`);
@@ -240,23 +262,21 @@ Vue.component("showFacilityForCustomer", {
 			router.push(`/startpage`);
 		},
 		JoinWorkout: function(workout) {
-			event.preventDefault();
 			this.error = "";
 			axios.get('rest/subscription/allActiveSubscriptionsForCustomer/' + this.user.username)
 				.then((response) => {
 					this.subscription = response.data;
 				})
 			if(this.subscription != null){
-				this.workoutHistory.workout = workout;
-				this.workoutHistory.kupac = this.user;
-				event.preventDefault();
-				axios.post('rest/workoutHistory/addWorkoutHistory/', this.workoutHistory)
+				this.workoutHistory.workout = this.workoutToShow;
+				this.workoutHistory.user = this.user;
+				axios.post('rest/scheduledWorkout/addScheduledWorkout/', this.workoutHistory)
 							.then((response) => {
 								alert('Uspesno dodat novi trening')
 							})
 			}else{
 				this.error = "Subscription expired or doesn't exists";
-			}	
+			}
 		},
 		PostComment : function(){
 			this.usersComment.user = this.user.username;
