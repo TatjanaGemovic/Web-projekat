@@ -1,5 +1,5 @@
 Relax;Yoga;30min;nema;nema;Teretana Sajam;0;gema
 Legs day;T_Personal;30min;nema;nema;Teretana Sajam;0;gema
-Neki Trening;T_Strength;2h;neki opis;nema;Teretana Sajam;0;maki
+Trening;T_Strength;2h;neki opis;nema;Teretana Sajam;0;maki
 Pump it up;T_Cardio;30min;sve ti zivo jebem;nema;Teretana Sajam;0;gema
 Restart;T_Cardio;1h;aj da trener bude vuk;nema;Teretana Sajam;0;vuk

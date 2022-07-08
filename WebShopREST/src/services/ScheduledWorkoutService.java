@@ -60,6 +60,14 @@ public class ScheduledWorkoutService {
 		return scheduledWorkoutDAO.findAllWorkoutsForUser(name);
 	}
 	
+	@GET
+	@Path("/allScheduledWorkoutsForUserInFuture/{name}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Collection<ScheduledWorkout> getAllWorkoutsForFacilityFuture(@PathParam("name") String name) {
+		ScheduledWorkoutDAO scheduledWorkoutDAO = (ScheduledWorkoutDAO) ctx.getAttribute("scWorkoutDAO");
+		return scheduledWorkoutDAO.findAllWorkoutsForUserFuture(name);
+	}
+	
 	@POST
 	@Path("/addScheduledWorkout/")
 	@Consumes(MediaType.APPLICATION_JSON)

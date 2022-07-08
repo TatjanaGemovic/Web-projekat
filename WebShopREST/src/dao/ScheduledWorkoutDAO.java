@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.PrintWriter;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -157,10 +159,26 @@ public class ScheduledWorkoutDAO {
 	
 	public Collection<ScheduledWorkout> findAllWorkoutsForUser(String name) {
 		Collection<ScheduledWorkout> wrks = new ArrayList<ScheduledWorkout>();
-		name = name.replaceAll("_", " ");
+		//name = name.replaceAll("_", " ");
 		for(ScheduledWorkout w : scWorkouts.values()) {
 			if(w.getUser().getUsername().equals(name)) {
 				wrks.add(w);
+			}
+		}
+		return wrks;
+	}
+
+	public Collection<ScheduledWorkout> findAllWorkoutsForUserFuture(String name) {
+		Collection<ScheduledWorkout> wrks = new ArrayList<ScheduledWorkout>();
+		//name = name.replaceAll("_", " ");
+		for(ScheduledWorkout w : scWorkouts.values()) {
+			if(w.getUser().getUsername().equals(name)) {
+				LocalDate d = LocalDate.now();
+				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-d");
+				LocalDate localDate = LocalDate.parse(w.getDanOdrzavanja(), formatter);
+				if(localDate.isAfter(d)) {
+					wrks.add(w);
+				}
 			}
 		}
 		return wrks;

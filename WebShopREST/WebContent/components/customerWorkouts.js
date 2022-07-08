@@ -4,7 +4,10 @@ Vue.component("customerWorkouts", {
 		      user: null,
 		      workoutsHistory: [],
 		      workoutsHistory2: [],
-		      workouts: null
+		      workoutsUpcoming: [],
+		      workouts: null,
+		      finished: false,
+		      upcoming: false
 		    }
 	},
 template: ` 
@@ -44,8 +47,16 @@ template: `
 		    </div>
 	    </div>
 	</nav>
+	<div class="row" style="margin-top: 10%;margin-right: 27%; margin-left:27%">
+		<div class="col-md-6">
+			<button class="loginButton" v-on:click="ShowFinished"  style="height: 40px">Finished workouts</button>
+		</div>
+		<div class="col-md-6">
+			<button class="loginButton" v-on:click="ShowUpcoming"  style="height: 40px">Upcoming workouts</button>
+		</div>
+	</div>
 	<section id="intro" style="margin-top:10%;">
-	<div class="row justify-content-center">
+	<div class="row justify-content-center" v-bind:hidden="finished == false">
 		<div v-for="w in workoutsHistory" class="col-md-2 card m-2"> 
 			<img src="pictures/weightlifting.png" v-bind:hidden="w.workout.workoutType!='T_Strength'" class="card-img-top pt-2" /> 
 			<img src="pictures/physical-activity.png" v-bind:hidden="w.workout.workoutType!='T_Yoga'" class="card-img-top pt-2" /> 
@@ -53,9 +64,24 @@ template: `
 			<img src="pictures/stationary-bike.png" v-bind:hidden="w.workout.workoutType!='T_Cardio'" class="card-img-top pt-2" /> 
 			<img src="pictures/plank.png" v-bind:hidden="w.workout.workoutType!='T_Endurance'" class="card-img-top pt-2" /> 
 			<div class="card-body">
-				<p class="card-title" style="font-weight: bold; font-size: 20px">{{w.workout.naziv}} - {{w.workout.workoutType}}</p>
+				<p class="card-title" style="font-weight: bold; font-size: 20px">{{w.workout.naziv}} - <span style="font-size: 15px; color: #F15412; margin-left: 2%">{{GetType(w)}}</span></p>
 				<p class="card-text">{{w.workout.facility.name}}</p>
 				<p class="card-text">{{w.vremePrijave}}</p>
+			</div>
+		</div>
+	</div>
+	<div class="row justify-content-center" v-bind:hidden="upcoming == false">
+		<div v-for="w1 in workoutsUpcoming" class="col-md-2 card m-2"> 
+			<img src="pictures/weightlifting.png" v-bind:hidden="w1.workout.workoutType!='T_Strength'" class="card-img-top pt-2" /> 
+			<img src="pictures/physical-activity.png" v-bind:hidden="w1.workout.workoutType!='T_Yoga'" class="card-img-top pt-2" /> 
+			<img src="pictures/fitness-4.png" v-bind:hidden="w1.workout.workoutType!='T_Personal'" class="card-img-top pt-2" /> 
+			<img src="pictures/stationary-bike.png" v-bind:hidden="w1.workout.workoutType!='T_Cardio'" class="card-img-top pt-2" /> 
+			<img src="pictures/plank.png" v-bind:hidden="w1.workout.workoutType!='T_Endurance'" class="card-img-top pt-2" /> 
+			<div class="card-body">
+				<p class="card-title" style="font-weight: bold; font-size: 20px">{{w1.workout.naziv}} - <span style="font-size: 15px; color: #F15412; margin-left: 2%">{{GetType(w1)}}</span></p>
+				<p class="card-text">{{w1.workout.facility.name}}</p>
+				<p class="card-text">{{w1.danOdrzavanja}}</p>
+				<p class="card-text" style="font-weight: bold; font-size: 20px;color: #F15412">{{w1.status}}</p>
 			</div>
 		</div>
 	</div>
@@ -73,14 +99,39 @@ template: `
 				this.workouts = response.data;
 				this.ShowWorkouts()
 			})
-			
 	},
     methods: {
+	GetType : function(w){
+			if(w.workoutType == 'T_Strength'){
+				return 'Strength';
+			}else if(w.workoutType == 'T_Cardio'){
+				return 'Cardio';
+			}else if(w.workoutType == 'T_Endurance'){
+				return 'Endurance';
+			}else if(w.workoutType == 'T_Personal'){
+				return 'Personal';
+			}else {
+				return 'Group';
+			}
+		},
 		ShowWorkouts : function(){
 			event.preventDefault();
 			axios.get('rest/workoutHistory/allWorkoutsHistoryForCustomer/'+ this.user.username)
 			.then((response) => {
 				this.workoutsHistory = response.data;
+			})
+		},
+		ShowFinished : function(){
+			this.finished = true;
+			this.upcoming = false;
+		},
+		ShowUpcoming : function(){
+			this.upcoming = true;
+			this.finished = false;
+			event.preventDefault();
+			axios.get('rest/scheduledWorkout/allScheduledWorkoutsForUserInFuture/'+ this.user.username)
+			.then((response) => {
+				this.workoutsUpcoming = response.data;
 			})
 		},
 		LogOut : function(){
