@@ -123,6 +123,7 @@ template: `
 			<div class="card-body">
 				<p class="card-title" style="font-weight: bold; font-size: 20px">{{user1.uloga}}</p>
 				<p class="card-text">{{user1.firstName + " " + user1.lastName}}</p>
+				<button v-on:click="DeleteUser(user1)" class="loginButton">Delete</button>
 			</div>
 		</div>
 	</div>
@@ -176,6 +177,17 @@ template: `
 		StartPage : function(){
 			event.preventDefault();
 			router.push(`/startpage`);
+		},
+		DeleteUser : function(user2){
+			axios.put('rest/deleteUser/' + user2.username, user2)
+				.then((response) => {
+					alert('Uspesno izbrisan korisnik')
+					this.users = this.users.filter(
+						(u) => u.username !== user2.username
+					);
+					this.usersToShow = this.users;
+				}),
+			event.preventDefault();
 		},
 		filter : function(event) {
 			event.preventDefault();

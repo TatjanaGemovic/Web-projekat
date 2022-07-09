@@ -1,3 +1,3 @@
 0;pera;Restart;2022-07-08;2022-07-23;upcoming
-1;pera;Trening;2022-07-08;2022-07-18;upcoming
-2;pera;Legs day;2022-07-08;2022-07-13;upcoming
+1;pera;Trening;2022-07-11;2022-07-18;upcoming
+2;pera;Legs day;2022-07-04;2022-07-25;upcoming

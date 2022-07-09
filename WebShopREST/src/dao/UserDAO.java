@@ -64,6 +64,9 @@ public class UserDAO {
 		if (!user.getPassword().equals(password)) {
 			return null;
 		}
+		if(user.getDeleted() == true) {
+			return null;
+		}
 		return user;
 	}
 	
@@ -72,18 +75,30 @@ public class UserDAO {
 			return null;
 		}
 		User user = users.get(username);
+		if(user.getDeleted() == true) {
+			return null;
+		}
 		return user;
 	}
 	
 	public Collection<User> findAll() {
-		return users.values();
+		Collection<User> users1 = new ArrayList<User>();
+		for(User current : users.values()) {
+			if(current.getDeleted() == false) {
+				users1.add(current);
+			}	
+		}
+		return users1;
 	}
 	
 	public Collection<User> getAvailableManagers(){
 		Collection<User> availableManagers = new ArrayList<User>();
 		for(User current : users.values()) {
-			if(current.getUloga()==Uloga.Menadzer && current.getFacilityId().equals("nema"))
-				availableManagers.add(current);
+			if(current.getUloga()==Uloga.Menadzer && current.getFacilityId().equals("nema")) {
+				if(current.getDeleted() == false) {
+					availableManagers.add(current);
+				}	
+			}			
 		}
 		return availableManagers;
 	}
@@ -113,6 +128,7 @@ public class UserDAO {
 					st += ";null";	
 				}
 				st += ";"+u.getFacilityId();
+				st += ";"+u.getDeleted();
 				/*
 				if(u.getSportskiObjekat() != null) {
 					st += ";"+u.getSportskiObjekat().getName();
@@ -193,7 +209,9 @@ public class UserDAO {
 					String sportskiObjekatId = st.nextToken().trim();
 					SportsFacility facility = findByName(sportskiObjekatId);
 					
-					users.put(username, new User(firstName, lastName, gender, birthDate, username, password, u, istTreninga, clanarina, facility, poseceniObjekti, bodovi, t, sportskiObjekatId));
+					Boolean deleted = Boolean.parseBoolean(st.nextToken().trim());
+					
+					users.put(username, new User(firstName, lastName, gender, birthDate, username, password, u, istTreninga, clanarina, facility, poseceniObjekti, bodovi, t, sportskiObjekatId, deleted));
 				}
 				
 			}
@@ -239,9 +257,19 @@ public class UserDAO {
 		Collection<User> trainers = new ArrayList<User>();
 		for(User current : users.values()) {
 			if(current.getUloga()==Uloga.Trener)
-				trainers.add(current);
+				if(current.getDeleted() == false) {
+					trainers.add(current);
+				}
+				
 		}
 		return trainers;
+	}
+
+	public User delete(User user) {
+		user.setDeleted(true);
+		users.put(user.getUsername(), user);
+		saveUsers();
+		return user;
 	}
 	
 }

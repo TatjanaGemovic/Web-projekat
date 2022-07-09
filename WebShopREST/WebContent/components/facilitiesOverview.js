@@ -60,6 +60,8 @@ template: `
 	<div class="row justify-content-center">
 		<div class="col-lg-7 col-xs-4 col-sm-4 col-md-4">
 			<button v-on:click="goToAddPage" v-bind:hidden="this.user.uloga!='Administrator'">Add a facility</button>
+			<button v-on:click="goToWorkoutsPage" v-bind:hidden="this.user.uloga!='Kupac'">Search workouts</button>
+			<button v-on:click="goToWorkoutsPage" v-bind:hidden="this.user.uloga!='Trener'">Search workouts</button>
 		</div>
 		<form style="font-size:16px;margin-bottom:3%" class="col-lg-4 col-xs-7 col-sm-7 col-md-7">
 		
@@ -167,6 +169,9 @@ template: `
 		},
 		TrainersWorkouts : function(){
 			router.push(`/trainersWorkouts`);
+		},
+		goToWorkoutsPage : function(){
+			router.push(`/searchWorkouts`);
 		},
 		Subscriptions : function(){
 			event.preventDefault();
