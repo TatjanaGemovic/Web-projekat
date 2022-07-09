@@ -5,6 +5,9 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.PrintWriter;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -14,6 +17,7 @@ import java.util.StringTokenizer;
 import beans.ScheduledWorkout;
 import beans.User;
 import beans.Workout;
+import enums.WorkoutType;
 
 public class ScheduledWorkoutDAO {
 
@@ -26,9 +30,25 @@ public class ScheduledWorkoutDAO {
 		users1 = map.values();
 		workouts1 = map2.values();
 		loadScWorkouts(contextPath);
-		path = "/Users/tatjanagemovic/Desktop/Web-projekat/WebShopREST/WebContent/scheduledWorkouts.txt";
-		//path = "C:/Users/User/Desktop/Web Projekat/Web-projekat/WebShopREST/WebContent/scheduledWorkouts.txt";
+		//path = "/Users/tatjanagemovic/Desktop/Web-projekat/WebShopREST/WebContent/scheduledWorkouts.txt";
+		path = "C:/Users/User/Desktop/Web Projekat/Web-projekat/WebShopREST/WebContent/scheduledWorkouts.txt";
+		calculateIfCanBeCancelled();
 	}
+	
+	private void calculateIfCanBeCancelled() {
+		 LocalDate currentDate = LocalDate.now();
+		 Period period; 
+		 for(ScheduledWorkout w : scWorkouts.values()) {
+			 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+			 String date = w.getDanOdrzavanja();
+			 LocalDate datumOdrzavanja =  LocalDate.parse(date, formatter);
+			 period = Period.between(currentDate, datumOdrzavanja);
+			 if(period.getDays()>=2 && w.getWorkout().getWorkoutType()==WorkoutType.T_Personal) 
+				 w.setCanBeCancelled(true);			 
+			 else
+				 w.setCanBeCancelled(false);
+		 }	
+	 }
 	
 	public Collection<ScheduledWorkout> findAll() {
 		return scWorkouts.values();
@@ -148,7 +168,7 @@ public class ScheduledWorkoutDAO {
 		for(ScheduledWorkout w : scWorkouts.values()) {
 			 if(naziv.equals(w.getId())) {
 				 ww = w;
-				 ww.setStatus("otkazan");
+				 ww.setStatus("cancelled");
 			 }
 		}	
 		saveScWorkouts();

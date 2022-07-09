@@ -1,6 +1,6 @@
-Yoga trening;Yoga;1h;Provera dal radi;;Teretana Sajam;0;null
+Yoga trening;Yoga;1h;Provera dal radi;nema;Teretana Sajam;0;gema
 Relax;Yoga;30min;nema;nema;Teretana Sajam;0;gema
 Legs day;T_Personal;30min;nema;nema;Teretana Sajam;0;gema
-Neki Trening;T_Strength;2h;neki opis;nema;Teretana Sajam;0;maki
+Neki Trening;T_Strength;2h;neki opis;nema;Teretana Sajam;0;gema
 Pump it up;T_Cardio;30min;sve ti zivo jebem;nema;Teretana Sajam;0;gema
-Restart;T_Cardio;1h;aj da trener bude vuk;nema;Teretana Sajam;0;vuk
+Restart;T_Cardio;1h;aj da trener bude vuk;nema;Teretana Sajam;0;gema

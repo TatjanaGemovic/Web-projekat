@@ -10,6 +10,7 @@ public class ScheduledWorkout {
 	private String danPrijave;
 	private String danOdrzavanja;
 	private String status;
+	private boolean canBeCancelled;
 	
 	public ScheduledWorkout() {
 		super();
@@ -26,6 +27,16 @@ public class ScheduledWorkout {
 		this.status = status;
 	}
 	
+	
+	
+	public boolean getCanBeCancelled() {
+		return canBeCancelled;
+	}
+
+	public void setCanBeCancelled(boolean canBeCancelled) {
+		this.canBeCancelled = canBeCancelled;
+	}
+
 	public int getId() {
 		return id;
 	}

@@ -5,8 +5,8 @@ Vue.component("trainersWorkouts", {
 		      uloga: "Trener",
 		      trainersWorkouts: [],
 		      allWorkouts: null,
-		      CanBeCancelled: [],
-		      facilities: null
+		      facilities: null,
+		      workoutsworkouts: null
 		    }
 	},
 	template: ` 
@@ -49,14 +49,13 @@ Vue.component("trainersWorkouts", {
 	<h1>Your workouts</h1>
 	<div class="row" style="margin-top:20%">
 		<div v-for="(workout, index) in trainersWorkouts">
-			<div v-if="workout.trener!=null" class="col-8" class="border-bottom-0">
-				<p>{{workout.naziv}}</p>
-				<p>{{workout.workoutType}}</p>
-				<p>{{workout.facility.name}}</p>
-				<p>{{workout.trajanje}}</p>
-				<p>{{workout.naziv}}</p>
+			<div v-if="workout.status!='cancelled'" class="col-8" class="border-bottom-0">
+				<p>{{workout.workout.naziv}}</p>
+				<p>{{workout.workout.workoutType}}</p>
+				<p>{{workout.workout.facility.name}}</p>
+				<p>{{workout.workout.trajanje}}</p>
 			</div>
-			<div v-if="workout.trener!=null" class="col-4">
+			<div v-if="workout.status!='cancelled'" class="col-4">
 				<button v-if="workout.canBeCancelled" class="btn btn-danger" v-on:click="cancel(index)">Cancel</button>
 			</div>
 		</div>
@@ -76,16 +75,27 @@ Vue.component("trainersWorkouts", {
 		axios
 			.get('rest/workout/allWorkouts')
 			.then((response) => {
-				this.allWorkouts = response.data;
-				for(let i=0; i<this.allWorkouts.length; i++){
-					if(this.allWorkouts[i].trener!=null)
-						if((this.allWorkouts[i]).trener.username==this.user.username){
-						this.trainersWorkouts.push(this.allWorkouts[i]);
-						}				
-				}
+				this.workoutsworkouts = response.data;
+				this.ScheduledWorkouts()
 			})
 	},
     methods: {
+		ScheduledWorkouts : function(){
+			axios
+			.get('rest/scheduledWorkout/allScheduledWorkouts')
+			.then((response) => {
+				this.allWorkouts = response.data
+				this.forPetlja()
+			})
+		},
+		forPetlja:function(){
+			for(let i=0; i<this.allWorkouts.length; i++){
+					if(this.allWorkouts[i].workout.trener!=null)
+						if((this.allWorkouts[i]).workout.trener.username==this.user.username){
+						this.trainersWorkouts.push(this.allWorkouts[i]);
+						}				
+			}
+		},
     	LogOut : function(event){
 			event.preventDefault();
 			router.push(`/`);
@@ -103,11 +113,10 @@ Vue.component("trainersWorkouts", {
 			router.push(`/startpage`);
 		},
 		cancel : function(index){
-				this.trainersWorkouts[index].trener = null;
-				axios.put('rest/workout/cancelWorkout/'+this.trainersWorkouts[index].naziv)
+				this.trainersWorkouts[index].status = "cancelled";
+				axios.put('rest/scheduledWorkout/cancelScheduledWorkout/'+this.trainersWorkouts[index].id)
 				.then((response) => {
 					alert('Trening otkazan')
-					
 				})
 		}
 		
