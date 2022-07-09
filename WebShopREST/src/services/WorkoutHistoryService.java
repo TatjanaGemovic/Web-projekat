@@ -66,7 +66,6 @@ public class WorkoutHistoryService {
 	@Produces(MediaType.APPLICATION_JSON)
 	public WorkoutHistory newWorkoutHistory(WorkoutHistory workout) {
 		WorkoutHistoryDAO workoutHistoryDAO = (WorkoutHistoryDAO) ctx.getAttribute("workoutHistoryDAO");
-		workout.setId("1");
 		LocalDateTime now = LocalDateTime.now();  
 		DateTimeFormatter format = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
 		workout.setVremePrijave(format.format(now));

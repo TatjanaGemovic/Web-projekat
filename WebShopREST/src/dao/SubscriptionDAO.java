@@ -38,8 +38,8 @@ public class SubscriptionDAO {
 	public SubscriptionDAO(String contextPath, Map<String, User> map) {
 		users1 = map.values();
 		loadSubscriptions(contextPath);
-		//path = "/Users/tatjanagemovic/Desktop/Web-projekat/WebShopREST/WebContent/subscriptions.txt";
-		path = "C:/Users/User/Desktop/Web Projekat/Web-projekat/WebShopREST/WebContent/subscriptions.txt";
+		path = "/Users/tatjanagemovic/Desktop/Web-projekat/WebShopREST/WebContent/subscriptions.txt";
+		//path = "C:/Users/User/Desktop/Web Projekat/Web-projekat/WebShopREST/WebContent/subscriptions.txt";
 
 	}
 	

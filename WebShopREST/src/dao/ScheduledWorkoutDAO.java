@@ -30,8 +30,8 @@ public class ScheduledWorkoutDAO {
 		users1 = map.values();
 		workouts1 = map2.values();
 		loadScWorkouts(contextPath);
-		//path = "/Users/tatjanagemovic/Desktop/Web-projekat/WebShopREST/WebContent/scheduledWorkouts.txt";
-		path = "C:/Users/User/Desktop/Web Projekat/Web-projekat/WebShopREST/WebContent/scheduledWorkouts.txt";
+		path = "/Users/tatjanagemovic/Desktop/Web-projekat/WebShopREST/WebContent/scheduledWorkouts.txt";
+		//path = "C:/Users/User/Desktop/Web Projekat/Web-projekat/WebShopREST/WebContent/scheduledWorkouts.txt";
 		calculateIfCanBeCancelled();
 	}
 	
@@ -177,10 +177,26 @@ public class ScheduledWorkoutDAO {
 	
 	public Collection<ScheduledWorkout> findAllWorkoutsForUser(String name) {
 		Collection<ScheduledWorkout> wrks = new ArrayList<ScheduledWorkout>();
-		name = name.replaceAll("_", " ");
+		//name = name.replaceAll("_", " ");
 		for(ScheduledWorkout w : scWorkouts.values()) {
 			if(w.getUser().getUsername().equals(name)) {
 				wrks.add(w);
+			}
+		}
+		return wrks;
+	}
+
+	public Collection<ScheduledWorkout> findAllWorkoutsForUserFuture(String name) {
+		Collection<ScheduledWorkout> wrks = new ArrayList<ScheduledWorkout>();
+		//name = name.replaceAll("_", " ");
+		for(ScheduledWorkout w : scWorkouts.values()) {
+			if(w.getUser().getUsername().equals(name)) {
+				LocalDate d = LocalDate.now();
+				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-d");
+				LocalDate localDate = LocalDate.parse(w.getDanOdrzavanja(), formatter);
+				if(localDate.isAfter(d)) {
+					wrks.add(w);
+				}
 			}
 		}
 		return wrks;

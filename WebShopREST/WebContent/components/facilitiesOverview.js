@@ -69,7 +69,6 @@ template: `
 		<select class="form-select form-select-sm" v-on:change="propertyToFilterBySelectionChanged($event)" style="margin-top: 4%;">
   			<option selected value="0">Type</option>
   			<option value="1">Open objects</option>
-  			
 		</select>
 		<select class="form-select form-select-sm" v-if="inputTextNeeded" v-on:change="userTypeSelectionChanged($event)" >
   			<option value="Regularni">Regularni</option>
@@ -208,6 +207,9 @@ template: `
 		},
 		TrainersWorkouts : function(){
 			router.push(`/trainersWorkouts`);
+		},
+		goToWorkoutsPage : function(){
+			router.push(`/searchWorkouts`);
 		},
 		Subscriptions : function(){
 			event.preventDefault();

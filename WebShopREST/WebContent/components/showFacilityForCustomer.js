@@ -180,7 +180,7 @@ Vue.component("showFacilityForCustomer", {
       <div class="modal-body">
    		<div class="row g-3 align-items-center">
    			<div class="col-auto">
-		    <label for="birthDay" class="col-form-label">Datum treninga: </label>
+		    <label for="birthDay" class="col-form-label">Date of workout: </label>
 		  </div>
 		  <div class="col-auto">
 			<input type="date" id="birthDay" class="form-control" v-model="pocetak"/>		

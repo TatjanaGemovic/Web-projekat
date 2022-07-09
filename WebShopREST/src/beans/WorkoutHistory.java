@@ -3,7 +3,7 @@ package beans;
 
 public class WorkoutHistory {
 
-	private String id;
+	private int id;
 	private String vremePrijave;
 	private Workout workout;
 	private String workoutId;
@@ -17,7 +17,7 @@ public class WorkoutHistory {
 	}
 
 
-	public WorkoutHistory(String id,String vremePrijave, Workout workout, User kupac, User trener) {
+	public WorkoutHistory(int id,String vremePrijave, Workout workout, User kupac, User trener) {
 		super();
 		this.id = id;
 		this.vremePrijave = vremePrijave;
@@ -27,12 +27,12 @@ public class WorkoutHistory {
 	}
 	
 	
-	public String getId() {
+	public int getId() {
 		return id;
 	}
 
 
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 

@@ -144,4 +144,13 @@ public class LoginService {
 		UserDAO userDao = (UserDAO) ctx.getAttribute("userDAO");
 		return userDao.change(user);
 	}
+	
+	@PUT
+	@Path("/deleteUser/{username}")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public User deleteOne(User user, @PathParam("username") String username) {
+		UserDAO userDao = (UserDAO) ctx.getAttribute("userDAO");
+		return userDao.delete(user);
+	}
 }

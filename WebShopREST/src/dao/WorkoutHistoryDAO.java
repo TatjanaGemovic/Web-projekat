@@ -12,13 +12,14 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.StringTokenizer;
 
+import beans.ScheduledWorkout;
 import beans.User;
 import beans.Workout;
 import beans.WorkoutHistory;
 
 public class WorkoutHistoryDAO {
 
-	public Map<String, WorkoutHistory> workouts = new HashMap<>();
+	public Map<Integer, WorkoutHistory> workouts = new HashMap<>();
 	private String path; //tatjana path
 	public Collection<User> users1;
 	public Collection<Workout> workoutsList;
@@ -30,19 +31,28 @@ public class WorkoutHistoryDAO {
 		users1 = map.values();
 		workoutsList = map2.values();
 		loadWorkoutsHistory(contextPath);
-		//path = "/Users/tatjanagemovic/Desktop/Web-projekat/WebShopREST/WebContent/workoutsHistory.txt";
-		path = "C:/Users/User/Desktop/Web Projekat/Web-projekat/WebShopREST/WebContent/workoutsHistory.txt";
+		path = "/Users/tatjanagemovic/Desktop/Web-projekat/WebShopREST/WebContent/workoutsHistory.txt";
+		//path = "C:/Users/User/Desktop/Web Projekat/Web-projekat/WebShopREST/WebContent/workoutsHistory.txt";
 	}
 	
 	public Collection<WorkoutHistory> findAll() {
 		return workouts.values();
 	}
 	
-	public Map<String, WorkoutHistory> getAllWorkoutsHistory(){
+	public Map<Integer, WorkoutHistory> getAllWorkoutsHistory(){
 		return workouts;
 	}
 	
 	public WorkoutHistory save(WorkoutHistory workout) {
+		int Id = 0;
+		for(WorkoutHistory w : workouts.values()) {
+			if(w.getId() == Id) {
+				Id++;
+			}else {
+				break;
+			}
+		}
+		workout.setId(Id);
 		workouts.put(workout.getId(), workout);
 		saveWorkoutsHistory();
 		return workout;
@@ -95,7 +105,7 @@ public class WorkoutHistoryDAO {
 					continue;
 				st = new StringTokenizer(line, ";");
 				while (st.hasMoreTokens()) {
-					String id = st.nextToken().trim();
+					int id = Integer.parseInt(st.nextToken().trim());
 					String period = st.nextToken().trim();
 					String kupac = st.nextToken().trim();
 					User customer = findByUsername(kupac);
