@@ -139,4 +139,10 @@ public class SportsFacilityDAO {
 		
 		return location;
 	}
+
+	public SportsFacility delete(String name) {
+		SportsFacility deleted = facilities.remove(name);
+		saveFacilities();
+		return deleted;
+	}
 }
