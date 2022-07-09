@@ -1,4 +1,4 @@
-0;pera;Restart;2022-07-08;2022-07-23;null
-1;pera;Neki Trening;2022-07-08;2022-07-18;null
-2;pera;Restart;2022-07-08;2022-07-08;null
+0;pera;Trening;2022-07-08;2022-07-23;null
+1;pera;Trening;2022-07-08;2022-07-18;null
+2;pera;Legs day;2022-07-08;2022-07-08;null
 3;pera;Legs day;2022-07-08;2022-07-13;cancelled

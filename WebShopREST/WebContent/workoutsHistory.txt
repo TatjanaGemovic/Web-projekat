@@ -1,4 +1,4 @@
 1;04.07.2022 15:19;pera;Legs day;gema
 2;04.07.2022 01:50;pera;Legs day;gema
-3;04.07.2022 01:50;pera;Pump it up;gema
-4;04.07.2022 01:50;aki;Pump it up;gema
+3;04.07.2022 01:50;pera;Trening;gema
+4;04.07.2022 01:50;aki;Trening;gema
