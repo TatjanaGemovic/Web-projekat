@@ -5,7 +5,9 @@ Vue.component("startpage", {
 		      allFacilities: null,
 		      textInputValueToSearchBy: "",
 		      propToSearchBy: 0,
+		      propToSortBy: "name",
 		      searchedFacilityType : "GYM",
+		      propToFilterBy: 0,
 		      inputTextNeeded : true,
 		      user: null,
 		      uloga: null,
@@ -57,32 +59,71 @@ template: `
 	</section>
 	<section id="intro">
 	<h2 style="margin-top:7%; margin-bottom:5%" class="text-center">Our facilities:</h2>
-	<div class="row justify-content-center">
-		<div class="col-lg-7 col-xs-4 col-sm-4 col-md-4">
-			<button v-on:click="goToAddPage" v-bind:hidden="this.user.uloga!='Administrator'">Add a facility</button>
-		</div>
-		<form style="font-size:16px;margin-bottom:3%" class="col-lg-4 col-xs-7 col-sm-7 col-md-7">
-		
-		<label>Search by:</label>
-		<select class="form-select form-select-sm" v-on:change="propertyToSearchBySelectionChanged($event)" :style="{ 'width': '80%'}">
-  			<option selected value="0">Name</option>
-  			<option value="1">Type</option>
-  			<option value="2">Location</option>
-  			<option value="3">Minimum rating</option>
+	<div class="row justify-content-center" style="margin-bottom:6%;margin-left:5%">
+		<div class="col-xs-2 col-md-2 col-sm-2">
+		<form style="font-size:20px;margin-bottom:3%">
+		<a style="margin-left: 20px;margin-right: 120px; font-size: 30px; font-weight:bold; color:#F15412">
+      			<img src="pictures/filter.png" alt="" width="25" height="25" style="margin-right: 10px" class="d-inline-block">
+      			Filters
+    	</a>	
+		<select class="form-select form-select-sm" v-on:change="propertyToFilterBySelectionChanged($event)" style="margin-top: 4%;">
+  			<option selected value="0">Type</option>
+  			<option value="1">Open objects</option>
+  			
 		</select>
-		<input type="text" class="form-control-sm" v-if="inputTextNeeded" v-model="textInputValueToSearchBy" name="searchInput" placeholder="Type here..." :style="{ 'width': '80%'}">
-		<select class="form-select form-select-sm" v-else  v-on:change="facilityTypeSelectionChanged($event)" :style="{ 'width': '80%'}">
-  			<option selected value="GYM">Gym</option>
-  			<option value="POOL">Pool</option>
-  			<option value="SPORTS_CENTRE">Sports center</option>
-  			<option value="DANCE_STUDIO">Dance studio</option>
+		<select class="form-select form-select-sm" v-if="inputTextNeeded" v-on:change="userTypeSelectionChanged($event)" >
+  			<option value="Regularni">Regularni</option>
+  			<option value="Bronzani">Bronzani</option>
+  			<option value="Srebrni">Srebrni</option>
+  			<option value="Zlatni">Zlatni</option>
+		</select>
+		<select class="form-select form-select-sm" v-else v-on:change="userRoleSelectionChanged($event)" >
+  			<option selected value="Kupac">Kupac</option>
+  			<option value="Menadzer">Menadzer</option>
+  			<option value="Trener">Trener</option>
+  			<option value="Administrator">Administrator</option>
 		</select>
     	 <br>
-    	<button class="btn btn-primary btn-sm" v-on:click="search">Search</button>
-    	<button class="btn btn-secondary btn-sm" v-on:click="resetSearch">Reset search</button>
-	</form>
-	<div class="col-1"></div>
-	
+    	<button class="loginButton" v-on:click="filter">Filter</button>
+		</form>
+		</div>
+		<div class="col-xs-2 col-md-2 col-sm-2">
+		<form style="font-size:20px;margin-bottom:3%">
+		<a style="margin-left: 20px;margin-right: 120px; font-size: 30px; font-weight:bold; color:#F15412">
+      			<img src="pictures/search.png" alt="" width="25" height="25" style="margin-right: 10px" class="d-inline-block">
+      			Search
+    	</a>
+		<select class="form-select form-select-sm" v-on:change="propertyToSearchBySelectionChanged($event)" style="margin-top: 4%;">
+  			<option selected value="0">Name</option>
+  			<option value="1">Last Name</option>
+  			<option value="2">Username</option>
+		</select>
+		<input type="text" class="form-control form-control-sm" v-model="textInputValueToSearchBy" style="height: 90%" name="searchInput" placeholder="Type here..." style="width:100%">
+    	<button class="loginButton" v-on:click="search" style="margin-top: 15%;">Search</button>
+    	</form>
+    	</div>
+    	<div class="col-xs-2 col-md-2 col-sm-2">
+		<form style="font-size:20px;margin-bottom:3%">
+		<a style="margin-left: 20px;margin-right: 120px; font-size: 30px; font-weight:bold; color:#F15412">
+      			<img src="pictures/filter-2.png" alt="" width="25" height="25" style="margin-right: 10px" class="d-inline-block">
+      			Sort
+    	</a>	
+		<select class="form-select form-select-sm" v-on:change="propertyToSortBySelectionChanged($event)" style="margin-top: 4%;">
+  			<option selected value="0">Facility name</option>
+  			<option value="1">Location</option>
+  			<option value="2">Rating</option>
+		</select>
+		<br>
+    	<button class="loginButton" v-on:click="sort" style="margin-top: 15%;">Sort</button>
+    	</form>
+    	</div>
+    	<div class="col-xs-4 col-md-4 col-sm-4"></div>
+		<div class="col-xs-2 col-md-2 col-sm-2">
+				<button class="loginButton" v-on:click="goToAddPage" style="width: 200px;heigth: 50px;margin-bottom: 7%;margin-top: 25%; margin-right: 35%;float: right">Add facility</button>
+		    	<button class="loginButton" v-on:click="resetSearch" style="width: 200px;heigth: 50px; margin-right: 35%;float: right">Reset search</button>
+		</div>
+	</div>
+	<<div class="row justify-content-center">
 		<div v-for="facility in facilitiesToShow" class="col-md-3 card m-3"> 
 			<img v-bind:src="facility.imageURI" class="card-img-top pt-2" /> 
 			<div class="card-body">
@@ -261,6 +302,73 @@ template: `
 		},
 		GoToPendingComments : function(){
 			router.push(`/pendingComments`);
+		},
+		sort: function(){
+			event.preventDefault();
+			if(this.propToSortBy == "name"){
+				this.facilitiesToShow.sort(function(a, b){
+				  if ( a.name.toLowerCase() < b.name.toLowerCase()){
+				    return -1;
+				  }
+				  if ( a.name.toLowerCase() > b.name.toLowerCase()){
+				    return 1;
+				  }
+				  return 0;
+				})
+			}else if (this.propToSortBy == "location"){
+				this.facilitiesToShow.sort(function(a, b){
+				  if ( a.location.address.toLowerCase() < b.location.address.toLowerCase()){
+				    return -1;
+				  }
+				  if ( a.location.address.toLowerCase() > b.location.address.toLowerCase()){
+				    return 1;
+				  }
+				  return 0;
+				})
+			}else if (this.propToSortBy == "rating"){
+				this.facilitiesToShow.sort(function(a, b){
+				  if ( a.rating < b.rating){
+				    return -1;
+				  }
+				  if ( a.rating > b.rating){
+				    return 1;
+				  }
+				  return 0;
+				})
+			}
+		},
+		propertyToSortBySelectionChanged : function(event){
+			if(event.target.value==1)
+				this.propToSortBy = "location"
+			else if(event.target.value==0)
+				this.propToSortBy = "name"
+			else if(event.target.value==2)
+				this.propToSortBy = "rating"
+		},
+		filter : function(event) {
+			event.preventDefault();
+			somethingFound = false;
+			this.facilitiesToShow = [];
+			for(let i=0; i<this.allFacilities.length; i++){
+				if(this.propToFilterBy==0 && (this.allFacilities[i]).type==this.searchedUserType){
+					this.facilitiesToShow.push(this.allFacilities[i]);
+					somethingFound = true;
+				}
+				else if(this.propToFilterBy==1 && (this.allFacilities[i]).status==true){
+					this.facilitiesToShow.push(this.allFacilities[i]);
+					somethingFound = true;
+				}
+			}
+			if(!somethingFound)
+					this.facilitiesToShow = this.allFacilities;		
+    	},
+		
+		propertyToFilterBySelectionChanged : function(event){
+		this.propToFilterBy = event.target.value;
+			if(event.target.value==1)
+				this.inputTextNeeded = false;
+			else
+				this.inputTextNeeded = true;
 		}
     },
     mounted() {
@@ -283,6 +391,6 @@ template: `
 					this.showAlert = true;
 			})	
 		}	
-		
 	}
+	
 });

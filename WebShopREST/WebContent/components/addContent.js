@@ -53,9 +53,9 @@ Vue.component("addContent", {
 		    </div>
 	    </div>
 	</nav>
-	<div class="row">
+	<div class="row" style="margin-top: 10%">
 	<h3>{{headerText}}</h3>
-	<form class="col-lg-6" style="margin-top:10%; margin-left:15%">
+	<form class="col-lg-6" style="margin-left:15%">
 			<input type="text" placeholder="Workout name" v-model="workout.naziv" >
 			<p class="text-danger">{{sameNameExists}}</p>
 			<select class="form-select form-select-sm" v-on:change="workoutTypeSelectionChanged($event)" :style="{ 'width': '50%'}">
@@ -118,11 +118,14 @@ Vue.component("addContent", {
 			})	
 		},
 		SetWorkout: function(){
-			this.workout = this.workouts[this.workoutIndex];
-			if(this.workoutIndex==-1)
+			
+			if(this.workoutIndex==-1){
 					this.selectedTrainer = this.trainers[0];
-				else
+			}
+				else {
+					this.workout = this.workouts[this.workoutIndex];
 					this.selectedTrainer = this.workout.trener;
+				}
 		},
     	addContent : function(event) {
 			event.preventDefault();

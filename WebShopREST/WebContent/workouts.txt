@@ -1,3 +1,4 @@
+Yoga trening;Yoga;1h;Provera dal radi;;Teretana Sajam;0;null
 Relax;Yoga;30min;nema;nema;Teretana Sajam;0;gema
 Legs day;T_Personal;30min;nema;nema;Teretana Sajam;0;gema
 Neki Trening;T_Strength;2h;neki opis;nema;Teretana Sajam;0;maki
