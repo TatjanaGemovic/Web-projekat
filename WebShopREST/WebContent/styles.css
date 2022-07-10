@@ -9,6 +9,10 @@ tr {
 	color: green;	
 }
 
+.map{
+	width: 100%;
+	height: 400px;
+}
  
 .facility_div {
 	width: 200px;

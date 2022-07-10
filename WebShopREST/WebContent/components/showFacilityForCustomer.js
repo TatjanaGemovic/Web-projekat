@@ -15,18 +15,6 @@ Vue.component("showFacilityForCustomer", {
 		      firstTimeHere: true,
 		      subscription: null,  
 		      error: '',
-			   map : new ol.Map({
-	        		target: 'map',
-	        		layers: [
-	          			new ol.layer.Tile({
-	            		source: new ol.source.OSM()
-			          })
-			        ],
-			        view: new ol.View({
-			          center: ol.proj.fromLonLat([37.41, 8.82]),
-			          zoom: 4
-			        })
-     	 }),
 		      workoutToShow: null,
 		      pocetak: null,
 		      workoutHistory: {id: 0, user: null, workout: null, danPrijave: null, danOdrzavanja: null, status: null}
@@ -95,7 +83,7 @@ Vue.component("showFacilityForCustomer", {
       </div>
       <div class="modal-body">
        <h6>{{this.facility.location.address}}</h6>
-        <div id="map" style="width:300px; height:300px" class="map"></div>
+        <div id="map" class="map"></div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -199,8 +187,10 @@ Vue.component("showFacilityForCustomer", {
     mounted() {
 		this.facilityName = this.$route.params.name;
 		axios.get('rest/facilities/' +  this.facilityName)
-			.then(response => (this.facility = response.data)
-			),
+			.then((response) => {
+				this.facility = response.data;
+				this.showMap()
+			})
 		axios.get('rest/currentUser')
 			.then((response) => {
 				this.user = response.data;
@@ -221,7 +211,6 @@ Vue.component("showFacilityForCustomer", {
 						this.commentsToShow.push(this.comments[i]);
 				}
 			})
-
 	},
     methods: {
 		GetType : function(w){
@@ -236,6 +225,20 @@ Vue.component("showFacilityForCustomer", {
 			}else {
 				return 'Group';
 			}
+		},
+		showMap : function(){
+			var map = new ol.Map({
+	        target: 'map',
+	        layers: [
+	          new ol.layer.Tile({
+	            source: new ol.source.OSM()
+	          })
+	        ],
+	        view: new ol.View({
+	          center: ol.proj.fromLonLat([37.41, 8.82]),
+	          zoom: 4
+	          })
+      		})
 		},
 		GetSubscription : function(){
 			axios.get('rest/subscription/allActiveSubscriptionsForCustomer/' + this.user.username)
