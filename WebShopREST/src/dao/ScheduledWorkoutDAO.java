@@ -43,6 +43,12 @@ public class ScheduledWorkoutDAO {
 			 String date = w.getDanOdrzavanja();
 			 LocalDate datumOdrzavanja =  LocalDate.parse(date, formatter);
 			 period = Period.between(currentDate, datumOdrzavanja);
+			 if(w.getUser().getDeleted() == true) {
+				 w.setStatus("cancelled");
+			 }
+			 if(w.getWorkout().getTrener().getDeleted() == true) {
+				 w.setStatus("cancelled");
+			 }
 			 if(period.getDays()>=2 && w.getWorkout().getWorkoutType()==WorkoutType.T_Personal) 
 				 w.setCanBeCancelled(true);			 
 			 else

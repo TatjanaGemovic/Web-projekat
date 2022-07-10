@@ -75,6 +75,7 @@ public class ScheduledWorkoutService {
 	public ScheduledWorkout newWorkout(ScheduledWorkout workout) {
 		ScheduledWorkoutDAO scheduledWorkoutDAO = (ScheduledWorkoutDAO) ctx.getAttribute("scWorkoutDAO");
 		workout.setDanPrijave(LocalDate.now().toString());
+		workout.setStatus("upcoming");
 		return scheduledWorkoutDAO.save(workout);
 	}
 	
