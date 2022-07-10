@@ -58,7 +58,10 @@ Vue.component("showFacilityForCustomer", {
 		    </div>
 	    </div>
 	</nav>
-	<div class="row" style="margin-top: 12%; margin-left:6%">
+	<div class="row" style="margin-top: 5%">
+	     <div id="map" class="map" style="border: 2px solid black"></div>
+	</div>
+	<div class="row" style="margin-top: 6%; margin-left:6%">
 		<div class="col-lg-5">
 			<h1>{{this.facility.name}}</h1> <br>
 			<p>Type: {{this.facility.type}}</p>
@@ -83,7 +86,6 @@ Vue.component("showFacilityForCustomer", {
       </div>
       <div class="modal-body">
        <h6>{{this.facility.location.address}}</h6>
-        <div id="map" class="map"></div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -189,8 +191,7 @@ Vue.component("showFacilityForCustomer", {
 		axios.get('rest/facilities/' +  this.facilityName)
 			.then((response) => {
 				this.facility = response.data;
-				this.showMap()
-			})
+			}),
 		axios.get('rest/currentUser')
 			.then((response) => {
 				this.user = response.data;
@@ -210,6 +211,7 @@ Vue.component("showFacilityForCustomer", {
 					if(this.comments[i].status=="approved")
 						this.commentsToShow.push(this.comments[i]);
 				}
+				this.showMap()
 			})
 	},
     methods: {
