@@ -229,18 +229,45 @@ Vue.component("showFacilityForCustomer", {
 			}
 		},
 		showMap : function(){
+			var myStyle = new ol.style.Style({
+			  image: new ol.style.Icon({
+			    anchor: [0.5, 1],
+			    anchorXUnits: 'fraction',
+    			anchorYUnits: 'fraction',
+    			scale: [0.05, 0.05],
+			    src: 'pictures/placeholder.png',
+			  }),
+		      /*image: new ol.style.Circle({
+		        radius: 6,
+		        fill: new ol.style.Fill({color: 'white'}),
+		        stroke: new ol.style.Stroke({
+		          color: [241, 84, 18], width: 3
+		        })
+		      })*/
+		    })
 			var map = new ol.Map({
 	        target: 'map',
 	        layers: [
 	          new ol.layer.Tile({
 	            source: new ol.source.OSM()
-	          })
+	          	}),
 	        ],
 	        view: new ol.View({
-	          center: ol.proj.fromLonLat([37.41, 8.82]),
-	          zoom: 4
+	          center: ol.proj.fromLonLat([19.824220, 45.256469]),
+	          zoom: 12
 	          })
       		})
+			var layer = new ol.layer.Vector({
+		     source: new ol.source.Vector({
+		         features: [
+		             new ol.Feature({
+		                 geometry: new ol.geom.Point(ol.proj.fromLonLat([this.facility.location.latitude, this.facility.location.longitude]))
+		             })
+			         ],
+			     }),
+			     style: myStyle
+			 });
+ 			map.addLayer(layer);
 		},
 		GetSubscription : function(){
 			axios.get('rest/subscription/allActiveSubscriptionsForCustomer/' + this.user.username)
