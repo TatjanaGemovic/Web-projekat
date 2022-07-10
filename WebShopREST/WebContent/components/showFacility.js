@@ -48,7 +48,10 @@ Vue.component("showFacility", {
 		    </div>
 	    </div>
 	</nav>
-	<div class="row" style="margin-top: 12%; margin-left:6%">
+	<div class="row" style="margin-top: 5%">
+	     <div id="map" class="map" style="border: 2px solid black"></div>
+	</div>
+	<div class="row" style="margin-top: 6%; margin-left:6%">
 		<div class="col-lg-5">
 			<h1>{{this.facility.name}}</h1> <br>
 			<p>Type: {{this.facility.type}}</p>
@@ -58,31 +61,13 @@ Vue.component("showFacility", {
 			<p v-else class="text-danger">Not open</p>
 			<p>Working hours: {{this.facility.workingHours}}</p>
 			<p>Rating: {{this.facility.rating}}</p>
-			<button class="btn btn-primary mt-2" data-bs-toggle="modal" data-bs-target="#exampleModal">Show on map</button>
 		</div>
 		<div class="col-lg-7"">
 			<img v-bind:src="this.facility.imageURI" style="width:90%; height:100%;">
 		</div>
 	</div>
-	<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
- 	 <div class="modal-dialog modal-dialog-centered"">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">{{this.facility.name}}</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-       <h6>{{this.facility.location.address}}</h6>
-        <div id="map" class="map"></div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-      </div>
-    	</div>
-  		</div>
-	</div>
 	<button v-on:click="addContent" v-if="facility.name==user.facilityId" class="btn btn-primary">Add New Content</button>
-	<h2 class="row justify-content-center" style="margin-top: 7%;">Workouts</h2>
+	<h2 class="row justify-content-center" style="margin-top: 2%;">Workouts</h2>
 	<div>
 		<div class="row justify-content-center" style="margin-top: 5%;margin-bottom: 5%">
 		<div v-for="(w, index) in workouts1" class="col-md-2 card m-2" style="border: 2px solid #3e3e3e"> 
@@ -154,6 +139,7 @@ Vue.component("showFacility", {
 					}
 				else
 					this.commentsToShow = this.comments;
+				this.showMap()
 			})
 	},
     methods: {
@@ -169,6 +155,40 @@ Vue.component("showFacility", {
 			}else {
 				return 'Group';
 			}
+		},
+		showMap : function(){
+			var myStyle = new ol.style.Style({
+			  image: new ol.style.Icon({
+			    anchor: [0.5, 1],
+			    anchorXUnits: 'fraction',
+    			anchorYUnits: 'fraction',
+    			scale: [0.05, 0.05],
+			    src: 'pictures/placeholder.png',
+			  }),
+		    })
+			var map = new ol.Map({
+	        target: 'map',
+	        layers: [
+	          new ol.layer.Tile({
+	            source: new ol.source.OSM()
+	          	}),
+	        ],
+	        view: new ol.View({
+	          center: ol.proj.fromLonLat([19.824220, 45.256469]),
+	          zoom: 12
+	          })
+      		})
+			var layer = new ol.layer.Vector({
+		     source: new ol.source.Vector({
+		         features: [
+		             new ol.Feature({
+		                 geometry: new ol.geom.Point(ol.proj.fromLonLat([this.facility.location.latitude, this.facility.location.longitude]))
+		             })
+			         ],
+			     }),
+			     style: myStyle
+			 });
+ 			map.addLayer(layer);
 		},
     	LogOut : function(event){
 			event.preventDefault();

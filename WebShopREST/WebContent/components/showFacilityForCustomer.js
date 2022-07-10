@@ -71,27 +71,10 @@ Vue.component("showFacilityForCustomer", {
 			<p v-else class="text-danger">Not open</p>
 			<p>Working hours: {{this.facility.workingHours}}</p>
 			<p>Rating: {{this.facility.rating}}</p>
-			<button class="btn btn-primary mt-2" data-bs-toggle="modal" data-bs-target="#exampleModal">Show on map</button>
 		</div>
 		<div class="col-lg-7"">
 			<img v-bind:src="this.facility.imageURI" style="width:90%; height:100%;">
 		</div>
-	</div>
-	<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
- 	 <div class="modal-dialog modal-dialog-centered"">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">{{this.facility.name}}</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-       <h6>{{this.facility.location.address}}</h6>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-      </div>
-    </div>
-  	</div>
 	</div>
 	<h2 class="row justify-content-center" style="margin-top: 7%;">Workouts</h2>
 	<div>
@@ -237,13 +220,6 @@ Vue.component("showFacilityForCustomer", {
     			scale: [0.05, 0.05],
 			    src: 'pictures/placeholder.png',
 			  }),
-		      /*image: new ol.style.Circle({
-		        radius: 6,
-		        fill: new ol.style.Fill({color: 'white'}),
-		        stroke: new ol.style.Stroke({
-		          color: [241, 84, 18], width: 3
-		        })
-		      })*/
 		    })
 			var map = new ol.Map({
 	        target: 'map',

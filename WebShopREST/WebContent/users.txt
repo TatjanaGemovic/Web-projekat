@@ -4,6 +4,7 @@ Tatjana;Gemovic;zensko;2022-07-08;gema;gema;Trener;null;null;0;Regularni;null;ne
 Nina;Jankovic;zensko;2022-07-08;jaki;jaki;Kupac;nema;nema;0;Regularni;null;nema;false
 p;p;musko;2022-07-08;peraa;pera;Menadzer;null;null;0;Regularni;null;Random Tera;false
 Sako;Polumenta;musko;2022-07-30;sako;pass;Menadzer;null;null;0;Regularni;null;Spens;false
+g;g;musko;2022-07-14;g;g;Menadzer;null;null;0;Regularni;null;gg;null
 Luka;Poljak;musko;2022-07-29;poljak;pass;Menadzer;null;null;0;Regularni;null;Body Fit;false
 Vuk;Petrovic;musko;2022-07-08;vuk;vuk;Trener;nema;nema;0;Regularni;null;nema;false
 Stojanka;Novakovic;zensko;2022-07-08;stoja;stoja;Administrator;nema;nema;0;Regularni;null;nema;false
@@ -11,10 +12,11 @@ Aleksa;Colovic;musko;2022-07-02;cola;pass;Menadzer;null;null;0;Regularni;null;Ne
 Pera;Peric;musko;2020-06-05;pera;pera;Kupac;nema;nema;973;Bronzani;null;nema;false
 Luka;Popovic;musko;2022-07-29;lule;pass;Menadzer;null;null;0;Regularni;null;Djacko;false
 Nikola;Nikolic;musko;2022-07-08;nik;nik;Menadzer;nema;nema;0;Regularni;null;Teretana Sajam;false
-r;r;musko;null;r;r;Kupac;null;null;0;Regularni;null;nema;false
+q;q;musko;2022-07-13;q;q;Menadzer;null;null;0;Regularni;null;t;null
 u;u;musko;null;u;u;Kupac;null;null;0;Regularni;null;nema;false
 Jovana;Jovanovic;zensko;2022-07-08;jovana;jovana;Trener;nema;nema;0;Regularni;null;nema;false
 Nemanja;Mihic;musko;2022-07-08;nem;nem;Menadzer;null;null;0;Regularni;null;Teretanica;false
 Luka;Erceg;musko;2022-07-30;kumara;pass;Menadzer;null;null;0;Regularni;null;Synergy;false
 Mladen;ovuka;musko;2022-07-29;djomla;pass;Menadzer;null;null;0;Regularni;null;Body Fit;false
+y;y;musko;2022-07-06;y;y;Menadzer;null;null;0;Regularni;null;y;false
 Aleksandra;Aleksica;zensko;2022-07-08;aki;aki;Kupac;nema;nema;0;Regularni;null;nema;false
