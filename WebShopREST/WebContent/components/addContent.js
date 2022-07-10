@@ -33,32 +33,37 @@ Vue.component("addContent", {
 		    <div class="collapse navbar-collapse justify-content-end align-center gap-2" id="navbar" style="font-size: 20px">
 		      <ul class="navbar-nav d-flex gap-2">
 		        <li class="nav-item">
-		          <a class="nav-link" href="#intro" v-on:click="StartPage">Pocetna</a>
+		          <a class="nav-link active" aria-current="page" href="#intro" v-on:click="goStartPage">Start Page</a>
 		        </li>
 		        <li class="nav-item" >
-		          <a class="nav-link" href="#" v-bind:hidden="this.user.uloga!='Kupac'">Treninzi</a>
-		          <a class="nav-link" href="#" v-bind:hidden="this.user.uloga!='Trener'">Treninzi</a>
-		          <a class="nav-link active" aria-current="page" href="#" v-bind:hidden="this.user.uloga!='Administrator'">Korisnici</a>
-		          <a class="nav-link" href="#" v-bind:hidden="this.user.uloga!='Menadzer'">Moj objekat</a>
+		          <a class="nav-link" href="#" v-bind:hidden="this.user.uloga!='Kupac'" v-on:click="Workouts">My Trainings</a>
+		          <a class="nav-link" href="#" v-bind:hidden="this.user.uloga!='Trener'" v-on:click="TrainersWorkouts">My Trainings</a>
+		          <a class="nav-link" href="#" v-bind:hidden="this.user.uloga!='Administrator'" v-on:click="ShowAllProfiles">Users</a>
+		          <a class="nav-link" href="#" v-bind:hidden="this.user.uloga!='Menadzer'" v-on:click="goToMyFacility">My Facility</a>
 		        </li>
 		        <li class="nav-item" >
-		          <a class="nav-link" href="#" v-bind:hidden="this.user.uloga!='Kupac'">Clanarine</a>
+		          <a class="nav-link" v-on:click="Subscriptions" href="#" v-bind:hidden="this.user.uloga!='Kupac'">Subscriptions</a>
+		          <a class="nav-link" data-bs-toggle="modal" data-bs-target="#exampleModal2" href="#" v-bind:hidden="this.user.uloga!='Administrator'">Promo</a>
+		        </li>
+		        <li class="nav-item" v-bind:hidden="this.user.uloga!='Administrator'">
+		          <a class="nav-link" href="#" v-on:click="GoToPendingComments">Pending Comments</a>
 		        </li>
 		        <li class="nav-item">
-		          <a class="nav-link" v-on:click="ProfilePage" href="#">Profil</a>
+		          <a class="nav-link" v-on:click="ProfilePage" href="#">Profile</a>
 		        </li>
 		        <li class="nav-item">
-			      <button class="loginButton" v-on:click="LogOut" style="width: 120px; margin-left: 20px">Log out</button>
+			      <button class="loginButton"  v-on:click="LogOut" style="width: 120px; margin-left: 20px">Log out</button>
 		        </li>
 		      </ul>
 		    </div>
 	    </div>
 	</nav>
-	<div class="row" style="margin-top: 10%">
-	<h3>{{headerText}}</h3>
+	<div class="row justify-content-center" style="margin-top: 10%">
+	<h3 style="margin-left:8%; margin-top:2%;margin-botton:6%">{{headerText}}</h3>
 	<form class="col-lg-6" style="margin-left:15%">
 			<input type="text" placeholder="Workout name" v-model="workout.naziv" >
-			<p class="text-danger">{{sameNameExists}}</p>
+			<p class="text-danger" style="display:inline-block">{{sameNameExists}}</p><br><br>
+			<label>Choose content type:</label>
 			<select class="form-select form-select-sm" v-on:change="workoutTypeSelectionChanged($event)" :style="{ 'width': '50%'}">
   			<option selected value="T_Strength">Strength Training</option>
   			<option value="T_Cardio">Cardio</option>
@@ -69,18 +74,18 @@ Vue.component("addContent", {
   			<option value="Spa">Spa</option>
   			<option value="Massage">Massage</option>
   			<option value="Pool">Pool</option>
-			</select>			
+			</select><br>
 			<div  v-if="trainingToBeAdded">
-			<label>Choose trainer:</label>		
+			<label>Choose trainer:</label>
 			<select class="form-select form-select-sm" v-on:change="trainerSelectionChanged($event)" :style="{ 'width': '50%'}">
 			    <option v-for="trainer in trainers" :value="trainer.username" >{{trainer.firstName}} {{trainer.lastName}}</option>
 			</select>
-			</div>
-			<input type="text" placeholder="Description" v-model="workout.opis">
-			<input type="text" placeholder="Duration" v-model="workout.trajanje">
-			<input type="file" name="avatar" accept="image/*" v-model="imageToUpload">
+			</div><br>
+			<textarea placeholder="Description" v-model="workout.opis"></textarea><br><br>
+			<input type="text" placeholder="Duration" v-model="workout.trajanje"><br><br>
+			<input type="file" name="avatar" accept="image/*" v-model="imageToUpload"><br><br>
 
-			<button class="btn btn-primary" v-on:click = "addContent">{{buttonContent}}</button>
+			<button class="loginButton" style="width:15%" v-on:click = "addContent">{{buttonContent}}</button>
 	</form>
 	</div>
 	</body>
@@ -169,7 +174,7 @@ Vue.component("addContent", {
 				//	this.selectedTrainer = this.trainers[i];
 				}
 		},
-    	LogOut : function(){
+    	LogOut : function(event){
 			event.preventDefault();
 			router.push(`/`);
 		},
@@ -177,9 +182,42 @@ Vue.component("addContent", {
 			event.preventDefault();
 			router.push(`/profile`);
 		},
-		StartPage : function(){
+		Workouts : function(){
 			event.preventDefault();
+			router.push(`/customerWorkouts`);
+		},
+		
+		TrainersWorkouts : function(){
+			router.push(`/trainersWorkouts`);
+		},
+		goToWorkoutsPage : function(){
+			router.push(`/searchWorkouts`);
+		},
+		Subscriptions : function(){
+			event.preventDefault();
+			router.push(`/subscriptionsOverview`);
+		},
+		AddPromo : function(event) {
+			event.preventDefault();
+
+				axios.post('rest/promo/addPromoCode/' + this.promoCode.trajanje, this.promoCode)
+					.then((response) => {
+						alert('Uspesno dodat novi promo kod')
+					})
+    	},
+		ShowAllProfiles : function(){
+			event.preventDefault();
+			router.push(`/profilesOverview`);
+		},
+		GoToPendingComments : function(){
+			router.push(`/pendingComments`);
+		},
+		goStartPage: function(){
 			router.push(`/startpage`);
-		}   	
+		},
+		goToMyFacility: function(){
+			name = this.user.facilityId.replaceAll(" ", "_");
+			router.push(`/showFacility/${name}`);
+		}	
     }
 });

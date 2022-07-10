@@ -23,22 +23,26 @@ template: `
 		    <div class="collapse navbar-collapse justify-content-end align-center gap-2" id="navbar" style="font-size: 20px">
 		      <ul class="navbar-nav d-flex gap-2">
 		        <li class="nav-item">
-		          <a class="nav-link" href="#intro" v-on:click="StartPage">Pocetna</a>
+		          <a class="nav-link active" aria-current="page" href="#intro" v-on:click="goStartPage">Start Page</a>
 		        </li>
 		        <li class="nav-item" >
-		          <a class="nav-link" href="#" v-bind:hidden="this.user.uloga!='Kupac'">Treninzi</a>
-		          <a class="nav-link" href="#" v-bind:hidden="this.user.uloga!='Trener'">Treninzi</a>
-		          <a class="nav-link" href="#" v-bind:hidden="this.user.uloga!='Administrator'" v-on:click="ShowAllProfiles">Korisnici</a>
-		          <a class="nav-link" href="#" v-bind:hidden="this.user.uloga!='Menadzer'">Moj objekat</a>
+		          <a class="nav-link" href="#" v-bind:hidden="this.user.uloga!='Kupac'" v-on:click="Workouts">My Trainings</a>
+		          <a class="nav-link" href="#" v-bind:hidden="this.user.uloga!='Trener'" v-on:click="TrainersWorkouts">My Trainings</a>
+		          <a class="nav-link" href="#" v-bind:hidden="this.user.uloga!='Administrator'" v-on:click="ShowAllProfiles">Users</a>
+		          <a class="nav-link" href="#" v-bind:hidden="this.user.uloga!='Menadzer'" v-on:click="goToMyFacility">My Facility</a>
 		        </li>
 		        <li class="nav-item" >
-		          <a class="nav-link" href="#" v-on:click="Subscriptions" v-bind:hidden="this.user.uloga!='Kupac'">Clanarine</a>
+		          <a class="nav-link" v-on:click="Subscriptions" href="#" v-bind:hidden="this.user.uloga!='Kupac'">Subscriptions</a>
+		          <a class="nav-link" data-bs-toggle="modal" data-bs-target="#exampleModal2" href="#" v-bind:hidden="this.user.uloga!='Administrator'">Promo</a>
+		        </li>
+		        <li class="nav-item" v-bind:hidden="this.user.uloga!='Administrator'">
+		          <a class="nav-link" href="#" v-on:click="GoToPendingComments">Pending Comments</a>
 		        </li>
 		        <li class="nav-item">
-		          <a class="nav-link active" aria-current="page" href="#">Profil</a>
+		          <a class="nav-link" v-on:click="ProfilePage" href="#">Profile</a>
 		        </li>
 		        <li class="nav-item">
-			      <button class="nav-link" class="loginButton" v-on:click="LogOut" style="width: 120px; margin-left: 20px">Log out</button>
+			      <button class="loginButton"  v-on:click="LogOut" style="width: 120px; margin-left: 20px">Log out</button>
 		        </li>
 		      </ul>
 		    </div>
@@ -138,21 +142,54 @@ template: `
 			}
 			return this.user.tipKupca + "   (bodovi: " + this.user.sakupljeniBodovi + ")";
 		},
-		LogOut : function(){
-				event.preventDefault();
-				router.push(`/`);
-			},
-		StartPage : function(){
+				LogOut : function(event){
 			event.preventDefault();
-			router.push(`/startpage`);
+			router.push(`/`);
 		},
-		ShowAllProfiles : function(){
+		ProfilePage : function(){
 			event.preventDefault();
-			router.push(`/profilesOverview`);
+			router.push(`/profile`);
+		},
+		Workouts : function(){
+			event.preventDefault();
+			router.push(`/customerWorkouts`);
+		},
+		
+		TrainersWorkouts : function(){
+			router.push(`/trainersWorkouts`);
+		},
+		goToWorkoutsPage : function(){
+			router.push(`/searchWorkouts`);
 		},
 		Subscriptions : function(){
 			event.preventDefault();
 			router.push(`/subscriptionsOverview`);
+		},
+		AddPromo : function(event) {
+			event.preventDefault();
+
+				axios.post('rest/promo/addPromoCode/' + this.promoCode.trajanje, this.promoCode)
+					.then((response) => {
+						alert('Uspesno dodat novi promo kod')
+					})
+    	},
+		ShowAllProfiles : function(){
+			event.preventDefault();
+			router.push(`/profilesOverview`);
+		},
+		GoToPendingComments : function(){
+			router.push(`/pendingComments`);
+		},
+		goStartPage: function(){
+			router.push(`/startpage`);
+		},
+		goToMyFacility: function(){
+			name = this.user.facilityId.replaceAll(" ", "_");
+			router.push(`/showFacility/${name}`);
+		},
+		StartPage : function(){
+			event.preventDefault();
+			router.push(`/startpage`);
 		},
 		Save : function(event){
 			axios.put('rest/changeUser/' + this.user.username, this.user)

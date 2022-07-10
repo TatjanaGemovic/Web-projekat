@@ -5,8 +5,10 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.PrintWriter;
+
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,6 +32,24 @@ public class SportsFacilityDAO {
 		loadFacilities(contextPath);
 		//path = "C:/Users/User/Desktop/Web Projekat/Web-projekat/WebShopREST/WebContent/facilities.txt";
 		path = "/Users/tatjanagemovic/Desktop/Web-projekat/WebShopREST/WebContent/facilities.txt"; 
+		SetStatus();
+	}
+	
+	private void SetStatus() {
+		for(SportsFacility facility : facilities.values()) {
+			String workingHours[] = facility.getWorkingHours().split("-", -2);
+			Date now = new Date();
+			String start[] = workingHours[0].split(":", -2);
+			String end[] = workingHours[1].split(":", -2);
+			if (!(now.getHours() < Integer.parseInt(start[0]) || now.getHours() > Integer.parseInt(end[0]) ||
+			        (now.getHours() == Integer.parseInt(start[0]) && now.getMinutes() < Integer.parseInt(start[1])) ||
+			        (now.getHours() == Integer.parseInt(end[0]) && now.getMinutes() >=Integer.parseInt(end[1])))) {
+			    facility.setStatus(true);
+			} 
+			else {
+				facility.setStatus(false);
+			}
+		}
 	}
 	
 	public SportsFacility findByName(String name) {

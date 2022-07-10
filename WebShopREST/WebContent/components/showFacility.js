@@ -14,35 +14,39 @@ Vue.component("showFacility", {
 	template: ` 
 <div>
 	<body>
-	<nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light shadow-lg p-3 mb-5 bg-white" style="background-color: #b4b5b3;font-size:50px; height: 80px; border-bottom: 2px solid #3e3e3e">
+		<nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light shadow-lg p-3 mb-5 bg-white" style="background-color: #b4b5b3;font-size:50px; height: 80px; border-bottom: 2px solid #3e3e3e">
   		<div class="container-fluid" style="margin-bottom: 0px">
 			<a class="navbar-brand" style="margin-left: 20px;margin-right: 120px; font-size: 28px">
       			<img src="pictures/barbell-2.png" alt="" width="65" height="55" style="margin-right: 10px" class="d-inline-block">
-      			Fitpass
+      			FitPro
     		</a>  		
     	
-	    	<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+	    	<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
 		      <span class="navbar-toggler-icon"></span>
 		    </button>
-		    <div class="collapse navbar-collapse d-flex flex-row-reverse gap-2" id="navbarNav" style="font-size: 20px">
+		    <div class="collapse navbar-collapse justify-content-end align-center gap-2" id="navbar" style="font-size: 20px">
 		      <ul class="navbar-nav d-flex gap-2">
 		        <li class="nav-item">
-		          <a class="nav-link" href="#intro" v-on:click="StartPage">Pocetna</a>
+		          <a class="nav-link active" aria-current="page" href="#intro" v-on:click="goStartPage">Start Page</a>
 		        </li>
 		        <li class="nav-item" >
-		          <a class="nav-link" href="#" v-bind:hidden="this.user.uloga!='Kupac'">Treninzi</a>
-		          <a class="nav-link" href="#" v-bind:hidden="this.user.uloga!='Trener'">Treninzi</a>
-		          <a class="nav-link" href="#" v-bind:hidden="this.user.uloga!='Administrator'">Korisnici</a>
-		          <a class="nav-link" href="#" v-bind:hidden="this.user.uloga!='Menadzer'">Moj objekat</a>
+		          <a class="nav-link" href="#" v-bind:hidden="this.user.uloga!='Kupac'" v-on:click="Workouts">My Trainings</a>
+		          <a class="nav-link" href="#" v-bind:hidden="this.user.uloga!='Trener'" v-on:click="TrainersWorkouts">My Trainings</a>
+		          <a class="nav-link" href="#" v-bind:hidden="this.user.uloga!='Administrator'" v-on:click="ShowAllProfiles">Users</a>
+		          <a class="nav-link" href="#" v-bind:hidden="this.user.uloga!='Menadzer'" v-on:click="goToMyFacility">My Facility</a>
 		        </li>
 		        <li class="nav-item" >
-		          <a class="nav-link" v-on:click="Subscriptions" href="#" v-bind:hidden="this.user.uloga!='Kupac'">Clanarine</a>
+		          <a class="nav-link" v-on:click="Subscriptions" href="#" v-bind:hidden="this.user.uloga!='Kupac'">Subscriptions</a>
+		          <a class="nav-link" data-bs-toggle="modal" data-bs-target="#exampleModal2" href="#" v-bind:hidden="this.user.uloga!='Administrator'">Promo</a>
+		        </li>
+		        <li class="nav-item" v-bind:hidden="this.user.uloga!='Administrator'">
+		          <a class="nav-link" href="#" v-on:click="GoToPendingComments">Pending Comments</a>
 		        </li>
 		        <li class="nav-item">
-		          <a class="nav-link" v-on:click="ProfilePage" href="#">Profil</a>
+		          <a class="nav-link" v-on:click="ProfilePage" href="#">Profile</a>
 		        </li>
 		        <li class="nav-item">
-			      <button  class="loginButton" v-on:click="LogOut" style="width: 120px; margin-left: 20px">Log out</button>
+			      <button class="loginButton"  v-on:click="LogOut" style="width: 120px; margin-left: 20px">Log out</button>
 		        </li>
 		      </ul>
 		    </div>
@@ -53,37 +57,19 @@ Vue.component("showFacility", {
 			<h1>{{this.facility.name}}</h1> <br>
 			<p>Type: {{this.facility.type}}</p>
 			<p>Location: {{this.facility.location.address}}</p>
-			<p>This object offers: {{this.facility.offer}}</p>
 			<p v-if="this.facility.status" class="text-success">Currently open</p>
-			<p v-else class="text-danger">Not open</p>
+			<p v-else class="text-danger">Currently closed</p>
 			<p>Working hours: {{this.facility.workingHours}}</p>
 			<p>Rating: {{this.facility.rating}}</p>
-			<button class="btn btn-primary mt-2" data-bs-toggle="modal" data-bs-target="#exampleModal">Show on map</button>
 		</div>
 		<div class="col-lg-7"">
 			<img v-bind:src="this.facility.imageURI" style="width:90%; height:100%;">
 		</div>
 	</div>
-	<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
- 	 <div class="modal-dialog modal-dialog-centered"">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">{{this.facility.name}}</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-       <h6>{{this.facility.location.address}}</h6>
-        <div id="map" class="map"></div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-      </div>
-    	</div>
-  		</div>
-	</div>
-	<button v-on:click="addContent" v-if="facility.name==user.facilityId" class="btn btn-primary">Add New Content</button>
 	<h2 class="row justify-content-center" style="margin-top: 7%;">Workouts</h2>
 	<div>
+		<button style="float:right;width:15%; margin: 5%" v-on:click="addContent" v-if="facility.name==user.facilityId" class="btn btn-primary loginButton">Add New Workout</button>
+
 		<div class="row justify-content-center" style="margin-top: 5%;margin-bottom: 5%">
 		<div v-for="(w, index) in workouts1" class="col-md-2 card m-2" style="border: 2px solid #3e3e3e"> 
 		<img src="pictures/weightlifting.png" v-bind:hidden="w.workoutType!='T_Strength'" class="card-img-top pt-2" /> 
@@ -91,15 +77,19 @@ Vue.component("showFacility", {
 		<img src="pictures/stationary-bike.png" v-bind:hidden="w.workoutType!='T_Cardio'" class="card-img-top pt-2" /> 
 		<img src="pictures/plank.png" v-bind:hidden="w.workoutType!='T_Endurance'" class="card-img-top pt-2" /> 	
 			<div class="card-body">
-				<p class="card-title" style="font-weight: bold; font-size: 20px">{{w.naziv}} - <span style="font-size: 15px; color: #F15412; margin-left: 2%">{{GetType(w)}}</span></p>
-				<p class="card-text" style="font-size: 17px">{{w.trener.firstName}} {{w.trener.lastName}}</p>
-				<p class="card-text">Trajanje: {{w.trajanje}}, cena: {{w.cena}}</p>
-				<button v-if="facility.name==user.facilityId" class="btn btn-primary" v-on:click="edit(w.naziv)">Edit</button>
+				<p class="card-title" style="font-weight: bold; font-size: 20px">{{w.naziv}} <br> <span style="font-size: 15px; color: #F15412; margin-left: 2%">{{GetType(w)}}</span></p>
+				<p class="card-text" style="font-size: 17px">Coach: {{w.trener.firstName}} {{w.trener.lastName}}</p>
+				<p class="card-text">Duration: {{w.trajanje}}, price: {{w.cena}}</p>
 			</div>
+			<div class="card-footer">
+    			<button v-if="facility.name==user.facilityId" class="btn btn-primary loginButton" v-on:click="edit(w2.naziv)">Edit</button>
+  			</div>
 		</div>
 	</div>
 	<h2 class="row justify-content-center">Additional content</h2>
 	<div>
+		<button style="float:right; width:15%; margin: 5%" v-on:click="addContent" v-if="facility.name==user.facilityId" class="btn btn-primary loginButton">Add New Content</button>
+
 		<div class="row justify-content-center" style="margin-top: 5%">
 		<div v-for="(w2,index) in workouts2" class="col-md-2 card m-2" style="border: 2px solid #3e3e3e; background: #e7e7e5"> 
 		<img src="pictures/spa.png" v-bind:hidden="w2.workoutType!='Spa'" class="card-img-top pt-2" /> 
@@ -109,15 +99,17 @@ Vue.component("showFacility", {
 			<div class="card-body">
 				<p class="card-title" style="font-weight: bold; font-size: 28px">{{w2.naziv}}</p>
 				<p class="card-text" style="font-weight: bold; font-size: 20px;color: #F15412">{{w2.workoutType}}</p>
-				<p class="card-text">Doplata: {{w2.cena}}</p>
-				<button v-if="facility.name==user.facilityId" class="btn btn-primary" v-on:click="edit(w2.naziv)">Edit</button>
+				<p class="card-text">Additional fee: {{w2.cena}}</p>
 			</div>
+			<div class="card-footer">
+    			<button v-if="facility.name==user.facilityId" class="btn btn-primary loginButton" v-on:click="edit(w2.naziv)">Edit</button>
+  			</div>
 		</div>
 	</div>
-	</div><br>
+	</div><br><br><br>
 	<h2 class="row justify-content-center" style="margin-bottom: 5%">Comments</h2>	
     <div class="row" style="margin-top: 5%;margin-bottom: 5%;margin-left: 8%">
-    	<div v-for="comment in commentsToShow" class="col-md-7 border-bottom-2" style="margin-bottom:2%;margin-right:20%">
+    	<div v-for="comment in commentsToShow" class="col-md-7 border-bottom" style="margin-bottom:2%;margin-right:20%">
     		<p class="fw-bold" style="font-weight: bold; font-size: 20px;">from: <span style="font-size: 26px; color: #F15412; margin-left: 2%">{{comment.user}}</span></p>
     		<div style="border: 2px solid #3e3e3e;padding:2%;padding-bottom:0%">
     			<p class="ps-3" style="font-size: 18px;">{{comment.comment}}</p>
@@ -170,7 +162,7 @@ Vue.component("showFacility", {
 				return 'Group';
 			}
 		},
-    	LogOut : function(event){
+    			LogOut : function(event){
 			event.preventDefault();
 			router.push(`/`);
 		},
@@ -178,12 +170,57 @@ Vue.component("showFacility", {
 			event.preventDefault();
 			router.push(`/profile`);
 		},
+		Workouts : function(){
+			event.preventDefault();
+			router.push(`/customerWorkouts`);
+		},
+		
+		TrainersWorkouts : function(){
+			router.push(`/trainersWorkouts`);
+		},
+		goToWorkoutsPage : function(){
+			router.push(`/searchWorkouts`);
+		},
 		Subscriptions : function(){
 			event.preventDefault();
 			router.push(`/subscriptionsOverview`);
 		},
+		AddPromo : function(event) {
+			event.preventDefault();
+
+				axios.post('rest/promo/addPromoCode/' + this.promoCode.trajanje, this.promoCode)
+					.then((response) => {
+						alert('Uspesno dodat novi promo kod')
+					})
+    	},
+		ShowAllProfiles : function(){
+			event.preventDefault();
+			router.push(`/profilesOverview`);
+		},
+		GoToPendingComments : function(){
+			router.push(`/pendingComments`);
+		},
+		goStartPage: function(){
+			router.push(`/startpage`);
+		},
+		goToMyFacility: function(){
+			name = this.user.facilityId.replaceAll(" ", "_");
+			router.push(`/showFacility/${name}`);
+		},
 		StartPage : function(){
 			event.preventDefault();
+			router.push(`/startpage`);
+		},
+		showCustomersTrainings: function(){
+			router.push(`/customerWorkouts`);
+		},
+		showTrainersTrainings: function(){
+			router.push(`/trainersWorkouts`);
+		},
+		showAdminsUsers: function(){
+			router.push(`/profilesOverview`);
+		},	
+		showManagersFacility: function(){
 			router.push(`/startpage`);
 		},
 		SortContent : function(){
