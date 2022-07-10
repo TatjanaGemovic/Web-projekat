@@ -8,6 +8,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
 
@@ -41,7 +42,12 @@ public class SportsFacilityDAO {
 	}
 	
 	public Collection<SportsFacility> findAll() {
-		return facilities.values();
+		List<SportsFacility> availableFacilities = new ArrayList<SportsFacility>();
+		for(SportsFacility s : facilities.values()) {
+			if(!s.getDeleted())
+				availableFacilities.add(s);
+		}
+		return availableFacilities;
 	}
 	
 	public Map<String, SportsFacility> getAllFacilities(){
@@ -62,7 +68,7 @@ public class SportsFacilityDAO {
 				Location location = s.getLocation();
 				String locationStr = location.getLatitude()+","+location.getLongitude()+","+location.getAddress();
 				String st = s.getName()+";"+locationStr+";"+s.getOffer()+";"+s.getType()+";"+s.getStatus()+";"+s.getRating()
-				+";"+s.getWorkingHours()+";"+s.getImageURI();
+				+";"+s.getWorkingHours()+";"+s.getImageURI()+";"+s.getDeleted();
 				w.append(st);
 				w.append(System.lineSeparator());
 			}
@@ -114,7 +120,11 @@ public class SportsFacilityDAO {
 					String rating = st.nextToken().trim();
 					String workingHours = st.nextToken().trim();
 					String imageURI = st.nextToken().trim();
-					facilities.put(name, new SportsFacility(name, location, offer, facilityType, facilityStatus, Double.parseDouble(rating), workingHours, imageURI));
+					String deleted = st.nextToken().trim();
+					boolean isDeleted = false;
+					if(deleted.equals("true")) 
+						isDeleted = true;
+					facilities.put(name, new SportsFacility(name, location, offer, facilityType, facilityStatus, Double.parseDouble(rating), workingHours, imageURI, isDeleted));
 				}
 				
 			}
@@ -138,5 +148,14 @@ public class SportsFacilityDAO {
 		location.setAddress(locationStrings[2]+","+locationStrings[3]+","+locationStrings[4]);
 		
 		return location;
+	}
+
+
+	public SportsFacility deleteLogically(String name) {
+		SportsFacility toDelete = facilities.get(name);
+		toDelete.setDeleted(true);
+		facilities.put(name,  toDelete);
+		saveFacilities();
+		return toDelete;
 	}
 }

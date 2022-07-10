@@ -11,11 +11,13 @@ public class SportsFacility {
 	private double rating;
 	private String workingHours;
 	private String imageURI;
+	private boolean deleted;
+	
 	
 	public SportsFacility() {}
 	
 	public SportsFacility(String name, Location location, String offer, FacilityType type, boolean status, double rating,
-			String workingHours, String imageURI) {
+			String workingHours, String imageURI, boolean deleted) {
 		super();
 		this.name = name;
 		this.location = location;
@@ -25,7 +27,17 @@ public class SportsFacility {
 		this.rating = rating;
 		this.workingHours = workingHours;
 		this.imageURI = imageURI;
+		this.deleted = deleted;	
 	}
+	
+	public boolean getDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
+	}
+
 	public String getName() {
 		return name;
 	}

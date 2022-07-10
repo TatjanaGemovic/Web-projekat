@@ -8,12 +8,17 @@ Vue.component("startpage", {
 		      propToSortBy: "name",
 		      searchedFacilityType : "GYM",
 		      propToFilterBy: 0,
-		      inputTextNeeded : true,
+		      typeToFilterBy: "GYM",
+		      filterByType: true,
 		      user: null,
 		      uloga: null,
 		      promoCode: {oznaka: null, period:null, brojIskoriscenih: 0, popust: 0.0, trajanje: 0},
 		      showAlert: false,
-		      pendingComments: null
+		      pendingComments: null,
+		      typeToSearchBySelectionChanged: "",
+		      nameSearch: "",
+		      locationSearch: "",
+		      ratingSearch: ""
 		    }
 	},
 template: ` 
@@ -68,20 +73,15 @@ template: `
     	</a>	
 		<select class="form-select form-select-sm" v-on:change="propertyToFilterBySelectionChanged($event)" style="margin-top: 4%;">
   			<option selected value="0">Type</option>
-  			<option value="1">Open objects</option>
+  			<option value="1">Open objects</option>	
 		</select>
-		<select class="form-select form-select-sm" v-if="inputTextNeeded" v-on:change="userTypeSelectionChanged($event)" >
-  			<option value="Regularni">Regularni</option>
-  			<option value="Bronzani">Bronzani</option>
-  			<option value="Srebrni">Srebrni</option>
-  			<option value="Zlatni">Zlatni</option>
+		<select v-if="filterByType" class="form-select form-select-sm" v-on:change="filterByTypeChanged($event)" >
+  			<option value="GYM">Gym</option>
+  			<option value="POOL">Pool</option>
+  			<option value="SPORTS_CENTRE">Sports Center</option>
+  			<option value="DANCE_STUDIO">Dance Studio</option>
 		</select>
-		<select class="form-select form-select-sm" v-else v-on:change="userRoleSelectionChanged($event)" >
-  			<option selected value="Kupac">Kupac</option>
-  			<option value="Menadzer">Menadzer</option>
-  			<option value="Trener">Trener</option>
-  			<option value="Administrator">Administrator</option>
-		</select>
+		
     	 <br>
     	<button class="loginButton" v-on:click="filter">Filter</button>
 		</form>
@@ -92,13 +92,19 @@ template: `
       			<img src="pictures/search.png" alt="" width="25" height="25" style="margin-right: 10px" class="d-inline-block">
       			Search
     	</a>
-		<select class="form-select form-select-sm" v-on:change="propertyToSearchBySelectionChanged($event)" style="margin-top: 4%;">
-  			<option selected value="0">Name</option>
-  			<option value="1">Last Name</option>
-  			<option value="2">Username</option>
-		</select>
-		<input type="text" class="form-control form-control-sm" v-model="textInputValueToSearchBy" style="height: 90%" name="searchInput" placeholder="Type here..." style="width:100%">
-    	<button class="loginButton" v-on:click="search" style="margin-top: 15%;">Search</button>
+		<div class="input-group">
+  			<select class="form-select form-select-sm" v-on:change="filterByTypeChanged($event)" :style="{ 'width': '80%'}">
+  				<option selected value="none">Facility Type</option>
+  				<option value="GYM">Gym</option>
+  				<option value="POOL">Pool</option>
+  				<option value="SPORTS_CENTRE">Sports center</option>
+  				<option value="DANCE_STUDIO">Dance studio</option>
+			</select>
+  			<input type="text" class="form-control" placeholder="Name" v-model="nameSearch">
+  			<input type="text" class="form-control" placeholder="Location" v-model="locationSearch">
+  			<input type="text" class="form-control" placeholder="Minimum rating" v-model="ratingSearch">
+  			<button class="loginButton" v-on:click="search" style="margin-top: 15%;">Search</button>
+		</div>	
     	</form>
     	</div>
     	<div class="col-xs-2 col-md-2 col-sm-2">
@@ -122,14 +128,17 @@ template: `
 		    	<button class="loginButton" v-on:click="resetSearch" style="width: 200px;heigth: 50px; margin-right: 35%;float: right">Reset search</button>
 		</div>
 	</div>
-	<<div class="row justify-content-center">
-		<div v-for="facility in facilitiesToShow" class="col-md-3 card m-3"> 
+	<div class="row justify-content-center">
+		<div v-for="(facility,index) in facilitiesToShow" v-if="!facility.deleted" class="col-md-3 card m-3"> 
+			
 			<img v-bind:src="facility.imageURI" class="card-img-top pt-2" /> 
 			<div class="card-body">
 				<p class="card-title">{{facility.name}}</p>
 				<p class="card-text ps-2">Rating: {{parseFloat(facility.rating).toFixed(1)}}/5.0</p>
 				<button class="btn" v-on:click="goFacilityPage(facility.name)">View facility</button>
+				<button class="btn btn-primary" v-if="user.uloga=='Administrator'" v-on:click="deleteFacility(index)">Delete</button>
 			</div>
+			
 		</div>
 	</div>
 	<div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -232,22 +241,32 @@ template: `
 			event.preventDefault();
 			somethingFound = false;
 			this.facilitiesToShow = [];
+			
 			for(let i=0; i<this.allFacilities.length; i++){
-				if(this.propToSearchBy==0 && (this.allFacilities[i]).name.replaceAll(" ", "").toLowerCase().includes(this.textInputValueToSearchBy.replaceAll(" ", "").toLowerCase())){
-					this.facilitiesToShow.push(this.allFacilities[i]);
+				typeMatch = false;
+				nameMatch = false;
+				locationMatch = false;
+				ratingMatch = false;
+				if(this.typeToFilterBy=="none")
+					typeMatch = true;
+				else if(this.typeToFilterBy==this.allFacilities[i].type)
+					typeMatch = true;
+				if(this.nameSearch=="")
+					nameMatch = true;
+				else if((this.allFacilities[i]).name.replaceAll(" ", "").toLowerCase().includes(this.nameSearch.replaceAll(" ", "").toLowerCase()))
+					nameMatch = true;
+				if(this.locationSearch=="")
+					locationMatch = true;
+				else if((this.allFacilities[i]).location.address.replaceAll(" ", "").toLowerCase().includes(this.locationSearch.replaceAll(" ", "").toLowerCase()))
+					locationMatch = true;
+				if(this.ratingSearch=="")
+					ratingMatch = true;
+				else if((this.allFacilities[i]).rating>=Number(this.ratingSearch))
+					ratingMatch = true;
+				
+				if(typeMatch && nameMatch && locationMatch && ratingMatch){
 					somethingFound = true;
-				}
-				else if(this.propToSearchBy==1 && (this.allFacilities[i]).type==this.searchedFacilityType){
 					this.facilitiesToShow.push(this.allFacilities[i]);
-					somethingFound = true;
-				}
-				else if(this.propToSearchBy==2 && (this.allFacilities[i]).location.address.replaceAll(" ", "").toLowerCase().includes(this.textInputValueToSearchBy.replaceAll(" ", "").toLowerCase())){
-					this.facilitiesToShow.push(this.allFacilities[i]);
-					somethingFound = true;
-				}
-				else if(this.propToSearchBy==3 && (this.allFacilities[i]).rating>=this.textInputValueToSearchBy){
-					this.facilitiesToShow.push(this.allFacilities[i]);
-					somethingFound = true;
 				}
 			}
 			if(!somethingFound)
@@ -258,10 +277,6 @@ template: `
 		},
 		propertyToSearchBySelectionChanged : function(event){
 			this.propToSearchBy = event.target.value;
-			if(event.target.value==1)
-				this.inputTextNeeded = false;
-			else
-				this.inputTextNeeded = true;
 		},
 		facilityTypeSelectionChanged : function(event){
 			this.searchedFacilityType = event.target.value;
@@ -352,7 +367,7 @@ template: `
 			somethingFound = false;
 			this.facilitiesToShow = [];
 			for(let i=0; i<this.allFacilities.length; i++){
-				if(this.propToFilterBy==0 && (this.allFacilities[i]).type==this.searchedUserType){
+				if(this.propToFilterBy==0 && (this.allFacilities[i]).type==this.typeToFilterBy){
 					this.facilitiesToShow.push(this.allFacilities[i]);
 					somethingFound = true;
 				}
@@ -364,13 +379,26 @@ template: `
 			if(!somethingFound)
 					this.facilitiesToShow = this.allFacilities;		
     	},
-		
+		filterByTypeChanged : function(event){
+			this.typeToFilterBy = event.target.value;
+		},
 		propertyToFilterBySelectionChanged : function(event){
 		this.propToFilterBy = event.target.value;
 			if(event.target.value==1)
-				this.inputTextNeeded = false;
+				this.filterByType = false;
 			else
-				this.inputTextNeeded = true;
+				this.filterByType = true;
+		},
+		deleteFacility: function(index){
+			for(let i=0; i<this.allFacilities.length; i++){
+				if(this.allFacilities[i].name==this.facilitiesToShow[index].name)
+					this.allFacilities[i].delted = true;
+			}
+			this.facilitiesToShow[index].deleted = true;
+			axios.put('rest/facilities/updateFaciltiy/'+this.facilitiesToShow[index].name)
+			.then((response) => {
+				alert('Facility deleted')
+			})
 		}
     },
     mounted() {

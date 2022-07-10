@@ -13,7 +13,8 @@ Vue.component("addContent", {
 			  buttonContent: "Add",
 			  headerText: "Add a new facility",
 			  selectedTrainer: null,
-			  sameNameExists: ""
+			  sameNameExists: "",
+			  imageToUpload: ""
 		    }
 	},
 	template: ` 
@@ -77,6 +78,8 @@ Vue.component("addContent", {
 			</div>
 			<input type="text" placeholder="Description" v-model="workout.opis">
 			<input type="text" placeholder="Duration" v-model="workout.trajanje">
+			<input type="file" name="avatar" accept="image/*" v-model="imageToUpload">
+
 			<button class="btn btn-primary" v-on:click = "addContent">{{buttonContent}}</button>
 	</form>
 	</div>
@@ -130,6 +133,10 @@ Vue.component("addContent", {
     	addContent : function(event) {
 			event.preventDefault();
 			contentExists = false;
+			parsedString = []
+			parsedString = this.imageToUpload.split("\\");
+			this.imageToUpload = parsedString[parsedString.length-1];
+			this.workout.imageURI = "pictures/" + this.imageToUpload;
 			for(let i=0; i<this.workouts.length; i++){
 				if((this.workouts[i]).naziv==this.workout.naziv && i!=this.workoutIndex){
 					this.sameNameExists = "Content with the same name is already available in this object";
