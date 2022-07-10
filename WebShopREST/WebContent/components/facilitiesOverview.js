@@ -129,14 +129,16 @@ template: `
 		</div>
 	</div>
 	<div class="row justify-content-center">
-		<div v-for="(facility,index) in facilitiesToShow" class="col-md-3 card m-3"> 
+		<div v-for="(facility,index) in facilitiesToShow" v-if="!facility.deleted" class="col-md-3 card m-3"> 
+			
 			<img v-bind:src="facility.imageURI" class="card-img-top pt-2" /> 
 			<div class="card-body">
 				<p class="card-title">{{facility.name}}</p>
 				<p class="card-text ps-2">Rating: {{parseFloat(facility.rating).toFixed(1)}}/5.0</p>
 				<button class="btn" v-on:click="goFacilityPage(facility.name)">View facility</button>
-				<button class="btn btn-primary" v-if="this.user.uloga=='Administrator'" v-on:click="deleteFacility(index)">Delete</button>
+				<button class="btn btn-primary" v-if="user.uloga=='Administrator'" v-on:click="deleteFacility(index)">Delete</button>
 			</div>
+			
 		</div>
 	</div>
 	<div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -256,11 +258,13 @@ template: `
 					locationMatch = true;
 				if(this.ratingSearch=="")
 					ratingMatch = true;
-				else if((this.allFacilities[i]).rating>=this.ratingSearch)
+				else if((this.allFacilities[i]).rating>=Number(this.ratingSearch))
 					ratingMatch = true;
 				
-				if(typeMatch && nameMatch && locationMatch && ratingMatch)
+				if(typeMatch && nameMatch && locationMatch && ratingMatch){
+					somethingFound = true;
 					this.facilitiesToShow.push(this.allFacilities[i]);
+				}
 			}
 			if(!somethingFound)
 					this.facilitiesToShow = this.allFacilities;		
@@ -383,7 +387,12 @@ template: `
 				this.filterByType = true;
 		},
 		deleteFacility: function(index){
-			axios.delete('rest/facilities/deleteFacility/'+this.facilitiesToShow[i].name)
+			for(let i=0; i<this.allFacilities.length; i++){
+				if(this.allFacilities[i].name==this.facilitiesToShow[index].name)
+					this.allFacilities[i].delted = true;
+			}
+			this.facilitiesToShow[index].deleted = true;
+			axios.put('rest/facilities/updateFaciltiy/'+this.facilitiesToShow[index].name)
 			.then((response) => {
 				alert('Facility deleted')
 			})

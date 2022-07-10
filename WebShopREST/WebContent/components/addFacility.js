@@ -1,7 +1,7 @@
 Vue.component("addFacility", {
 	data: function () {
 		    return {
-		      facility: { name:null, type:null, offer: "nista", location:null, status: true, rating: 0.0, workingHours: "00:00-24:00",imageURI: null},
+		      facility: { name:null, type:null, offer: "nista", location:null, status: true, rating: 0.0, workingHours: "00:00-24:00",imageURI: null, deleted: false},
 		      error: '',
 		       location: {address: "", longitude: 11.0, latitude: 12.0},
 		      facilities: null,
@@ -13,6 +13,7 @@ Vue.component("addFacility", {
 		      addedManager : false,
 		      streetAndNumber: "",
 		      city: "",
+		      imageToUpload: "",
 		      postal: "",
 		      newUser: { firstName:null, lastName:null, gender:null, birthDate:null, username:null, password:null,
 				uloga: null, istorijaTreninga: null, clanarina: null, sportskiObjekat: null, poseceniObjekti: null, sakupljeniBodovi: 0, tipKupca: null, facilityId: ""},
@@ -75,6 +76,7 @@ Vue.component("addFacility", {
 			<select v-else class="form-select form-select-sm" v-on:change="managerSelectionChanged($event)" :style="{ 'width': '50%'}">
 			    <option v-for="manager in managers" :value="manager.username" >{{manager.firstName}} {{manager.lastName}}</option>
 			</select>
+			<input type="file" name="avatar" accept="image/*" v-model="imageToUpload">
 			<input type="submit" value="Add" v-on:click = "addFacility" >
 			<p id="error">{{error}}</p>
 	</form>
@@ -155,6 +157,10 @@ Vue.component("addFacility", {
     methods: {	
     	addFacility : function(event) {
 			event.preventDefault();
+			parsedString = []
+			parsedString = this.imageToUpload.split("\\");
+			this.imageToUpload = parsedString[parsedString.length-1];
+			this.facility.imageURI = "pictures/" + this.imageToUpload;
 			facilityExists = false;
 			for(let i=0; i<this.facilities.length; i++){
 				if((this.facilities[i]).name==this.facility.name){
@@ -217,6 +223,6 @@ Vue.component("addFacility", {
 		StartPage : function(){
 			event.preventDefault();
 			router.push(`/startpage`);
-		}   	
+		} 	
     }
 });
