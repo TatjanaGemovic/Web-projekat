@@ -72,7 +72,6 @@ Vue.component("showFacility", {
 			<img v-bind:src="this.facility.imageURI" style="width:90%; height:100%;">
 		</div>
 	</div>
-	<button v-on:click="addContent" v-if="facility.name==user.facilityId" class="btn btn-primary">Add New Content</button>
 	<h2 class="row justify-content-center" style="margin-top: 2%;">Workouts</h2>
 	<div>
 		<button style="width:15%; margin-left:75%" v-on:click="addContent" v-if="facility.name==user.facilityId" class="loginButton">Add New Workout</button>

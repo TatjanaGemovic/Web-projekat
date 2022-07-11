@@ -3,4 +3,4 @@ Trening;T_Personal;2h;neki opis;pictures/physical-activity.png;Teretana Sajam;0;
 Relax;Yoga;30min;nema;pictures/meditation.png;Teretana Sajam;0;jovana
 Plank;T_Endurance;15min;plankovi se rade;pictures/plank.png;Teretana Sajam;0;jovana
 Neki novi;T_Cardio;1h;novi trening;pictures/stationary-bike.png;Teretana Sajam;0;jovana
-Legs day;T_Personal;30min;nema;pictures/physical-activity.png;Teretana Sajam;0;vuk
+Legs day;T_Personal;30min;sad je opet drugo;pictures/physical-activity.png;Teretana Sajam;0;vuk
