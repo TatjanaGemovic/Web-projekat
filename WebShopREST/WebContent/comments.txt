@@ -1,18 +1,14 @@
-pera;Teretanica;sve ti jebem;3;approved
-aki;Bazen Vrdnik;ful;2;approved
-aki;Bazen Spens;aj i ovo;5;approved
-jovana;Bazen Sole Mio;bullshit;4;approved
-pera;Zenba;nije lose;3;approved
-pera;Bazen Sole Mio;solidna prica;0;approved
-pera;Teretana Centar;nije lose;1;approved
-pera;Neka Terretana;slabija prica;2;approved
-aki;Teretana Liman;liman solidan;3;approved
-jaki;Bazen Sole Mio;top;2;approved
-pera;Teretana Telep;odlicna je;3;pending
-maki;Bazen Sole Mio;moze bolje;3;approved
-pera;Bazen Klisa;solidno je;3;pending
-jaki;Bazen Klisa;okej;4;disapproved
-aki;Bazen Klisa;okej;2;approved
-pera;Teretana Sajam;aj da vidimo jel radi;3;pending
-r;Bazen Klisa;odlican bazen;5;approved
-aki;Teretana Detelinara;okej je detelinara;1;pending
+aki;Bazen Vrdnik;Needs improvment but still okay;3;approved
+aki;Bazen Spens;Great that you have renovated;4;approved
+jovana;Bazen Sole Mio;A nice place for relaxation;4;approved
+pera;Bazen Sole Mio;Great for couples and relaxation;4;approved
+pera;Teretana Centar;Overcrowded;3;approved
+aki;Teretana Liman;Would recommend;4;approved
+jaki;Bazen Sole Mio;Great for couples;5;approved
+maki;Bazen Sole Mio;Had a great time but the waiter was rude;3;approved
+pera;Bazen Klisa;Good for swimming and waterpolo;4;pending
+jaki;Bazen Klisa;Fine, but too far away;3;disapproved
+aki;Bazen Klisa;Okay;2;approved
+pera;Teretana Sajam;Nothing special;3;pending
+r;Bazen Klisa;A fine olympic pool;4;approved
+aki;Teretana Detelinara;Not satisfied at all;2;pending
