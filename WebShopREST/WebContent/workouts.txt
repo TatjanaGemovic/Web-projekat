@@ -1,5 +1,6 @@
-Yoga trening;Yoga;1h;Provera dal radi;nema;Teretana Sajam;0;gema
+Yoga trening;Yoga;1h;promenjeno;pictures/;Teretana Sajam;0;gema
+Trening;T_Strength;2h;neki opis;nema;Teretana Sajam;0;gema
 Relax;Yoga;30min;nema;nema;Teretana Sajam;0;gema
 Plank;T_Endurance;15min;plankovi se rade;pictures/plank.png;Teretana Sajam;0;jovana
+Neki novi;T_Cardio;1h;novi trening;pictures/;Teretana Sajam;0;vuk
 Legs day;T_Personal;30min;nema;nema;Teretana Sajam;0;gema
-Trening;T_Strength;2h;neki opis;nema;Teretana Sajam;0;gema

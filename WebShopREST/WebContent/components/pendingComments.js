@@ -3,7 +3,10 @@ Vue.component("pendingComments", {
 		    return {
 		      user: null,
 		      uloga: "Administrator",
-		      pendingComments: null
+		      pendingComments: null,
+		      hasPendingComments: true,
+		      commentsToShow: [],
+			  hasReviewedAll: false
 		    }
 	},
 	template: ` 
@@ -47,20 +50,26 @@ Vue.component("pendingComments", {
 		    </div>
 	    </div>
 	</nav>
-	<div class="row" style="margin-top:20%">
-		<div v-for="(comment, index) in pendingComments">
+	<div class="row" style="margin-top:20%" v-if="hasPendingComments">
+		<div v-for="(comment, index) in commentsToShow">
 			<div class="col-8">
 				<p>{{comment.user}}</p>
 				<p>{{comment.sportsFacility}}</p>
 				<p>{{comment.comment}}</p>
 			</div>
 			<div class="col-4">
-				<button class="btn btn-success" v-on:click="approve(index)">Approve</button>
-				<button class="btn btn-danger" v-on:click="disapprove(index)">Disapprove</button>
+				<button class="btn btn-success" v-on:click="approve(index, comment.user, comment.sportsFacility)">Approve</button>
+				<button class="btn btn-danger" v-on:click="disapprove(index, comment.user, comment.sportsFacility)">Disapprove</button>
 			</div>
 		</div>
 	</div>
-	<button class="btn btn-primary" v-on:click="finish">Done</button>
+	<button v-if="hasPendingComments" class="btn btn-primary" v-on:click="finish">Finish</button>
+	<div class="row" style="margin-top:15%"  v-if="!hasPendingComments && !hasReviewedAll">
+		<h2 style="margin-left: 6%">Currently no pending comments available. <a href="#" v-on:click="goStartPage" class="text-primary">Go back to Home Page</a></h2>
+	</div> 
+	<div class="row" style="margin-top:15%"  v-if="hasReviewedAll">
+		<h2 style="margin-left: 6%">You have reviewed all comments. <a href="#" v-on:click="finish" class="text-primary">Go back to Home Page</a></h2>
+	</div> 
 	</body>
 </div>		  
     	`,
@@ -71,8 +80,11 @@ Vue.component("pendingComments", {
 			}),
 		axios
 			.get('rest/comments/getAllPendingComments')
-			.then(response => (this.pendingComments = response.data)
-		)
+			.then((response) => {
+				this.pendingComments = response.data
+				
+				this.SetListAndCheckIfHasPending()
+			})
 	},
     methods: {
     			LogOut : function(event){
@@ -124,16 +136,38 @@ Vue.component("pendingComments", {
 			event.preventDefault();
 			router.push(`/startpage`);
 		},
-		approve : function(index){
+		approve : function(index, user, facility){
 			for(let i=0; i<this.pendingComments.length; i++){
-				if(i==index)
+				if(this.pendingComments[i].user==user && this.pendingComments[i].sportsFacility==facility){
 					this.pendingComments[i].status = "approved";
+					this.commentsToShow.splice(index, 1);
+				}
+			}
+			if(this.commentsToShow.length==0){
+				 this.hasReviewedAll = true;
+				 this.hasPendingComments = false;
 			}
 		},
-		disapprove : function(index){
+		disapprove : function(index, user, facility){
 			for(let i=0; i<this.pendingComments.length; i++){
-				if(i==index)
+				if(this.pendingComments[i].user==user && this.pendingComments[i].sportsFacility==facility){
 					this.pendingComments[i].status = "disapproved";
+					this.commentsToShow.splice(index, 1);
+					
+				}
+			}
+			if(this.commentsToShow.length==0){
+				this.hasReviewedAll = true;
+				this.hasPendingComments = false;
+			}
+		},
+		SetListAndCheckIfHasPending: function(){
+			if(this.pendingComments.length==0){
+				this.hasPendingComments = false;
+				return;
+			}
+			for(let i=0; i<this.pendingComments.length; i++){
+				this.commentsToShow.push(this.pendingComments[i]);
 			}
 		},
 		finish : function(){

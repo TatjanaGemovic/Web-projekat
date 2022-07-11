@@ -1,8 +1,18 @@
-jaki;Bazen Sole Mio;top;2;approved
-maki;Bazen Sole Mio;moze bolje;3;disapproved
+pera;Teretanica;sve ti jebem;3;approved
+aki;Bazen Vrdnik;ful;2;approved
+aki;Bazen Spens;aj i ovo;5;approved
 jovana;Bazen Sole Mio;bullshit;4;approved
+pera;Zenba;nije lose;3;approved
+pera;Bazen Sole Mio;solidna prica;0;disapproved
+pera;Teretana Centar;nije lose;1;approved
+pera;Neka Terretana;slabija prica;2;approved
+aki;Teretana Liman;liman solidan;3;approved
+jaki;Bazen Sole Mio;top;2;approved
+pera;Teretana Telep;odlicna je;3;approved
+maki;Bazen Sole Mio;moze bolje;3;disapproved
 pera;Bazen Klisa;solidno je;3;approved
 jaki;Bazen Klisa;okej;4;disapproved
-pera;Bazen Sole Mio;solidna prica;0;disapproved
+aki;Bazen Klisa;okej;2;approved
 pera;Teretana Sajam;aj da vidimo jel radi;3;approved
 r;Bazen Klisa;odlican bazen;5;approved
+aki;Teretana Detelinara;okej je detelinara;1;approved

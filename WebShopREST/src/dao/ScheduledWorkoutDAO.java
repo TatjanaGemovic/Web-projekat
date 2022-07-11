@@ -30,8 +30,8 @@ public class ScheduledWorkoutDAO {
 		users1 = map.values();
 		workouts1 = map2.values();
 		loadScWorkouts(contextPath);
-		path = "/Users/tatjanagemovic/Desktop/Web-projekat/WebShopREST/WebContent/scheduledWorkouts.txt";
-		//path = "C:/Users/User/Desktop/Web Projekat/Web-projekat/WebShopREST/WebContent/scheduledWorkouts.txt";
+		//path = "/Users/tatjanagemovic/Desktop/Web-projekat/WebShopREST/WebContent/scheduledWorkouts.txt";
+		path = "C:/Users/User/Desktop/Web Projekat/Web-projekat/WebShopREST/WebContent/scheduledWorkouts.txt";
 		calculateIfCanBeCancelled();
 	}
 	
@@ -47,6 +47,9 @@ public class ScheduledWorkoutDAO {
 				 w.setStatus("cancelled");
 			 }
 			 if(w.getWorkout().getTrener().getDeleted() == true) {
+				 w.setStatus("cancelled");
+			 }
+			 if(w.getWorkout().getFacility().getDeleted() == true) {
 				 w.setStatus("cancelled");
 			 }
 			 if(period.getDays()>=2 && w.getWorkout().getWorkoutType()==WorkoutType.T_Personal) 

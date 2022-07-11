@@ -75,28 +75,12 @@ Vue.component("showFacilityForCustomer", {
 			<p v-else class="text-danger">Not open</p>
 			<p>Working hours: {{this.facility.workingHours}}</p>
 			<p>Rating: {{this.facility.rating}}</p>
-			<button class="btn btn-primary mt-2" data-bs-toggle="modal" data-bs-target="#exampleModal">Show on map</button>
 		</div>
 		<div class="col-lg-7"">
 			<img v-bind:src="this.facility.imageURI" style="width:90%; height:100%;">
 		</div>
 	</div>
-	<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
- 	 <div class="modal-dialog modal-dialog-centered"">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">{{this.facility.name}}</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-       <h6>{{this.facility.location.address}}</h6>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-      </div>
-    </div>
-  	</div>
-	</div>
+	
 	<h2 class="row justify-content-center" style="margin-top: 7%;">Workouts</h2>
 	<div>
 		<div class="row justify-content-center" style="margin-top: 5%;margin-bottom: 5%">
@@ -149,7 +133,7 @@ Vue.component("showFacilityForCustomer", {
 		</div>
 		<div class="col-md-3"></div>
 	</div>
-	<div class="row" style="margin-top: 5%;margin-bottom: 5%;margin-left: 8%">
+	<div class="row" v-if="firstTimeHere" style="margin-top: 5%;margin-bottom: 5%;margin-left: 8%">
 		<div class="col-md-4">
 			<button class="loginButton2" v-on:click="PostComment" style="margin-left: 2%">Post</button>
 			<button class="loginButton2" v-on:click="ClearForm" style="margin-left: 3%">Cancel</button>
@@ -214,9 +198,13 @@ Vue.component("showFacilityForCustomer", {
 				for(let i=0; i<this.comments.length; i++){
 					if(this.comments[i].status=="approved")
 						this.commentsToShow.push(this.comments[i]);
+					if(this.comments[i].user==this.user.username)
+						this.firstTimeHere = false;
 				}
+				this.calculateRating();
 				this.showMap()
 			})
+		
 	},
     methods: {
 		GetType : function(w){
@@ -272,6 +260,17 @@ Vue.component("showFacilityForCustomer", {
 			     style: myStyle
 			 });
  			map.addLayer(layer);
+		},
+		calculateRating : function(){
+			if(this.commentsToShow.length==0){
+				this.facility.rating = 0;
+				return;
+			}
+			let ratingSum = 0;
+			for(let i=0; i<this.commentsToShow.length; i++){
+				ratingSum += this.commentsToShow[i].mark;
+			}	
+			this.facility.rating = (parseFloat(ratingSum) / this.commentsToShow.length).toFixed(1);
 		},
 		GetSubscription : function(){
 			axios.get('rest/subscription/allActiveSubscriptionsForCustomer/' + this.user.username)
@@ -369,18 +368,7 @@ Vue.component("showFacilityForCustomer", {
 					alert('Comment sent for review')			
 					
 			});
-			/*let count = 0;
-			let average = 0;
-			for(let i = 0; i<this.comments.length; i++){
-				if(this.comments[i].mark!=0){
-					count++;
-					average += parseInt(this.comments[i].mark);
-				}
-			}
-			this.facility.rating = average/count;
-			axios.post('rest/facilities/add/', this.facility)
-				.then((response) => {
-				})*/
+			this.firstTimeHere = false;
 		},
 		ClearForm : function(){
 			this.commentText = "";

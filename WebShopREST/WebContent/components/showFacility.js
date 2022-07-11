@@ -68,7 +68,7 @@ Vue.component("showFacility", {
 	</div>
 	<h2 class="row justify-content-center" style="margin-top: 7%;">Workouts</h2>
 	<div>
-		<button style="float:right;width:15%; margin: 5%" v-on:click="addContent" v-if="facility.name==user.facilityId" class="btn btn-primary loginButton">Add New Workout</button>
+		<button style="width:15%; margin-left:75%" v-on:click="addContent" v-if="facility.name==user.facilityId" class="loginButton">Add New Workout</button>
 
 		<div class="row justify-content-center" style="margin-top: 5%;margin-bottom: 5%">
 		<div v-for="(w, index) in workouts1" class="col-md-2 card m-2" style="border: 2px solid #3e3e3e"> 
@@ -81,14 +81,14 @@ Vue.component("showFacility", {
 				<p class="card-text" style="font-size: 17px">Coach: {{w.trener.firstName}} {{w.trener.lastName}}</p>
 				<p class="card-text">Duration: {{w.trajanje}}, price: {{w.cena}}</p>
 			</div>
-			<div class="card-footer">
-    			<button v-if="facility.name==user.facilityId" class="btn btn-primary loginButton" v-on:click="edit(w2.naziv)">Edit</button>
+			<div class="card-footer"  style="background:white">
+    			<button v-if="facility.name==user.facilityId" class="loginButton" v-on:click="edit(w.naziv)">Edit</button>
   			</div>
 		</div>
 	</div>
 	<h2 class="row justify-content-center">Additional content</h2>
 	<div>
-		<button style="float:right; width:15%; margin: 5%" v-on:click="addContent" v-if="facility.name==user.facilityId" class="btn btn-primary loginButton">Add New Content</button>
+		<button style="width:15%; margin-left:75%" v-on:click="addContent" v-if="facility.name==user.facilityId" class="loginButton">Add New Content</button>
 
 		<div class="row justify-content-center" style="margin-top: 5%">
 		<div v-for="(w2,index) in workouts2" class="col-md-2 card m-2" style="border: 2px solid #3e3e3e; background: #e7e7e5"> 
@@ -101,8 +101,8 @@ Vue.component("showFacility", {
 				<p class="card-text" style="font-weight: bold; font-size: 20px;color: #F15412">{{w2.workoutType}}</p>
 				<p class="card-text">Additional fee: {{w2.cena}}</p>
 			</div>
-			<div class="card-footer">
-    			<button v-if="facility.name==user.facilityId" class="btn btn-primary loginButton" v-on:click="edit(w2.naziv)">Edit</button>
+			<div class="card-footer" style="background:white">
+    			<button v-if="facility.name==user.facilityId" class="loginButton" v-on:click="edit(w2.naziv)">Edit</button>
   			</div>
 		</div>
 	</div>
@@ -142,13 +142,25 @@ Vue.component("showFacility", {
 				if(this.user.uloga=="Trener")
 					for(let i=0; i<this.comments.length; i++){
 						if(this.comments[i].status=="approved")
-						this.commentsToShow.push(this.comments[i]);
+							this.commentsToShow.push(this.comments[i]);
 					}
 				else
 					this.commentsToShow = this.comments;
+				this.calculateRating();
 			})
 	},
     methods: {
+		calculateRating : function(){
+			if(this.commentsToShow.length==0){
+				this.facility.rating = 0;
+				return;
+			}
+			let ratingSum = 0;
+			for(let i=0; i<this.commentsToShow.length; i++){
+				ratingSum += this.commentsToShow[i].mark;
+			}
+			this.facility.rating = (parseFloat(ratingSum) / this.commentsToShow.length).toFixed(1);
+		},
 		GetType : function(w){
 			if(w.workoutType == 'T_Strength'){
 				return 'Strength';

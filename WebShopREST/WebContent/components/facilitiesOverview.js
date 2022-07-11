@@ -141,8 +141,10 @@ template: `
 				<p class="card-text ps-2">Address: {{facility.location.address}}</p>
 				<p class="card-text ps-2">Working hours: {{facility.workingHours}}</p>
 				<p class="card-text ps-2">Rating: {{parseFloat(facility.rating).toFixed(1)}}/5.0</p>
-				<button class="btn" v-on:click="goFacilityPage(facility.name)">View facility</button>
-				<button class="btn btn-primary" v-if="user.uloga=='Administrator'" v-on:click="deleteFacility(index)">Delete</button>
+				<div class="card-footer"  style="background:white">
+					<button class="loginButton" v-on:click="goFacilityPage(facility.name)">View facility</button>
+					<button class="loginButton" v-if="user.uloga=='Administrator'" v-on:click="deleteFacility(index)">Delete</button>
+				</div>
 			</div>
 			
 		</div>
