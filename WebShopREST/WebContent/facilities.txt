@@ -5,6 +5,7 @@ Teretana Telep;12.0,11.0,Ulica ,Novi Sad,21000;nista;GYM;true;0.0;00:00-24:00;pi
 Neka nova tera;12.0,11.0,Jerneja Kopitara 12,Novi Sad,21000;nista;GYM;true;0.0;00:00-24:00;null;false
 Bazen Klisa;8.0123,12.0123,Nesto na klisi,Novi Sad,21000;zatvoreni bazen;POOL;true;3.5;09:00-19:00;pictures/naslovna.jpg;false
 Bazencic;12.0,11.0,Ulica i broj,Grad,21000;nista;POOL;true;0.0;00:00-24:00;pictures/nasl.jpg;false
+h;0.0,0.0,h,h,h;nista;GYM;true;0.0;00:00-24:00;pictures/placeholder.png;false
 Teretana Centar;5.0123,7.0123,Novosadskog sajma 10,Novi Sad,21000;isto sve i svasta;GYM;true;4.1;08:00-23:00;pictures/naslovna.jpg;false
 Spens;12.0,11.0,Sutjseska 2,Novi Sad,21000;nista;SPORTS_CENTRE;true;0.0;00:00-24:00;null;false
 Random Tera;12.0,11.0,Nesto 21, Novi Sad, 21000;nista;GYM;true;0.0;00:00-24:00;null;false
