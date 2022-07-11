@@ -25,7 +25,7 @@ template: `
 		    <div class="collapse navbar-collapse justify-content-end align-center gap-2" id="navbar" style="font-size: 20px">
 		      <ul class="navbar-nav d-flex gap-2">
 		        <li class="nav-item">
-		          <a class="nav-link active" aria-current="page" href="#intro">Pocetna</a>
+		          <a class="nav-link active" aria-current="page" href="#intro">Start page</a>
 		        </li>
 		        <li class="nav-item">
 			      <button class="nav-link" class="loginButton" v-on:click="Register" style="width: 120px; margin-left: 20px">Sign Up</button>

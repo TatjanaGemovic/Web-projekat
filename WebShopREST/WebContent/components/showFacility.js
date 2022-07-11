@@ -79,16 +79,13 @@ Vue.component("showFacility", {
 
 		<div class="row justify-content-center" style="margin-top: 5%;margin-bottom: 5%">
 		<div v-for="(w, index) in workouts1" class="col-md-2 card m-2" style="border: 2px solid #3e3e3e"> 
-		<img src="pictures/weightlifting.png" v-bind:hidden="w.workoutType!='T_Strength'" class="card-img-top pt-2" /> 
-		<img src="pictures/fitness-4.png" v-bind:hidden="w.workoutType!='T_Personal'" class="card-img-top pt-2" /> 
-		<img src="pictures/stationary-bike.png" v-bind:hidden="w.workoutType!='T_Cardio'" class="card-img-top pt-2" /> 
-		<img src="pictures/plank.png" v-bind:hidden="w.workoutType!='T_Endurance'" class="card-img-top pt-2" /> 	
-			<div class="card-body">
+		<img v-bind:src="w.imageURI" class="card-img-top pt-2" /> 
+		<div class="card-body">
 				<p class="card-title" style="font-weight: bold; font-size: 20px">{{w.naziv}} <br> <span style="font-size: 15px; color: #F15412; margin-left: 2%">{{GetType(w)}}</span></p>
 				<p class="card-text" style="font-size: 17px">Coach: {{w.trener.firstName}} {{w.trener.lastName}}</p>
 				<p class="card-text">Duration: {{w.trajanje}}</p>
 			</div>
-			<div class="card-footer"  style="background:white">
+			<div class="card-footer">
     			<button v-if="facility.name==user.facilityId" class="loginButton" v-on:click="edit(w.naziv)">Edit</button>
   			</div>
 		</div>
@@ -99,15 +96,12 @@ Vue.component("showFacility", {
 
 		<div class="row justify-content-center" style="margin-top: 5%">
 		<div v-for="(w2,index) in workouts2" class="col-md-2 card m-2" style="border: 2px solid #3e3e3e; background: #e7e7e5"> 
-		<img src="pictures/spa.png" v-bind:hidden="w2.workoutType!='Spa'" class="card-img-top pt-2" /> 
-		<img src="pictures/swimming-pool.png" v-bind:hidden="w2.workoutType!='Pool'" class="card-img-top pt-2" /> 
-		<img src="pictures/meditation.png" v-bind:hidden="w2.workoutType!='Yoga'" class="card-img-top pt-2" /> 
-		<img src="pictures/massage.png" v-bind:hidden="w2.workoutType!='Massage'" class="card-img-top pt-2" /> 
+		<img v-bind:src="w2.imageURI" class="card-img-top pt-2" /> 
 			<div class="card-body">
 				<p class="card-title" style="font-weight: bold; font-size: 28px">{{w2.naziv}}</p>
 				<p class="card-text" style="font-weight: bold; font-size: 20px;color: #F15412">{{w2.workoutType}}</p>
 			</div>
-			<div class="card-footer" style="background:white">
+			<div class="card-footer" style="background: #e7e7e5"">
     			<button v-if="facility.name==user.facilityId" class="loginButton" v-on:click="edit(w2.naziv)">Edit</button>
   			</div>
 		</div>

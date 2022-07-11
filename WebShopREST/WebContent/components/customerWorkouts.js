@@ -378,11 +378,11 @@ template: `
 				})
 			}else if (this.propToSearchBy3 == "date"){
 				this.workoutsToShow.sort(function(a, b){
-				  if ( a.danPrijave.toLowerCase() < b.danPrijave.toLowerCase()){
-				    return 1;
-				  }
-				  if ( a.danPrijave.toLowerCase() > b.danPrijave.toLowerCase()){
+				  if ( a.danOdrzavanja.toLowerCase() < b.danOdrzavanja.toLowerCase()){
 				    return -1;
+				  }
+				  if ( a.danOdrzavanja.toLowerCase() > b.danOdrzavanja.toLowerCase()){
+				    return 1;
 				  }
 				  return 0;
 				})

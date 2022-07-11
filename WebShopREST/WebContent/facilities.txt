@@ -1,22 +1,21 @@
-Neki Kurac;19.82422,45.256469,Ulica 22,Novi Sad,21000;nista;SPORTS_CENTRE;true;0.0;00:00-24:00;null;false
-Djacko;19.832631,45.258678,kej,Novi Sad,21000;nista;SPORTS_CENTRE;true;0.0;00:00-24:00;null;false
-Zenba;12.0,11.0,Ulica,Grad ,21000;nista;POOL;true;0.0;00:00-24:00;pictures/nasl.jpg;false
-Teretana Telep;12.0,11.0,Ulica ,Novi Sad,21000;nista;GYM;true;0.0;00:00-24:00;pictures/;false
-Neka nova tera;12.0,11.0,Jerneja Kopitara 12,Novi Sad,21000;nista;GYM;true;0.0;00:00-24:00;null;false
-Bazen Klisa;8.0123,12.0123,Nesto na klisi,Novi Sad,21000;zatvoreni bazen;POOL;true;3.5;09:00-19:00;pictures/naslovna.jpg;false
-Bazencic;12.0,11.0,Ulica i broj,Grad,21000;nista;POOL;true;0.0;00:00-24:00;pictures/nasl.jpg;false
-h;0.0,0.0,h,h,h;nista;GYM;true;0.0;00:00-24:00;pictures/placeholder.png;false
-Teretana Centar;5.0123,7.0123,Novosadskog sajma 10,Novi Sad,21000;isto sve i svasta;GYM;true;4.1;08:00-23:00;pictures/naslovna.jpg;false
-Spens;12.0,11.0,Sutjseska 2,Novi Sad,21000;nista;SPORTS_CENTRE;true;0.0;00:00-24:00;null;false
-Random Tera;12.0,11.0,Nesto 21, Novi Sad, 21000;nista;GYM;true;0.0;00:00-24:00;null;false
-Body Fit;12.0,11.0,aaa,weee,21000;nista;GYM;true;0.0;00:00-24:00;null;false
-Neka terrrra;12.0,11.0,Aasdas,Novi sad,21000;nista;GYM;true;0.0;00:00-24:00;null;false
-Neki Objekat;12.0,11.0,Slabije,Neusatz,21000;nista;POOL;true;0.0;00:00-24:00;null;false
-Bazen Sole Mio;8.0123,12.0123,Sutjeska 2,Novi Sad,21000;otvoreni i zatvoreni bazen;POOL;true;4.0;09:00-19:00;pictures/naslovna.jpg;false
-Teretana Sajam;5.0123,7.0123,Novosadskog sajma 10,Novi Sad,21000;isto sve i svasta;GYM;true;4.1;08:00-23:00;pictures/naslovna.jpg;false
-Bazen Vrdnik;8.0123,12.0123,Nesto na klisi,Novi Sad,21000;zatvoreni bazen;POOL;true;4.0;09:00-19:00;pictures/naslovna.jpg;false
-Teretanica;12.0,11.0,U kurac vise,Novi Sad,21000;nista;GYM;true;0.0;00:00-24:00;null;false
-Teretana Detelinara;1.0123,2.0123,Korenlija Stankovica 12,Novi Sad,21000;nudi sve i svasta;GYM;true;4.6;08:00-23:00;pictures/naslovna.jpg;false
-Neka Terretana;12.0,11.0,Ulica 1,22000,Novi Sad;nista;GYM;true;0.0;00:00-24:00;null;false
-Bazen Spens;8.0123,12.0123,Sutjeska 2,Novi Sad,21000;otvoreni i zatvoreni bazen;POOL;true;4.0;09:00-19:00;pictures/naslovna.jpg;false
-Teretana Liman;1.0123,2.0123,Korenlija Stankovica 12,Novi Sad,21000;nudi sve i svasta;GYM;true;4.6;08:00-23:00;pictures/naslovna.jpg;false
+Neki Kurac;19.82422,45.256469,Ulica 22,Novi Sad,21000;nista;SPORTS_CENTRE;true;0.0;00:00-24:00;pictures/triathlon.png;false
+Djacko;19.832631,45.258678,kej,Novi Sad,21000;nista;SPORTS_CENTRE;true;0.0;00:00-24:00;pictures/triathlon.png;false
+Zenba;19.828920,45.295372,Ulica,Grad ,21000;nista;POOL;true;0.0;00:00-24:00;pictures/stairs.png;false
+Teretana Telep;19.805247, 45.241331, Ulica ,Novi Sad,21000;nista;GYM;true;0.0;00:00-24:00;pictures/barbell.png;false
+Neka nova tera;19.82422,45.256469,Jerneja Kopitara 12,Novi Sad,21000;nista;GYM;true;0.0;00:00-24:00;pictures/barbell.png;false
+Bazen Klisa;19.828920,45.295372, Nesto na klisi,Novi Sad,21000;zatvoreni bazen;POOL;true;3.5;09:00-19:00;pictures/stairs.png;false
+Bazencic;19.82422,45.256469,Ulica i broj,Grad,21000;nista;POOL;true;0.0;00:00-24:00;pictures/stairs.png;false
+Teretana Centar;19.842875,45.248154, Novosadskog sajma 10,Novi Sad,21000;isto sve i svasta;GYM;true;4.1;08:00-23:00;pictures/barbell.png;false
+Spens;19.842875,45.248154,Sutjseska 2,Novi Sad,21000;nista;SPORTS_CENTRE;true;0.0;00:00-24:00;pictures/triathlon.png;false
+Random Tera;19.828920,45.295372,Nesto 21, Novi Sad, 21000;nista;GYM;true;0.0;00:00-24:00;pictures/barbell.png;false
+Body Fit;19.793205,45.295372,aaa,weee,21000;nista;GYM;true;0.0;00:00-24:00;pictures/barbell.png;false
+Neka terrrra;19.828920,45.295372,Aasdas,Novi sad,21000;nista;GYM;true;0.0;00:00-24:00;pictures/barbell.png;false
+Neki Objekat;19.810377,45.259788,Slabije,Neusatz,21000;nista;POOL;true;0.0;00:00-24:00;pictures/stairs.png;false
+Bazen Sole Mio;19.82422,45.256469,Sutjeska 2,Novi Sad,21000;otvoreni i zatvoreni bazen;POOL;true;4.0;09:00-19:00;pictures/stairs.png;false
+Teretana Sajam;19.842875,45.248154,Novosadskog sajma 10,Novi Sad,21000;isto sve i svasta;GYM;true;4.1;08:00-23:00;pictures/barbell.png;false
+Bazen Vrdnik;19.793205,45.127412, Nesto na klisi,Novi Sad,21000;zatvoreni bazen;POOL;true;4.0;09:00-19:00;pictures/stairs.png;false
+Teretanica;19.842875,45.248154,U kurac vise,Novi Sad,21000;nista;GYM;true;0.0;00:00-24:00;pictures/barbell.png;false
+Teretana Detelinara;19.810377,45.259788, Korenlija Stankovica 12,Novi Sad,21000;nudi sve i svasta;GYM;true;4.6;08:00-23:00;pictures/barbell.png;false
+Neka Terretana;19.810377,45.259788,Ulica 1,22000,Novi Sad;nista;GYM;true;0.0;00:00-24:00;pictures/barbell.png;false
+Bazen Spens;19.842875,45.248154,Sutjeska 2,Novi Sad,21000;otvoreni i zatvoreni bazen;POOL;true;4.0;09:00-19:00;pictures/stairs.png;false
+Teretana Liman;19.842875,45.248154,Korenlija Stankovica 12,Novi Sad,21000;nudi sve i svasta;GYM;true;4.6;08:00-23:00;pictures/barbell.png;false

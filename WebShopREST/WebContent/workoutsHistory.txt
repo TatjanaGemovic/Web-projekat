@@ -3,4 +3,4 @@
 2;04.07.2022 01:50;pera;Legs day;gema
 3;04.07.2022 01:50;pera;Trening;gema
 4;11.07.2022 14:27;pera;Legs day;gema
-5;11.07.2022 16:56;pera;Legs day;maki
+5;11.07.2022 18:50;pera;Legs day;maki
