@@ -19,6 +19,7 @@ Vue.component("customerWorkouts", {
 		      objectType : "GYM",
 		      workoutType : "T_Personal",
 		      text: "",
+		      newWH : { workout: null, kupac: null, trener: null,vremePrijave: null, id:0}
 		    }
 	},
 template: ` 
@@ -119,8 +120,7 @@ template: `
     	</a>	
 		<select class="form-select form-select-sm" v-on:change="propertyToSearchBySelectionChanged3($event)" style="margin-top: 4%;">
   			<option value="0">Object name</option>
-  			<option value="1">Price</option>
-  			<option value="2">Date</option>
+  			<option value="1">Date</option>
 		</select>
 		<br>
     	<button class="loginButton" v-on:click="sort" style="margin-top: 15%;">Sort</button>
@@ -173,7 +173,6 @@ template: `
 		axios.get('rest/workout/allWorkouts')
 			.then((response) => {
 				this.workouts = response.data;
-				this.ShowWorkouts()
 			})
 	},
     methods: {
@@ -203,16 +202,14 @@ template: `
 				return 'Group';
 			}
 		},
-		ShowWorkouts : function(){
+		ShowFinished : function(){
+			this.finished = true;
+			this.upcoming = false;
 			event.preventDefault();
 			axios.get('rest/workoutHistory/allWorkoutsHistoryForCustomer/'+ this.user.username)
 			.then((response) => {
 				this.workoutsHistory = response.data;
 			})
-		},
-		ShowFinished : function(){
-			this.finished = true;
-			this.upcoming = false;
 		},
 		ShowUpcoming : function(){
 			this.upcoming = true;
@@ -222,7 +219,27 @@ template: `
 			.then((response) => {
 				this.workoutsUpcoming = response.data;
 				this.workoutsToShow = this.workoutsUpcoming;
+				this.Sort()
 			})
+		},
+		Sort : function(){
+			for(let i=0; i<this.workoutsUpcoming.length; i++){
+				if(this.workoutsUpcoming[i].status == "finished"){
+					this.newWH.workout = this.workoutsUpcoming[i].workout;
+					this.newWH.kupac = this.workoutsUpcoming[i].user;
+					this.workoutsUpcoming[i].status = "done";
+					axios.post('rest/workoutHistory/addWorkoutHistory/',this.newWH)
+						.then((response) => {
+							this.workoutsHistory = response.data;
+						})
+					axios.put('rest/scheduledWorkout/changeScheduledWorkout/'+this.workoutsUpcoming[i].id)
+						.then((response) => {
+							
+						})	
+				}
+			}
+			
+			
 		},
 		LogOut : function(){
 			event.preventDefault();
@@ -289,7 +306,7 @@ template: `
 		},
 		propertyToSearchBySelectionChanged3 : function(event){
 			if(event.target.value==1)
-				this.propToSearchBy3 = "price"
+				this.propToSearchBy3 = "date"
 			else if(event.target.value==0)
 				this.propToSearchBy3 = "name"
 			else 
@@ -330,9 +347,6 @@ template: `
 				  }
 				  return 0;
 				})
-			}else{
-				this.workoutsToShow.sort(function(a, b){
-				return b.workout.cena - a.workout.cena;})
 			}
 			
 		}

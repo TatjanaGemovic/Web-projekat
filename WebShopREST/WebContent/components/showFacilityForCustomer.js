@@ -87,7 +87,7 @@ Vue.component("showFacilityForCustomer", {
 			<div class="card-body">
 				<p class="card-title" style="font-weight: bold; font-size: 20px">{{w.naziv}} - <span style="font-size: 15px; color: #F15412; margin-left: 2%">{{GetType(w)}}</span></p>
 				<p class="card-text" style="font-size: 17px">{{w.trener.firstName}} {{w.trener.lastName}}</p>
-				<p class="card-text">Trajanje: {{w.trajanje}}, cena: {{w.cena}}</p>
+				<p class="card-text">Trajanje: {{w.trajanje}}</p>
 				<button v-on:click="OpenModalFor(index)" data-bs-toggle="modal" data-bs-target="#exampleModal2" class="loginButton">Join</button>
 				<p style="padding-top: 5px;" id="error">{{error}}</p>
 			</div>

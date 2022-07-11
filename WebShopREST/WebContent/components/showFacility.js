@@ -78,7 +78,7 @@ Vue.component("showFacility", {
 			<div class="card-body">
 				<p class="card-title" style="font-weight: bold; font-size: 20px">{{w.naziv}} - <span style="font-size: 15px; color: #F15412; margin-left: 2%">{{GetType(w)}}</span></p>
 				<p class="card-text" style="font-size: 17px">{{w.trener.firstName}} {{w.trener.lastName}}</p>
-				<p class="card-text">Trajanje: {{w.trajanje}}, cena: {{w.cena}}</p>
+				<p class="card-text">Trajanje: {{w.trajanje}}</p>
 				<button v-if="facility.name==user.facilityId" class="btn btn-primary" v-on:click="edit(w.naziv)">Edit</button>
 			</div>
 		</div>
@@ -94,7 +94,6 @@ Vue.component("showFacility", {
 			<div class="card-body">
 				<p class="card-title" style="font-weight: bold; font-size: 28px">{{w2.naziv}}</p>
 				<p class="card-text" style="font-weight: bold; font-size: 20px;color: #F15412">{{w2.workoutType}}</p>
-				<p class="card-text">Doplata: {{w2.cena}}</p>
 				<button v-if="facility.name==user.facilityId" class="btn btn-primary" v-on:click="edit(w2.naziv)">Edit</button>
 			</div>
 		</div>

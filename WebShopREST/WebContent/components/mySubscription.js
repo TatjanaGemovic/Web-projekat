@@ -3,6 +3,7 @@ Vue.component("mySubscription", {
 		    return {
 		      user: null,
 		      subs: null,
+		      postoji:false
 		    }
 	},
 	template: ` 
@@ -51,6 +52,7 @@ Vue.component("mySubscription", {
 			<h4>Number of pactices included:   {{PrNum()}}</h4> <br>
 			<h4>Number of pactices left:   {{PrNumLeft()}}</h4> <br>
 			<h4>Duration:   {{Duration()}}</h4> <br>
+			<h4>Status:   {{Status()}}</h4> <br>
 			<h4>Expires on: <input type="date" v-model="this.subs.datumVazenja" style="color: #3e3e3e" disabled/></h4> <br>
 		</div>
 		<div class="col-lg-4" style="margin-top: 2%">
@@ -76,30 +78,46 @@ Vue.component("mySubscription", {
 				this.subs = response.data;
 			})
 		},
+		Status : function(){
+			if(this.subs.status == "aktivna"){
+				return "Active";
+			}else if(this.subs.status == "neaktivna"){
+				return "Expired";
+			} else{
+				return "";
+			}
+		},
 		Paket : function(){
 			if(this.subs.paket == 90){
 				return "Basic";
 			}else if(this.subs.paket == 15){
 				return "Starter";
-			}else{
+			}else if(this.subs.paket == 9000)
 				return "Ultimate";
-			}
+			else
+				return "Doesn't exists or expired";
+				
+			
 		},
 		PlanType: function(){
 			if(this.subs.paket == 90 )
 				return "Monthly";
 			else if(this.subs.paket == 15)
 				return "Monthly";
-			else
+			else if(this.subs.paket == 9000)
 				return "Year";
+			else
+				return "";
 		},
 		PrNum: function(){
 			if(this.subs.paket == 15)
 				return "15";
 			else if(this.subs.paket == 90)
 				return "90";
-			else
+			else if(this.subs.paket == 9000)
 				return "unlimited";
+			else
+				return "";
 		},
 		PrNumLeft: function(){
 				return this.subs.brojTermina;
@@ -109,8 +127,10 @@ Vue.component("mySubscription", {
 				return "1 Month";
 			else if(this.subs.paket == 15)
 				return "1 Month";
-			else
+			else if(this.subs.paket == 9000)
 				return "1 Year";
+			else
+				return "";
 		},
     	LogOut : function(event){
 			event.preventDefault();

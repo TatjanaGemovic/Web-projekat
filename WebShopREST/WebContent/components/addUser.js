@@ -97,6 +97,7 @@ template: `
               <input type="password" id="password" class="form-control" v-model="newUser.password"/>
             </div>
             <div class="mb-3 text-center">
+            <p id="error">{{error}}</p>
             	<input type="submit" value="Save" v-on:click = "addUser" style="width: 150px" class="loginButton"/>
             </div>
           </form>
@@ -126,6 +127,7 @@ template: `
 			userExists = false;
 			for(let i=0; i<this.users.length; i++){
 				if((this.users[i]).username==this.newUser.username){
+					alert('Username already exists')
 					this.error = "Username already exists";
 					userExists = true;
 					return;
@@ -136,14 +138,14 @@ template: `
 				if(this.gender == "Manager"){
 					axios.post('rest/registerMenadzer/', this.newUser)
 						.then((response) => {
-							alert('Uspesno dodat novi menadzer')
+							alert('successfully added new manager')
 							this.users.push(response.data)
 							router.push(`/profilesOverview`)
 						})
 				}else{
 					axios.post('rest/registerTrener/', this.newUser)
 						.then((response) => {
-							alert('Uspesno dodat novi trener')
+							alert('successfully added new coach')
 							this.users.push(response.data)
 							router.push(`/profilesOverview`)
 						})
