@@ -61,7 +61,6 @@ Vue.component("trainersWorkouts", {
 		    </div>
 	    </div>
 	</nav>
-	<h1 style="margin-top:10%">Your workouts</h1>
 	<div class="row justify-content-center" style="margin-bottom:6%;margin-left:5%;margin-top:4%" v-bind:hidden="upcoming == false">
 		<div class="col-xs-2 col-md-2 col-sm-2">
 		<form style="font-size:20px;margin-bottom:3%">
@@ -126,16 +125,16 @@ Vue.component("trainersWorkouts", {
 		    	<button class="loginButton" v-on:click="resetFilter" style="width: 200px;heigth: 50px; margin-right: 35%;float: right;margin-top:30%">Reset</button>
 		</div>
 	</div>
-	<div class="row" style="margin-top:6%">
-		<div v-for="(workout, index) in workoutsToShow">
-			<div v-if="workout.status!='cancelled'" class="col-8" class="border-bottom-0">
+	<div class="row" style="margin-top:4%; width:80%; margin-left:10%;margin-right:10%">
+		<h2 style="margin-bottom:6%">Scheduled Workouts</h2>	
+		<div v-for="(workout, index) in workoutsToShow" class="p-3" style="border-bottom: 1px solid #868584;">
+			<div v-if="workout.status!='cancelled'" class="col-12">
 				<p>{{workout.workout.naziv}}</p>
-				<p>{{workout.workout.workoutType}}</p>
-				<p>{{workout.workout.facility.name}}</p>
-				<p>{{workout.workout.trajanje}}</p>
-			</div>
-			<div v-if="workout.status!='cancelled'" class="col-4">
-				<button v-if="workout.canBeCancelled" class="btn btn-danger" v-on:click="cancel(index)">Cancel</button>
+				<p>Customer: {{workout.user.firstName}} {{workout.user.lastName}}</p>
+				<p>At: {{workout.workout.facility.name}}</p>
+				<p>Schedlued for: {{workout.danOdrzavanja}}</p>
+				<p style="display:inline-block">Duration: {{workout.workout.trajanje}}</p>
+				<button style="float:right; margin-right:5%" v-if="workout.canBeCancelled" class="btn btn-danger" v-on:click="cancel(index)">Cancel</button>
 			</div>
 		</div>
 	</div>

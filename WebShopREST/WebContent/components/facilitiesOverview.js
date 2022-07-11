@@ -86,28 +86,28 @@ template: `
 		</select>
 		
     	 <br>
-    	<button class="loginButton" v-on:click="filter">Filter</button>
+    	<button class="loginButton" style="margin-top:54%" v-on:click="filter">Filter</button>
 		</form>
 		</div>
-		<div class="col-xs-2 col-md-2 col-sm-2">
+		<div class="col-xs-2 col-md-2 col-sm-2 col-lg-3 col-xl-3">
 		<form style="font-size:20px;margin-bottom:3%">
-		<a style="margin-left: 20px;margin-right: 120px; font-size: 30px; font-weight:bold; color:#F15412">
+		<a style="margin-left: 20px;margin-right: 120px;font-size: 30px; font-weight:bold; color:#F15412">
       			<img src="pictures/search.png" alt="" width="25" height="25" style="margin-right: 10px" class="d-inline-block">
       			Search
     	</a>
-		<div class="input-group">
-  			<select class="form-select form-select-sm" v-on:change="filterByTypeChanged($event)" :style="{ 'width': '80%'}">
+			
+  			<select class="form-select form-select-sm" v-on:change="filterByTypeChanged($event)" style="width:80%;margin-top:12%">
   				<option selected value="none">Facility Type</option>
   				<option value="GYM">Gym</option>
   				<option value="POOL">Pool</option>
   				<option value="SPORTS_CENTRE">Sports center</option>
   				<option value="DANCE_STUDIO">Dance studio</option>
 			</select>
-  			<input type="text" class="form-control" placeholder="Name" v-model="nameSearch">
-  			<input type="text" class="form-control" placeholder="Location" v-model="locationSearch">
-  			<input type="text" class="form-control" placeholder="Minimum rating" v-model="ratingSearch">
+  			<input type="text" class="form-control form-control-md" placeholder="Name" v-model="nameSearch">
+  			<input type="text" class="form-control form-control-md" placeholder="Location" v-model="locationSearch">
+  			<input type="text" class="form-control form-control-md" placeholder="Minimum rating" v-model="ratingSearch">
   			<button class="loginButton" v-on:click="search" style="margin-top: 15%;">Search</button>
-		</div>	
+		
     	</form>
     	</div>
     	<div class="col-xs-2 col-md-2 col-sm-2">
@@ -122,10 +122,10 @@ template: `
   			<option value="2">Rating</option>
 		</select>
 		<br>
-    	<button class="loginButton" v-on:click="sort" style="margin-top: 15%;">Sort</button>
+    	<button class="loginButton" v-on:click="sort" style="margin-top: 72%;">Sort</button>
     	</form>
     	</div>
-    	<div class="col-xs-4 col-md-4 col-sm-4"></div>
+    	<div class="col-xs-4 col-md-4 col-sm-4 col-lg-2 col-xl-2"></div>
 		<div class="col-xs-2 col-md-2 col-sm-2">
 				<button class="loginButton" v-bind:hidden="this.user.uloga!='Administrator'" v-on:click="goToAddPage" style="width: 200px;heigth: 50px;margin-bottom: 7%;margin-top: 25%; margin-right: 35%;float: right">Add facility</button>
 		    	<button class="loginButton" v-on:click="resetSearch" style="width: 200px;heigth: 50px; margin-right: 35%;float: right">Reset search</button>
@@ -287,8 +287,10 @@ template: `
 					this.facilitiesToShow.push(this.allFacilities[i]);
 				}
 			}
-			if(!somethingFound)
-					this.facilitiesToShow = this.allFacilities;		
+			if(!somethingFound){
+					this.facilitiesToShow = this.allFacilities;	
+					alert('No facility matches given parameters')
+			}	
     	},
     	resetSearch : function(){
 			this.facilitiesToShow = this.allFacilities;	

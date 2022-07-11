@@ -59,7 +59,7 @@ Vue.component("addContent", {
 	    </div>
 	</nav>
 	<div class="row justify-content-center" style="margin-top: 10%">
-	<h3 style="margin-left:8%; margin-top:2%;margin-botton:6%">{{headerText}}</h3>
+	<h3 style="margin-left:15%; margin-top:2%;margin-botton:15%">{{headerText}}</h3>
 	<form class="col-lg-6" style="margin-left:15%">
 			<input type="text" placeholder="Workout name" v-model="workout.naziv" >
 			<p class="text-danger" style="display:inline-block">{{sameNameExists}}</p><br><br>
@@ -138,10 +138,16 @@ Vue.component("addContent", {
     	addContent : function(event) {
 			event.preventDefault();
 			contentExists = false;
-			parsedString = []
-			parsedString = this.imageToUpload.split("\\");
-			this.imageToUpload = parsedString[parsedString.length-1];
-			this.workout.imageURI = "pictures/" + this.imageToUpload;
+			if(this.imageToUpload!=""){
+				parsedString = []
+				parsedString = this.imageToUpload.split("\\");
+				this.imageToUpload = parsedString[parsedString.length-1];
+				this.workout.imageURI = "pictures/" + this.imageToUpload;
+			}
+			else if(this.workoutIndex==-1){
+				this.workout.imageURI = "nema";
+			}
+			
 			for(let i=0; i<this.workouts.length; i++){
 				if((this.workouts[i]).naziv==this.workout.naziv && i!=this.workoutIndex){
 					this.sameNameExists = "Content with the same name is already available in this object";
@@ -154,7 +160,10 @@ Vue.component("addContent", {
 				this.workout.facilityId = this.user.facilityId;
 				axios.post('rest/workout/addWorkout/', this.workout)
 				.then((response) => {
-					alert('Workout added to facility')
+					if(this.workoutIndex==-1)
+						alert('Workout added to facility')
+					else 
+						alert('Workout properties changed')
 					name = this.user.facilityId.replaceAll(" ", "_");
 					router.push(`/showFacility/${name}`);
 				})

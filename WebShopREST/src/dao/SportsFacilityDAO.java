@@ -30,8 +30,8 @@ public class SportsFacilityDAO {
 	
 	public SportsFacilityDAO(String contextPath) {
 		loadFacilities(contextPath);
-		//path = "C:/Users/User/Desktop/Web Projekat/Web-projekat/WebShopREST/WebContent/facilities.txt";
-		path = "/Users/tatjanagemovic/Desktop/Web-projekat/WebShopREST/WebContent/facilities.txt"; 
+		path = "C:/Users/User/Desktop/Web Projekat/Web-projekat/WebShopREST/WebContent/facilities.txt";
+		//path = "/Users/tatjanagemovic/Desktop/Web-projekat/WebShopREST/WebContent/facilities.txt"; 
 		SetStatus();
 	}
 	

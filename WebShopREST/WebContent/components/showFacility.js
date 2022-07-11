@@ -72,15 +72,15 @@ Vue.component("showFacility", {
 			<img v-bind:src="this.facility.imageURI" style="width:90%; height:100%;">
 		</div>
 	</div>
-	<button v-on:click="addContent" v-if="facility.name==user.facilityId" class="btn btn-primary">Add New Content</button>
 	<h2 class="row justify-content-center" style="margin-top: 2%;">Workouts</h2>
 	<div>
 		<button style="width:15%; margin-left:75%" v-on:click="addContent" v-if="facility.name==user.facilityId" class="loginButton">Add New Workout</button>
-
 		<div class="row justify-content-center" style="margin-top: 5%;margin-bottom: 5%">
 		<div v-for="(w, index) in workouts1" class="col-md-2 card m-2" style="border: 2px solid #3e3e3e"> 
+
 		<img v-bind:src="w.imageURI" class="card-img-top pt-2" /> 
 		<div class="card-body">
+
 				<p class="card-title" style="font-weight: bold; font-size: 20px">{{w.naziv}} <br> <span style="font-size: 15px; color: #F15412; margin-left: 2%">{{GetType(w)}}</span></p>
 				<p class="card-text" style="font-size: 17px">Coach: {{w.trener.firstName}} {{w.trener.lastName}}</p>
 				<p class="card-text">Duration: {{w.trajanje}}</p>
@@ -96,18 +96,27 @@ Vue.component("showFacility", {
 
 		<div class="row justify-content-center" style="margin-top: 5%">
 		<div v-for="(w2,index) in workouts2" class="col-md-2 card m-2" style="border: 2px solid #3e3e3e; background: #e7e7e5"> 
+<<<<<<< HEAD
 		<img v-bind:src="w2.imageURI" class="card-img-top pt-2" /> 
+=======
+			<img v-bind:src="w2.imageURI" class="card-img-top pt-2" /> 	
+
+>>>>>>> filip-final_changes
 			<div class="card-body">
 				<p class="card-title" style="font-weight: bold; font-size: 28px">{{w2.naziv}}</p>
 				<p class="card-text" style="font-weight: bold; font-size: 20px;color: #F15412">{{w2.workoutType}}</p>
 			</div>
+<<<<<<< HEAD
 			<div class="card-footer" style="background: #e7e7e5"">
+=======
+			<div class="card-footer" style="background: #e7e7e5">
+>>>>>>> filip-final_changes
     			<button v-if="facility.name==user.facilityId" class="loginButton" v-on:click="edit(w2.naziv)">Edit</button>
   			</div>
 		</div>
 	</div>
 	</div><br><br><br>
-	<div v-if="facility.name==user.facilityId">
+	<div v-if="facility.name==user.facilityId" style="margin-bottom: 5%">
 	<h2 class="row justify-content-center" style="margin-bottom: 5%">Trainers working in my facility</h2>	
     <div class="row justify-content-center">
 		<div v-for="trainer in trainers" class="col-md-2 card m-2"> 

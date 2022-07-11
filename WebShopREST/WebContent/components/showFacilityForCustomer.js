@@ -84,7 +84,11 @@ Vue.component("showFacilityForCustomer", {
 	<div>
 		<div class="row justify-content-center" style="margin-top: 5%;margin-bottom: 5%">
 		<div v-for="(w,index) in workouts1" class="col-md-2 card m-2" style="border: 2px solid #3e3e3e"> 
+<<<<<<< HEAD
 		<img v-bind:src="w.imageURI" class="card-img-top pt-2" /> 
+=======
+			<img v-bind:src="w.imageURI"  class="card-img-top pt-2" /> 	
+>>>>>>> filip-final_changes
 			<div class="card-body">
 				<p class="card-title" style="font-weight: bold; font-size: 20px">{{w.naziv}} - <span style="font-size: 15px; color: #F15412; margin-left: 2%">{{GetType(w)}}</span></p>
 				<p class="card-text" style="font-size: 17px">{{w.trener.firstName}} {{w.trener.lastName}}</p>

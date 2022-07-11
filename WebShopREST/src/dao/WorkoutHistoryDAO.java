@@ -31,8 +31,8 @@ public class WorkoutHistoryDAO {
 		users1 = map.values();
 		workoutsList = map2.values();
 		loadWorkoutsHistory(contextPath);
-		path = "/Users/tatjanagemovic/Desktop/Web-projekat/WebShopREST/WebContent/workoutsHistory.txt";
-		//path = "C:/Users/User/Desktop/Web Projekat/Web-projekat/WebShopREST/WebContent/workoutsHistory.txt";
+		//path = "/Users/tatjanagemovic/Desktop/Web-projekat/WebShopREST/WebContent/workoutsHistory.txt";
+		path = "C:/Users/User/Desktop/Web Projekat/Web-projekat/WebShopREST/WebContent/workoutsHistory.txt";
 	}
 	
 	public Collection<WorkoutHistory> findAll() {

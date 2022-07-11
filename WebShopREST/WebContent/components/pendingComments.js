@@ -50,25 +50,27 @@ Vue.component("pendingComments", {
 		    </div>
 	    </div>
 	</nav>
-	<div class="row" style="margin-top:20%" v-if="hasPendingComments">
-		<div v-for="(comment, index) in commentsToShow">
-			<div class="col-8">
-				<p>{{comment.user}}</p>
-				<p>{{comment.sportsFacility}}</p>
-				<p>{{comment.comment}}</p>
-			</div>
-			<div class="col-4">
-				<button class="btn btn-success" v-on:click="approve(index, comment.user, comment.sportsFacility)">Approve</button>
-				<button class="btn btn-danger" v-on:click="disapprove(index, comment.user, comment.sportsFacility)">Disapprove</button>
-			</div>
+	<div class="row" style="margin-top:12%; width:80%; margin-left:10%;margin-right:10%" v-if="hasPendingComments">
+		<h2 style="margin-bottom:6%">Comments to be reviewed</h2>	
+		<div v-for="(comment, index) in commentsToShow" class="p-3" style="border-bottom: 1px solid #868584;">
+			<div class="col-12">
+				<p>Posted by: <span class="fw-bold">{{comment.user}}</span></p>
+				<p>For facility: {{comment.sportsFacility}}</p>
+				<p style="display:inline-block">Comment content: {{comment.comment}}</p>
+				<button style="float:right; margin-botton:5%;" class="btn btn-danger" v-on:click="disapprove(index, comment.user, comment.sportsFacility)">Disapprove</button>
+				<button style="float:right; margin-right:5%" class="btn btn-success" v-on:click="approve(index, comment.user, comment.sportsFacility)">Approve</button>
+				
+			</div>	
 		</div>
 	</div>
-	<button v-if="hasPendingComments" class="btn btn-primary" v-on:click="finish">Finish</button>
-	<div class="row" style="margin-top:15%"  v-if="!hasPendingComments && !hasReviewedAll">
-		<h2 style="margin-left: 6%">Currently no pending comments available. <a href="#" v-on:click="goStartPage" class="text-primary">Go back to Home Page</a></h2>
+	<div style="text-align: center" >
+	<button style="width:15%; margin-bottom:15%; margin-top:3%" v-if="hasPendingComments" class="loginButton" v-on:click="finish">Finish</button>
+	</div>
+	<div class="row" style="margin-top:18%"  v-if="!hasPendingComments && !hasReviewedAll">
+		<h2 class="text-center">Currently no pending comments available. <a href="#" v-on:click="goStartPage" class="text-primary">Go back to Home Page</a></h2>
 	</div> 
-	<div class="row" style="margin-top:15%"  v-if="hasReviewedAll">
-		<h2 style="margin-left: 6%">You have reviewed all comments. <a href="#" v-on:click="finish" class="text-primary">Go back to Home Page</a></h2>
+	<div class="row" style="margin-top:18%"  v-if="hasReviewedAll">
+		<h2 class="text-center">You have reviewed all comments. <a href="#" v-on:click="finish" class="text-primary">Go back to Home Page</a></h2>
 	</div> 
 	</body>
 </div>		  

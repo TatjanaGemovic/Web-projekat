@@ -1,5 +1,5 @@
-0;pera;Trening;2022-07-08;2022-07-23;cancelled
+0;pera;Trening;2022-07-08;2022-07-23;upcoming
 1;pera;Trening;2022-07-08;2022-07-18;upcoming
-2;pera;Legs day;2022-07-09;2022-07-10;done
+2;pera;Legs day;2022-07-09;2022-07-13;upcoming
 3;pera;Legs day;2022-07-05;2022-07-13;upcoming
 4;pera;Plank;2022-07-11;2022-07-30;upcoming
