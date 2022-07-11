@@ -30,8 +30,8 @@ public class ScheduledWorkoutDAO {
 		users1 = map.values();
 		workouts1 = map2.values();
 		loadScWorkouts(contextPath);
-		//path = "/Users/tatjanagemovic/Desktop/Web-projekat/WebShopREST/WebContent/scheduledWorkouts.txt";
-		path = "C:/Users/User/Desktop/Web Projekat/Web-projekat/WebShopREST/WebContent/scheduledWorkouts.txt";
+		path = "/Users/tatjanagemovic/Desktop/Web-projekat/WebShopREST/WebContent/scheduledWorkouts.txt";
+		//path = "C:/Users/User/Desktop/Web Projekat/Web-projekat/WebShopREST/WebContent/scheduledWorkouts.txt";
 		calculateIfCanBeCancelled();
 	}
 	

@@ -3,7 +3,7 @@ Marko;Markovic;musko;2022-07-08;maki;maki;Trener;nema;nema;0;Regularni;null;nema
 Tatjana;Gemovic;zensko;2022-07-08;gema;gema;Trener;null;null;0;Regularni;null;nema;true
 Nina;Jankovic;zensko;2022-07-08;jaki;jaki;Kupac;nema;nema;0;Regularni;null;nema;false
 p;p;musko;2022-07-08;peraa;pera;Menadzer;null;null;0;Regularni;null;Random Tera;false
-Novi;Menadzer;musko;2022-07-28;manager;pass;Menadzer;null;null;0;Regularni;null;Teretana Telep;null
+Novi;Menadzer;musko;2022-07-28;manager;pass;Menadzer;null;null;0;Regularni;null;Teretana Telep;false
 Sako;Polumenta;musko;2022-07-30;sako;pass;Menadzer;null;null;0;Regularni;null;Spens;false
 Luka;Poljak;musko;2022-07-29;poljak;pass;Menadzer;null;null;0;Regularni;null;Body Fit;false
 Vuk;Petrovic;musko;2022-07-08;vuk;vuk;Trener;nema;nema;0;Regularni;null;nema;false

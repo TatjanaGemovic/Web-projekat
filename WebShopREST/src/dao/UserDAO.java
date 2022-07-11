@@ -46,8 +46,8 @@ public class UserDAO {
 	public UserDAO(String contextPath, Map<String, SportsFacility> map) {
 		facilities1 = map.values();
 		loadUsers(contextPath);
-		//path = "/Users/tatjanagemovic/Desktop/Web-projekat/WebShopREST/WebContent/users.txt"; 
-		path = "C:/Users/User/Desktop/Web Projekat/Web-projekat/WebShopREST/WebContent/users.txt";
+		path = "/Users/tatjanagemovic/Desktop/Web-projekat/WebShopREST/WebContent/users.txt"; 
+		//path = "C:/Users/User/Desktop/Web Projekat/Web-projekat/WebShopREST/WebContent/users.txt";
 	}
 	
 	/**
