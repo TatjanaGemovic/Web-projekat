@@ -9,6 +9,9 @@ Vue.component("showFacility", {
 		      workouts: null,
 		      workouts1: [],
 		      workouts2: [],
+		      workoutHistory: null,
+		      facilityVisitors: [],
+		      trainers: []
 		    }
 	},
 	template: ` 
@@ -107,6 +110,30 @@ Vue.component("showFacility", {
 		</div>
 	</div>
 	</div><br><br><br>
+	<div v-if="facility.name==user.facilityId">
+	<h2 class="row justify-content-center" style="margin-bottom: 5%">Trainers working in my facility</h2>	
+    <div class="row justify-content-center">
+		<div v-for="trainer in trainers" class="col-md-2 card m-2"> 
+			<img src="pictures/fitness-2.png" v-bind:hidden="trainer.gender=='zensko'" class="card-img-top pt-2" />
+			<img src="pictures/fitness.png" v-bind:hidden="trainer.gender=='musko'" class="card-img-top pt-2" /> 
+			<div class="card-body">
+				<p class="card-text">{{trainer.firstName + " " + trainer.lastName}}</p>
+			</div>
+		</div>
+	</div>
+	</div>
+	<div v-if="facility.name==user.facilityId">
+	<h2 class="row justify-content-center" style="margin-bottom: 5%">Customers that have visited my facility</h2>	
+    <div class="row justify-content-center">
+		<div v-for="visitor in facilityVisitors" class="col-md-2 card m-2"> 
+			<img src="pictures/fitness-2.png" v-bind:hidden="visitor.gender=='zensko'" class="card-img-top pt-2" />
+			<img src="pictures/fitness.png" v-bind:hidden="visitor.gender=='musko'" class="card-img-top pt-2" /> 
+			<div class="card-body">
+				<p class="card-text">{{visitor.firstName + " " + visitor.lastName}}</p>
+			</div>
+		</div>
+	</div>
+	</div>
 	<h2 class="row justify-content-center" style="margin-bottom: 5%">Comments</h2>	
     <div class="row" style="margin-top: 5%;margin-bottom: 5%;margin-left: 8%">
     	<div v-for="comment in commentsToShow" class="col-md-7 border-bottom" style="margin-bottom:2%;margin-right:20%">
@@ -134,7 +161,8 @@ Vue.component("showFacility", {
 		axios.get('rest/workout/allWorkoutsForFacility/' + this.facilityName)
 			.then((response) => {
 				this.workouts = response.data;
-				this.SortContent()
+				this.SortContent();
+				this.GetTrainers();
 			})
 		axios.get('rest/comments/commentsByFacility/' +  this.facilityName)
 			.then((response) => {
@@ -147,6 +175,7 @@ Vue.component("showFacility", {
 				else
 					this.commentsToShow = this.comments;
 				this.calculateRating();
+				this.GetWorkoutHistory();
 			})
 	},
     methods: {
@@ -160,6 +189,32 @@ Vue.component("showFacility", {
 				ratingSum += this.commentsToShow[i].mark;
 			}
 			this.facility.rating = (parseFloat(ratingSum) / this.commentsToShow.length).toFixed(1);
+		},
+		GetWorkoutHistory:function(){
+			axios.get('rest/workoutHistory/allWorkoutsHistory')
+			.then((response) => {
+				this.workoutsHistory = response.data;
+				this.FacilityWorkouts();
+			})
+		},
+		CheckIfExists: function(user, list){
+			for(let i=0;i<list.length; i++){
+				if(user.username==list[i].username)
+					return true;
+			}
+			return false;
+		},
+		FacilityWorkouts:function(){
+			for(let i=0; i<this.workoutsHistory.length; i++){
+				if(this.workoutsHistory[i].workout.facility.name==this.facility.name && !this.CheckIfExists(this.workoutsHistory[i].kupac, this.facilityVisitors))
+					this.facilityVisitors.push(this.workoutsHistory[i].kupac);
+			}
+		},
+		GetTrainers:function(){
+			for(let i=0; i<this.workouts.length; i++){
+				if(!this.CheckIfExists(this.workouts[i].trener, this.trainers))
+					this.trainers.push(this.workouts[i].trener);
+			}
 		},
 		GetType : function(w){
 			if(w.workoutType == 'T_Strength'){
