@@ -115,8 +115,7 @@ Vue.component("trainersWorkouts", {
     	</a>	
 		<select class="form-select form-select-sm" v-on:change="propertyToSearchBySelectionChanged3($event)" style="margin-top: 4%;">
   			<option value="0">Object name</option>
-  			<option value="1">Price</option>
-  			<option value="2">Date</option>
+  			<option value="1">Date</option>
 		</select>
 		<br>
     	<button class="loginButton" v-on:click="sort" style="margin-top: 15%;">Sort</button>
@@ -284,7 +283,7 @@ Vue.component("trainersWorkouts", {
 		},
 		propertyToSearchBySelectionChanged3 : function(event){
 			if(event.target.value==1)
-				this.propToSearchBy3 = "price"
+				this.propToSearchBy3 = "date"
 			else if(event.target.value==0)
 				this.propToSearchBy3 = "name"
 			else 
@@ -325,11 +324,7 @@ Vue.component("trainersWorkouts", {
 				  }
 				  return 0;
 				})
-			}else{
-				this.workoutsToShow.sort(function(a, b){
-				return b.workout.cena - a.workout.cena;})
 			}
-			
 		}
 		
     }

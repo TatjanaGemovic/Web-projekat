@@ -3,7 +3,7 @@ Vue.component("addFacility", {
 		    return {
 		      facility: { name:null, type:null, offer: "nista", location:null, status: true, rating: 0.0, workingHours: "00:00-24:00",imageURI: null, deleted: false},
 		      error: '',
-		       location: {address: "", longitude: 11.0, latitude: 12.0},
+		      location: {address: "", longitude: 0.0, latitude: 0.0},
 		      facilities: null,
 		      user : null,
 		      uloga : null,
@@ -17,7 +17,9 @@ Vue.component("addFacility", {
 		      postal: "",
 		      newUser: { firstName:null, lastName:null, gender:null, birthDate:null, username:null, password:null,
 				uloga: null, istorijaTreninga: null, clanarina: null, sportskiObjekat: null, poseceniObjekti: null, sakupljeniBodovi: 0, tipKupca: null, facilityId: ""},
-			  gender: null
+			  gender: null,
+			  lat: 0,
+			  lon: 0
 		    }
 	},
 	template: ` 
@@ -84,6 +86,9 @@ Vue.component("addFacility", {
 			<input type="submit" value="Add" v-on:click = "addFacility" >
 			<p id="error">{{error}}</p>
 	</form>
+	</div>
+	<div class="row" style="margin-top: 5%">
+	     <div id="map" class="map" style="border: 2px solid black"></div>
 	</div>
 	<div class="modal fade" id="addManager" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
  	 <div class="modal-dialog modal-dialog-centered"">
@@ -156,9 +161,56 @@ Vue.component("addFacility", {
 					this.hasAvailable = true;
 					this.manager = this.managers[0];
 				}
+				this.showMap()
 			})
 	},
     methods: {	
+		showMap : function(){
+			var myStyle = new ol.style.Style({
+			  image: new ol.style.Icon({
+			    anchor: [0.5, 1],
+			    anchorXUnits: 'fraction',
+    			anchorYUnits: 'fraction',
+    			scale: [0.05, 0.05],
+			    src: 'pictures/placeholder.png',
+			  }),
+		    })
+			var map = new ol.Map({
+	        target: 'map',
+	        layers: [
+	          new ol.layer.Tile({
+	            source: new ol.source.OSM()
+	          	}),
+	        ],
+	        view: new ol.View({
+	          center: ol.proj.fromLonLat([19.824220, 45.256469]),
+	          zoom: 12
+	          })
+      		})
+      		console.log(this)
+			map.on('click', (evt)=>{
+				console.log(this);
+			    var lonlat = ol.proj.transform(evt.coordinate, 'EPSG:3857', 'EPSG:4326');
+			     this.lon = lonlat[0];
+			     this.lat = lonlat[1];
+			     alert("You clicked location: "+ this.lon.toFixed(6) + "  " + this.lat.toFixed(6));
+			     
+			})
+
+			var layer = new ol.layer.Vector({
+		     source: new ol.source.Vector({
+		         features: [
+		             new ol.Feature({
+		                 geometry: new ol.geom.Point(ol.proj.fromLonLat([this.lon, this.lat]))
+		             })
+			         ],
+			     }),
+			     style: myStyle
+			 });
+ 			map.addLayer(layer);
+
+			
+		},
     	addFacility : function(event) {
 			event.preventDefault();
 			parsedString = []
@@ -176,6 +228,8 @@ Vue.component("addFacility", {
 			
 			if(!facilityExists){ 
 				this.location.address = this.streetAndNumber + "," + this.city + "," + this.postal ;
+				this.location.longitude = this.lat.toFixed(6);
+			    this.location.latitude = this.lon.toFixed(6);
 				this.facility.location = this.location;
 				this.manager.sportskiObjekat = this.facility;
 				this.manager.facilityId = this.facility.name;

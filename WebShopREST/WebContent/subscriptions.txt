@@ -1,3 +1,3 @@
-pera;90;mesecna;2022-07-06;2022-08-05;30;pera;neaktivna;0
+pera;9000;godisnja;2022-07-11;2022-08-11;330;pera;aktivna;9000
 jaki;15;mesecna;2022-06-29;2022-07-29;23;jaki;aktivna;15
 aki;90;mesecna;2022-06-29;2022-07-29;30;aki;aktivna;85

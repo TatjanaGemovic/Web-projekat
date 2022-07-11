@@ -17,6 +17,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
 import beans.ScheduledWorkout;
+import beans.User;
 import dao.ScheduledWorkoutDAO;
 import dao.UserDAO;
 import dao.WorkoutDAO;
@@ -77,6 +78,15 @@ public class ScheduledWorkoutService {
 		workout.setDanPrijave(LocalDate.now().toString());
 		workout.setStatus("upcoming");
 		return scheduledWorkoutDAO.save(workout);
+	}
+	
+	@PUT
+	@Path("/changeScheduledWorkout/{naziv}")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public ScheduledWorkout changeWorkout(@PathParam("naziv") Integer naziv) {
+		ScheduledWorkoutDAO scheduledWorkoutDAO = (ScheduledWorkoutDAO) ctx.getAttribute("scWorkoutDAO");
+		return scheduledWorkoutDAO.change(naziv);
 	}
 	
 	@PUT

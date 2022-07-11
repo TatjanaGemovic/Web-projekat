@@ -80,7 +80,6 @@ Vue.component("showFacilityForCustomer", {
 			<img v-bind:src="this.facility.imageURI" style="width:90%; height:100%;">
 		</div>
 	</div>
-	
 	<h2 class="row justify-content-center" style="margin-top: 7%;">Workouts</h2>
 	<div>
 		<div class="row justify-content-center" style="margin-top: 5%;margin-bottom: 5%">
@@ -92,7 +91,7 @@ Vue.component("showFacilityForCustomer", {
 			<div class="card-body">
 				<p class="card-title" style="font-weight: bold; font-size: 20px">{{w.naziv}} - <span style="font-size: 15px; color: #F15412; margin-left: 2%">{{GetType(w)}}</span></p>
 				<p class="card-text" style="font-size: 17px">{{w.trener.firstName}} {{w.trener.lastName}}</p>
-				<p class="card-text">Trajanje: {{w.trajanje}}, cena: {{w.cena}}</p>
+				<p class="card-text">Trajanje: {{w.trajanje}}</p>
 				<button v-on:click="OpenModalFor(index)" data-bs-toggle="modal" data-bs-target="#exampleModal2" class="loginButton">Join</button>
 				<p style="padding-top: 5px;" id="error">{{error}}</p>
 			</div>
@@ -229,13 +228,6 @@ Vue.component("showFacilityForCustomer", {
     			scale: [0.05, 0.05],
 			    src: 'pictures/placeholder.png',
 			  }),
-		      /*image: new ol.style.Circle({
-		        radius: 6,
-		        fill: new ol.style.Fill({color: 'white'}),
-		        stroke: new ol.style.Stroke({
-		          color: [241, 84, 18], width: 3
-		        })
-		      })*/
 		    })
 			var map = new ol.Map({
 	        target: 'map',

@@ -55,7 +55,10 @@ Vue.component("showFacility", {
 		    </div>
 	    </div>
 	</nav>
-	<div class="row" style="margin-top: 12%; margin-left:6%">
+	<div class="row" style="margin-top: 5%">
+	     <div id="map" class="map" style="border: 2px solid black"></div>
+	</div>
+	<div class="row" style="margin-top: 6%; margin-left:6%">
 		<div class="col-lg-5">
 			<h1>{{this.facility.name}}</h1> <br>
 			<p>Type: {{this.facility.type}}</p>
@@ -69,7 +72,8 @@ Vue.component("showFacility", {
 			<img v-bind:src="this.facility.imageURI" style="width:90%; height:100%;">
 		</div>
 	</div>
-	<h2 class="row justify-content-center" style="margin-top: 7%;">Workouts</h2>
+	<button v-on:click="addContent" v-if="facility.name==user.facilityId" class="btn btn-primary">Add New Content</button>
+	<h2 class="row justify-content-center" style="margin-top: 2%;">Workouts</h2>
 	<div>
 		<button style="width:15%; margin-left:75%" v-on:click="addContent" v-if="facility.name==user.facilityId" class="loginButton">Add New Workout</button>
 
@@ -82,7 +86,7 @@ Vue.component("showFacility", {
 			<div class="card-body">
 				<p class="card-title" style="font-weight: bold; font-size: 20px">{{w.naziv}} <br> <span style="font-size: 15px; color: #F15412; margin-left: 2%">{{GetType(w)}}</span></p>
 				<p class="card-text" style="font-size: 17px">Coach: {{w.trener.firstName}} {{w.trener.lastName}}</p>
-				<p class="card-text">Duration: {{w.trajanje}}, price: {{w.cena}}</p>
+				<p class="card-text">Duration: {{w.trajanje}}</p>
 			</div>
 			<div class="card-footer"  style="background:white">
     			<button v-if="facility.name==user.facilityId" class="loginButton" v-on:click="edit(w.naziv)">Edit</button>
@@ -102,7 +106,6 @@ Vue.component("showFacility", {
 			<div class="card-body">
 				<p class="card-title" style="font-weight: bold; font-size: 28px">{{w2.naziv}}</p>
 				<p class="card-text" style="font-weight: bold; font-size: 20px;color: #F15412">{{w2.workoutType}}</p>
-				<p class="card-text">Additional fee: {{w2.cena}}</p>
 			</div>
 			<div class="card-footer" style="background:white">
     			<button v-if="facility.name==user.facilityId" class="loginButton" v-on:click="edit(w2.naziv)">Edit</button>
@@ -174,8 +177,10 @@ Vue.component("showFacility", {
 					}
 				else
 					this.commentsToShow = this.comments;
+
 				this.calculateRating();
 				this.GetWorkoutHistory();
+				this.showMap()
 			})
 	},
     methods: {
@@ -229,7 +234,41 @@ Vue.component("showFacility", {
 				return 'Group';
 			}
 		},
-    			LogOut : function(event){
+		showMap : function(){
+			var myStyle = new ol.style.Style({
+			  image: new ol.style.Icon({
+			    anchor: [0.5, 1],
+			    anchorXUnits: 'fraction',
+    			anchorYUnits: 'fraction',
+    			scale: [0.05, 0.05],
+			    src: 'pictures/placeholder.png',
+			  }),
+		    })
+			var map = new ol.Map({
+	        target: 'map',
+	        layers: [
+	          new ol.layer.Tile({
+	            source: new ol.source.OSM()
+	          	}),
+	        ],
+	        view: new ol.View({
+	          center: ol.proj.fromLonLat([19.824220, 45.256469]),
+	          zoom: 12
+	          })
+      		})
+			var layer = new ol.layer.Vector({
+		     source: new ol.source.Vector({
+		         features: [
+		             new ol.Feature({
+		                 geometry: new ol.geom.Point(ol.proj.fromLonLat([this.facility.location.latitude, this.facility.location.longitude]))
+		             })
+			         ],
+			     }),
+			     style: myStyle
+			 });
+ 			map.addLayer(layer);
+		},
+    	LogOut : function(event){
 			event.preventDefault();
 			router.push(`/`);
 		},

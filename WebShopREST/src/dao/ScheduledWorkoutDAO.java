@@ -52,6 +52,10 @@ public class ScheduledWorkoutDAO {
 			 if(w.getWorkout().getFacility().getDeleted() == true) {
 				 w.setStatus("cancelled");
 			 }
+			 if(datumOdrzavanja.isBefore(LocalDate.now()) && w.getStatus() != "done") {
+				 w.setStatus("finished");
+
+			 }
 			 if(period.getDays()>=2 && w.getWorkout().getWorkoutType()==WorkoutType.T_Personal) 
 				 w.setCanBeCancelled(true);			 
 			 else
@@ -203,12 +207,24 @@ public class ScheduledWorkoutDAO {
 				LocalDate d = LocalDate.now();
 				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-d");
 				LocalDate localDate = LocalDate.parse(w.getDanOdrzavanja(), formatter);
-				if(localDate.isAfter(d)) {
+				//if(localDate.isAfter(d)) {
 					wrks.add(w);
-				}
+				//}
 			}
 		}
 		return wrks;
+	}
+
+	public ScheduledWorkout change(Integer naziv) {
+		ScheduledWorkout ww = new ScheduledWorkout();
+		for(ScheduledWorkout w : scWorkouts.values()) {
+			 if(naziv.equals(w.getId())) {
+				 ww = w;
+				 ww.setStatus("done");
+			 }
+		}	
+		saveScWorkouts();
+		return ww;
 	}
 	
 }
