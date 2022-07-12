@@ -96,21 +96,13 @@ Vue.component("showFacility", {
 
 		<div class="row justify-content-center" style="margin-top: 5%">
 		<div v-for="(w2,index) in workouts2" class="col-md-2 card m-2" style="border: 2px solid #3e3e3e; background: #e7e7e5"> 
-<<<<<<< HEAD
-		<img v-bind:src="w2.imageURI" class="card-img-top pt-2" /> 
-=======
 			<img v-bind:src="w2.imageURI" class="card-img-top pt-2" /> 	
 
->>>>>>> filip-final_changes
 			<div class="card-body">
 				<p class="card-title" style="font-weight: bold; font-size: 28px">{{w2.naziv}}</p>
 				<p class="card-text" style="font-weight: bold; font-size: 20px;color: #F15412">{{w2.workoutType}}</p>
 			</div>
-<<<<<<< HEAD
-			<div class="card-footer" style="background: #e7e7e5"">
-=======
 			<div class="card-footer" style="background: #e7e7e5">
->>>>>>> filip-final_changes
     			<button v-if="facility.name==user.facilityId" class="loginButton" v-on:click="edit(w2.naziv)">Edit</button>
   			</div>
 		</div>

@@ -29,8 +29,8 @@ public class CommentDAO {
 	 */
 	public CommentDAO(String contextPath) {
 		loadComments(contextPath);
-		//path = "/Users/tatjanagemovic/Desktop/Web-projekat/WebShopREST/WebContent/comments.txt";
-		path = "C:/Users/User/Desktop/Web Projekat/Web-projekat/WebShopREST/WebContent/comments.txt";
+		path = "/Users/tatjanagemovic/Desktop/Web-projekat/WebShopREST/WebContent/comments.txt";
+		//path = "C:/Users/User/Desktop/Web Projekat/Web-projekat/WebShopREST/WebContent/comments.txt";
 	}
 	
 	/**

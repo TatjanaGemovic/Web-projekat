@@ -1,6 +1,6 @@
 0;04.07.2022 01:50;aki;Strength;gema
 1;04.07.2022 15:19;pera;Leg day;gema
 2;04.07.2022 01:50;pera;Leg day;gema
-3;04.07.2022 01:50;pera;Trening;gema
+3;04.07.2022 01:50;pera;Strength;gema
 4;11.07.2022 14:27;pera;Leg day;gema
 5;11.07.2022 18:50;pera;Leg day;maki

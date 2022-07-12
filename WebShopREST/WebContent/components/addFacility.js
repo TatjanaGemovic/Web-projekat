@@ -65,14 +65,14 @@ Vue.component("addFacility", {
 	</nav>
 	<div class="row">
 	<form class="col-lg-6" style="margin-top:10%; margin-left:15%">
-		<input type="text" placeholder="Facility name" v-model="facility.name" >
+		<input type="text"  placeholder="Facility name" v-model="facility.name"><br>
 		
 			<select class="form-select form-select-sm" v-on:change="facilityTypeSelectionChanged($event)" :style="{ 'width': '50%'}">
   			<option selected value="GYM">Gym</option>
   			<option value="POOL">Pool</option>
   			<option value="SPORTS_CENTRE">Sports center</option>
   			<option value="DANCE_STUDIO">Dance studio</option>
-			</select>
+			</select><br>
 			
 			<input type="text" placeholder="Facility street and number" v-model="streetAndNumber"> <br>
 			<input type="text" placeholder="City" v-model="city"> <br>
@@ -83,7 +83,7 @@ Vue.component("addFacility", {
 			    <option v-for="manager in managers" :value="manager.username" >{{manager.firstName}} {{manager.lastName}}</option>
 			</select>
 			<input type="file" name="avatar" accept="image/*" v-model="imageToUpload">
-			<input type="submit" value="Add" v-on:click = "addFacility" >
+			<input type="submit" class="loginButton" value="Add" v-on:click = "addFacility" >
 			<p id="error">{{error}}</p>
 	</form>
 	</div>

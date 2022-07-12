@@ -61,7 +61,7 @@ Vue.component("trainersWorkouts", {
 		    </div>
 	    </div>
 	</nav>
-	<div class="row justify-content-center" style="margin-bottom:6%;margin-left:5%;margin-top:4%" v-bind:hidden="upcoming == false">
+	<div class="row justify-content-center" style="margin-bottom:6%;margin-left:5%;margin-top:10%" v-bind:hidden="upcoming == false">
 		<div class="col-xs-2 col-md-2 col-sm-2">
 		<form style="font-size:20px;margin-bottom:3%">
 		<a style="margin-left: 20px;margin-right: 120px; font-size: 30px; font-weight:bold; color:#F15412">

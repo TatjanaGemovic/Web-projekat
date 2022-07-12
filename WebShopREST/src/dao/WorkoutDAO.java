@@ -38,8 +38,8 @@ public class WorkoutDAO {
 		facilities1 = map2.values();
 		loadWorkouts(contextPath);
 		//calculateIfCanBeCancelled();
-		//path = "/Users/tatjanagemovic/Desktop/Web-projekat/WebShopREST/WebContent/workouts.txt";
-		path = "C:/Users/User/Desktop/Web Projekat/Web-projekat/WebShopREST/WebContent/workouts.txt";
+		path = "/Users/tatjanagemovic/Desktop/Web-projekat/WebShopREST/WebContent/workouts.txt";
+		//path = "C:/Users/User/Desktop/Web Projekat/Web-projekat/WebShopREST/WebContent/workouts.txt";
 	}
 	
 	
